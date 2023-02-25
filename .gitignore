@@ -58,3 +58,18 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+SpecEvol/[Ll]ibrary/
+SpecEvol/[Tt]emp/
+SpecEvol/[Oo]bj/
+SpecEvol/[Bb]uild/
+SpecEvol/[Bb]uilds/
+SpecEvol/[Ll]ogs/
+SpecEvol/[Mm]emoryCaptures/
+SpecEvol/*.csproj
+SpecEvol/*.sln
+
+
+
+
+
+

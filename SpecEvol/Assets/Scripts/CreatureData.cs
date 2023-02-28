@@ -10,8 +10,8 @@ public class CreatureData : MonoBehaviour
     [SerializeField]
     private int maximumSpeed;
 
-    public int MaximumHealth { get => maximumHealth; }
-    public int MaximumSpeed { get => maximumSpeed; }
+    public int MaximumHealth { get => maximumHealth; set => maximumHealth = value; }
+    public int MaximumSpeed { get => maximumSpeed; set => maximumSpeed = value; }
 
     List<IAction> possibleActions;
     //List<Status> activeStatus
@@ -52,7 +52,7 @@ public class CreatureData : MonoBehaviour
         IBodyPart [] mutations = GetComponentsInChildren<IBodyPart>();
         foreach(IBodyPart mutation in mutations)
         {
-            actions.AddRange(mutation.bodyPartActions);
+            actions.Add(mutation.bodyPartAction);
         }
         return actions;
     }

@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     private void SetupBattle()
     {
         battleState = BattleState.START;
-        //battleParticipants.AddRange(InstantiateBattleParticipants());
+        battleParticipants.AddRange(InstantiateBattleParticipants());
         battleParticipantsSpeed = battleParticipants.Select(p => p.GetComponent<CreatureData>().MaximumSpeed).ToList();
         initiative = Enumerable.Repeat(0, battleParticipantsSpeed.Count).ToList();
         turnOrder = TurnManager.StartBattleTurns(battleParticipantsSpeed, initiative);
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     private List<GameObject> InstantiateBattleParticipants()
     {
-        return null;
+        return CreatureGenerator.Instance.InstantiateEnemies(1);
     }
 
     

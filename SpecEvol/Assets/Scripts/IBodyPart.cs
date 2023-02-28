@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IBodyPart 
 {
-    List<IAction> bodyPartActions { get; set; }
+    IAction bodyPartAction { get; set; }
 }

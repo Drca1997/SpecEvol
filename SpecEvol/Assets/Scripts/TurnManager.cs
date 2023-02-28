@@ -20,6 +20,7 @@ public static class TurnManager
 
     private static List<int> CalculateTurnOrder(List<int> battleParticipantsSpeed, List<int> initiative)
     {
+        //to do: change algorithm to put a cap on maximum attacks (max 3:1 ratio)
         List<int> turnOrder = new List<int>();
         for (int i = 0; i < MAX_TURNS_CALCULATED_IN_ADVANCE; i++)
         {

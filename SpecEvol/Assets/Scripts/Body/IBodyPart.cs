@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Enums;
 
-public interface IAction 
+public interface IBodyPart 
 {
+    float Accuracy { get; set; }
+    int Damage { get; set; }
+
     AffectedStat AffectedStat
     {
         get;

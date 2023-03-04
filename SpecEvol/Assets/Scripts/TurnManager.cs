@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class TurnManager
 {
-    public const int MAX_TURNS_CALCULATED_IN_ADVANCE = 5;
+    public const int MAX_TURNS_CALCULATED_IN_ADVANCE = 50;
 
 
     public static List<int> StartBattleTurns(List<int> battleParticipantsSpeed, List<int> initiative)
@@ -20,7 +20,6 @@ public static class TurnManager
 
     private static List<int> CalculateTurnOrder(List<int> battleParticipantsSpeed, List<int> initiative)
     {
-        //to do: change algorithm to put a cap on maximum attacks (max 3:1 ratio)
         List<int> turnOrder = new List<int>();
         for (int i = 0; i < MAX_TURNS_CALCULATED_IN_ADVANCE; i++)
         {
@@ -29,7 +28,17 @@ public static class TurnManager
                 initiative[j] += battleParticipantsSpeed[j];
                 if (initiative[j] >= 100)
                 {
-                    turnOrder.Add(j);
+                    if (turnOrder.Count >= 3)
+                    {
+                        if (! (j == turnOrder[turnOrder.Count - 1] && turnOrder[turnOrder.Count - 1] == turnOrder[turnOrder.Count - 2] && turnOrder[turnOrder.Count - 2] == turnOrder.Count - 3))
+                        {
+                            turnOrder.Add(j);
+                        }
+                    }
+                    else 
+                    {
+                        turnOrder.Add(j);
+                    }
                     initiative[j] -= 100;
                 }
             }

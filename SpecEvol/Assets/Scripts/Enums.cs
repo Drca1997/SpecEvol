@@ -15,7 +15,8 @@ public class Enums
     {
         HEALTH,
         ATTACK,
-        SPEED
+        SPEED,
+        LUCK
     } 
 
     public enum DamageType

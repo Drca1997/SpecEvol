@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField]
     private PlayerCreatureSO playerCreature;
     [SerializeField]
+    private GameObject playerBasePrefab;
     private GameObject playerGameObject;
 
     private static PlayerManager _instance;
@@ -33,9 +36,18 @@ public class PlayerManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CreatePlayer()
     {
-        
+        Assert.IsTrue(playerCreature != null);
+        playerGameObject = Instantiate(playerBasePrefab);
+        CreatureData playerCreatureData = playerGameObject.GetComponent<CreatureData>();
+        playerCreatureData.MaximumHealth = playerCreature.maximumHealth;
+        playerCreatureData.MaximumSpeed = playerCreature.maximumSpeed;
+        playerCreatureData.MaximumLuck = playerCreature.maximumLuck;
+
+        BodyData playerBodyData = playerGameObject.GetComponent<BodyData>();
+        playerBodyData.BodyParts = playerCreature.bodyParts;
+        playerBodyData.BodyShapes = playerCreature.bodyShapes;
     }
+
 }

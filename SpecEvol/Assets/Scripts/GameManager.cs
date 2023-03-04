@@ -8,14 +8,16 @@ public class GameManager : MonoBehaviour
 {
     public BattleState battleState;
 
-    [SerializeField]
+
     private List<GameObject> battleParticipants; //ex: 0 -> Player, 1 - Enemy
     private List<int> turnOrder; // elementos indicam qual participante é: battleParticipants[i]
     private List<int> battleParticipantsSpeed;
     private List<int> initiative;
+
     // Start is called before the first frame update
     void Start()
     {
+        PlayerManager.Instance.CreatePlayer();
         SetupBattle();
     }
 
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour
     private void SetupBattle()
     {
         battleState = BattleState.START;
+        battleParticipants.Add(PlayerManager.Instance.PlayerGameObject);
         battleParticipants.AddRange(InstantiateBattleParticipants());
         battleParticipantsSpeed = battleParticipants.Select(p => p.GetComponent<CreatureData>().MaximumSpeed).ToList();
         initiative = Enumerable.Repeat(0, battleParticipantsSpeed.Count).ToList();

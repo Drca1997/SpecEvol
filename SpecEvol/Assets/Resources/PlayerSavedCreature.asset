@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 912aeb0ea13bbe14ba2cb6f4ced254c6, type: 3}
+  m_Name: PlayerSavedCreature
+  m_EditorClassIdentifier: 
+  maximumHealth: 0
+  maximumSpeed: 0
+  maximumLuck: 0

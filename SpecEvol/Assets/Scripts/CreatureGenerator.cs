@@ -6,9 +6,13 @@ using Random = UnityEngine.Random;
 
 public class CreatureGenerator : MonoBehaviour
 {
+
     private static CreatureGenerator _instance;
     public static CreatureGenerator Instance { get { return _instance; } }
 
+    public const int STARTING_HEALTH = 50;
+    public const int STARTING_SPEED = 50;
+    public const int STARTING_LUCK = 50;
 
     private void Awake()
     {
@@ -50,7 +54,23 @@ public class CreatureGenerator : MonoBehaviour
         CreatureData creatureData = enemy.AddComponent<CreatureData>();
         creatureData.MaximumHealth = Random.Range(50, 150);
         creatureData.MaximumSpeed = Random.Range(10, 90);
+        creatureData.MaximumLuck = Random.Range(10, 90);
         return enemy;
+    }
+
+    public GameObject CreateNewPlayerCreature(GameObject playerBasePrefab)
+    {
+        GameObject newPlayerCreature = Instantiate(playerBasePrefab);
+        CreatureData playerCreatureData = newPlayerCreature.AddComponent<CreatureData>();
+        playerCreatureData.MaximumHealth = STARTING_HEALTH;
+        playerCreatureData.MaximumSpeed = STARTING_SPEED;
+        playerCreatureData.MaximumLuck = STARTING_LUCK;
+
+        BodyData playerBodyData = newPlayerCreature.AddComponent<BodyData>();
+        playerBodyData.BodyParts = new List<IBodyPart>();
+        playerBodyData.BodyShapes = new List<BodyShape>();
+        //TO DO: instantiate shape that player picked at the start
+        return newPlayerCreature;
     }
 
 }

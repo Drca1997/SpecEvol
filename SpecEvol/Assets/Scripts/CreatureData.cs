@@ -5,55 +5,20 @@ using UnityEngine.Assertions;
 
 public class CreatureData : MonoBehaviour
 {
-    [SerializeField]
+    private string creatureName;
     private int maximumHealth;
-    [SerializeField]
     private int maximumSpeed;
+    private int maximumLuck;
 
+    public string CreatureName { get => creatureName; set => creatureName = value; }
     public int MaximumHealth { get => maximumHealth; set => maximumHealth = value; }
     public int MaximumSpeed { get => maximumSpeed; set => maximumSpeed = value; }
+    public int MaximumLuck { get => maximumLuck; set => maximumLuck = value; }
 
-    List<IAction> possibleActions;
-    //List<Status> activeStatus
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        InitializeCreature();
-    }
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
         
     }
 
-    private void InitializeCreature()
-    {
-        maximumHealth += CalculateStartingHealth();
-        maximumSpeed += CalculateStartingSpeed();
-        possibleActions = GetPossibleActions();
-        Assert.IsTrue(possibleActions != null);
-    }
-
-    private int CalculateStartingHealth()
-    {
-        return 0;
-    }
-    
-    private int CalculateStartingSpeed()
-    {
-        return 0;
-    }
-
-    private List<IAction> GetPossibleActions()
-    {
-        List<IAction> actions = new List<IAction>();
-        IBodyPart [] mutations = GetComponentsInChildren<IBodyPart>();
-        foreach(IBodyPart mutation in mutations)
-        {
-            actions.Add(mutation.bodyPartAction);
-        }
-        return actions;
-    }
 }

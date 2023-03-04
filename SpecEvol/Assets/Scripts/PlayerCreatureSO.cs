@@ -7,6 +7,7 @@ public class PlayerCreatureSO : ScriptableObject
 {
     public int maximumHealth;
     public int maximumSpeed;
+    public int maximumLuck;
     public List<IBodyPart> bodyParts;
-
+    public List<BodyShape> bodyShapes;
 }

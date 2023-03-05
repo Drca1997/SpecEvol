@@ -36,18 +36,42 @@ public class PlayerManager : MonoBehaviour
         
     }
 
-    public void CreatePlayer()
+    public void CreatePlayer(Transform playerSpawnPosition)
     {
         Assert.IsTrue(playerCreature != null);
-        playerGameObject = Instantiate(playerBasePrefab);
-        CreatureData playerCreatureData = playerGameObject.GetComponent<CreatureData>();
+        //playerGameObject = Instantiate(playerBasePrefab, Vector3.zero, Quaternion.Euler(0, 0, 0), playerSpawnPosition);
+        playerGameObject = Instantiate(playerBasePrefab, playerSpawnPosition);
+        CreatureData playerCreatureData = playerGameObject.AddComponent<CreatureData>();
         playerCreatureData.MaximumHealth = playerCreature.maximumHealth;
         playerCreatureData.MaximumSpeed = playerCreature.maximumSpeed;
         playerCreatureData.MaximumLuck = playerCreature.maximumLuck;
+        playerCreatureData.BodyShapes = playerCreature.bodyShapes;
 
-        BodyData playerBodyData = playerGameObject.GetComponent<BodyData>();
-        playerBodyData.BodyParts = playerCreature.bodyParts;
-        playerBodyData.BodyShapes = playerCreature.bodyShapes;
+        foreach (BodyShape shape in playerCreatureData.BodyShapes)
+        {
+            string name = "";
+            if(shape is SquareBodyShape)
+            {
+                name = "SquareBodyShape";
+            }
+            else if(shape is CircleBodyShape)
+            {
+                name = "CircleBodyShape";
+            }
+            else if (shape is TriangleBodyShape)
+            {
+                name = "TriangleBodyShape";
+            }
+            GameObject shapeobj = new GameObject(name);
+            shapeobj.transform.parent = playerGameObject.transform;
+            shapeobj.transform.localPosition = Vector3.zero;
+            SpriteRenderer spriteRenderer = shapeobj.AddComponent<SpriteRenderer>();
+            spriteRenderer.sprite = GameAssets.Instance.GetBodyShapeSpriteByName(name);
+            foreach (BodyPart bodyPart in shape.AttachedBodyParts)
+            {
+                //Instantiate body part
+            }
+        }
     }
 
 }

@@ -27,4 +27,11 @@ public class Enums
         CHEMICAL,
         SHOCK
     }
+
+    public enum BodyShape
+    {
+        SQUARE,
+        CIRCLE,
+        TRIANGLE
+    }
 }

@@ -9,12 +9,17 @@ public class MutationStateManager : MonoBehaviour
     private PlayerCreatureSO m_Creature;
     [SerializeField]
     private GameObject playerBasePrefab;
+    [SerializeField]
+    private GameObject gameAssets;
+
+    private Enums.BodyShape initialBodyShape;
+
+    public Enums.BodyShape InitialBodyShape { get => initialBodyShape; set => initialBodyShape = value; }
+
     // Start is called before the first frame update
     void Start()
     {
-        GameObject newPlayer = CreatureGenerator.Instance.CreateNewPlayerCreature(playerBasePrefab);
-        SavePlayerCreature(newPlayer);
-        SceneManager.LoadScene("BattleScene");
+        DontDestroyOnLoad(gameAssets);
     }
 
     // Update is called once per frame
@@ -23,15 +28,19 @@ public class MutationStateManager : MonoBehaviour
         
     }
 
+    public void OnBodyShapeSelected()
+    {
+        GameObject newPlayer = CreatureGenerator.Instance.CreateNewPlayerCreature(playerBasePrefab, InitialBodyShape);
+        SavePlayerCreature(newPlayer);
+        SceneManager.LoadScene("BattleScene");
+    }
+
     private void SavePlayerCreature(GameObject player)
     {
         CreatureData creatureData = player.GetComponent<CreatureData>();
         m_Creature.maximumHealth = creatureData.MaximumHealth;
         m_Creature.maximumSpeed = creatureData.MaximumSpeed;
         m_Creature.maximumLuck = creatureData.MaximumLuck;
-
-        BodyData bodyData = player.GetComponent<BodyData>();
-        m_Creature.bodyParts = bodyData.BodyParts;
-        m_Creature.bodyShapes = bodyData.BodyShapes;
+        m_Creature.bodyShapes = creatureData.BodyShapes;
     }
 }

@@ -7,5 +7,6 @@ public class SquareBodyShape : BodyShape
     public SquareBodyShape()
     {
         affectedStat = Enums.AffectedStat.ATTACK;
+        attachedBodyParts = new List<BodyPart>();
     }
 }

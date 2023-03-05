@@ -7,5 +7,6 @@ public class CircleBodyShape : BodyShape
     public CircleBodyShape()
     {
         affectedStat = Enums.AffectedStat.HEALTH;
+        attachedBodyParts = new List<BodyPart>();
     }
 }

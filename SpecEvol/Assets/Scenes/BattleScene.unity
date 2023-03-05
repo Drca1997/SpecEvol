@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleState: 0
+  playerBattleStationPosition: {fileID: 739470341}
 --- !u!4 &12492430
 Transform:
   m_ObjectHideFlags: 0
@@ -404,7 +405,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 739470340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.026198417, y: 0.0992501, z: -0.08262002}
+  m_LocalPosition: {x: -5.42, y: 0.0992501, z: -0.08262002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

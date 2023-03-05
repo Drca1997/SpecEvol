@@ -7,5 +7,6 @@ public class TriangleBodyShape : BodyShape
     public TriangleBodyShape()
     {
         affectedStat = Enums.AffectedStat.SPEED;
+        attachedBodyParts = new List<BodyPart>();
     }
 }

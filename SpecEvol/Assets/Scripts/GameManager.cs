@@ -7,7 +7,8 @@ using static Enums;
 public class GameManager : MonoBehaviour
 {
     public BattleState battleState;
-
+    [SerializeField]
+    private Transform playerBattleStationPosition;
     private List<GameObject> battleParticipants; //ex: 0 -> Player, 1 - Enemy
     private List<int> turnOrder; // elementos indicam qual participante é: battleParticipants[i]
     private List<int> battleParticipantsSpeed;
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerManager.Instance.CreatePlayer();
+        PlayerManager.Instance.CreatePlayer(playerBattleStationPosition);
         SetupBattle();
     }
 
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
     private void SetupBattle()
     {
         battleState = BattleState.START;
+        battleParticipants = new List<GameObject>();    
         battleParticipants.Add(PlayerManager.Instance.PlayerGameObject);
         battleParticipants.AddRange(InstantiateBattleParticipants());
         battleParticipantsSpeed = battleParticipants.Select(p => p.GetComponent<CreatureData>().MaximumSpeed).ToList();

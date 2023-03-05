@@ -54,19 +54,29 @@ public class CreatureGenerator : MonoBehaviour
         return enemy;
     }
 
-    public GameObject CreateNewPlayerCreature(GameObject playerBasePrefab)
+    public GameObject CreateNewPlayerCreature(GameObject playerBasePrefab, Enums.BodyShape initialBodyShape)
     {
         GameObject newPlayerCreature = Instantiate(playerBasePrefab);
         CreatureData playerCreatureData = newPlayerCreature.AddComponent<CreatureData>();
         playerCreatureData.MaximumHealth = GameDesignConstants.STARTING_PLAYER_HEALTH;
         playerCreatureData.MaximumSpeed = GameDesignConstants.STARTING_PLAYER_SPEED;
         playerCreatureData.MaximumLuck = GameDesignConstants.STARTING_PLAYER_LUCK;
-        newPlayerCreature.AddComponent<HealthSystem>();
+        playerCreatureData.BodyShapes = new List<BodyShape>();
+        
+        switch (initialBodyShape)
+        {
+            case Enums.BodyShape.SQUARE:
+                playerCreatureData.BodyShapes.Add(new SquareBodyShape());
+                break;
+            case Enums.BodyShape.CIRCLE:
+                playerCreatureData.BodyShapes.Add(new CircleBodyShape());
+                break;
+            case Enums.BodyShape.TRIANGLE:
+                playerCreatureData.BodyShapes.Add(new TriangleBodyShape());
+                break;
+        }
 
-        BodyData playerBodyData = newPlayerCreature.AddComponent<BodyData>();
-        playerBodyData.BodyParts = new List<BodyPart>();
-        playerBodyData.BodyShapes = new List<BodyShape>();
-        //TO DO: instantiate shape that player picked at the start
+        newPlayerCreature.AddComponent<HealthSystem>();
         //TO DO: instantiate default starting arm
         return newPlayerCreature;
     }

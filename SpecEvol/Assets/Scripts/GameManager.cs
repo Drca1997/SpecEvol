@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 {
     public BattleState battleState;
 
-
     private List<GameObject> battleParticipants; //ex: 0 -> Player, 1 - Enemy
     private List<int> turnOrder; // elementos indicam qual participante é: battleParticipants[i]
     private List<int> battleParticipantsSpeed;
@@ -43,8 +42,6 @@ public class GameManager : MonoBehaviour
     {
         return CreatureGenerator.Instance.InstantiateEnemies(1);
     }
-
-    
 
     private BattleState CalculateBattleState()
     {

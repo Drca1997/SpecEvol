@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BodyData : MonoBehaviour
 {
-    List<IBodyPart> bodyParts;
+    List<BodyPart> bodyParts;
     List<BodyShape> bodyShapes;
-    public List<IBodyPart> BodyParts { get => bodyParts; set => bodyParts = value; }
+    public List<BodyPart> BodyParts { get => bodyParts; set => bodyParts = value; }
     public List<BodyShape> BodyShapes { get => bodyShapes; set => bodyShapes = value; }
 
     // Start is called before the first frame update

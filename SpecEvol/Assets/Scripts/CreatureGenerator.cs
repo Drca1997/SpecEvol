@@ -10,10 +10,6 @@ public class CreatureGenerator : MonoBehaviour
     private static CreatureGenerator _instance;
     public static CreatureGenerator Instance { get { return _instance; } }
 
-    public const int STARTING_HEALTH = 50;
-    public const int STARTING_SPEED = 50;
-    public const int STARTING_LUCK = 50;
-
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -62,14 +58,16 @@ public class CreatureGenerator : MonoBehaviour
     {
         GameObject newPlayerCreature = Instantiate(playerBasePrefab);
         CreatureData playerCreatureData = newPlayerCreature.AddComponent<CreatureData>();
-        playerCreatureData.MaximumHealth = STARTING_HEALTH;
-        playerCreatureData.MaximumSpeed = STARTING_SPEED;
-        playerCreatureData.MaximumLuck = STARTING_LUCK;
+        playerCreatureData.MaximumHealth = GameDesignConstants.STARTING_PLAYER_HEALTH;
+        playerCreatureData.MaximumSpeed = GameDesignConstants.STARTING_PLAYER_SPEED;
+        playerCreatureData.MaximumLuck = GameDesignConstants.STARTING_PLAYER_LUCK;
+        newPlayerCreature.AddComponent<HealthSystem>();
 
         BodyData playerBodyData = newPlayerCreature.AddComponent<BodyData>();
-        playerBodyData.BodyParts = new List<IBodyPart>();
+        playerBodyData.BodyParts = new List<BodyPart>();
         playerBodyData.BodyShapes = new List<BodyShape>();
         //TO DO: instantiate shape that player picked at the start
+        //TO DO: instantiate default starting arm
         return newPlayerCreature;
     }
 

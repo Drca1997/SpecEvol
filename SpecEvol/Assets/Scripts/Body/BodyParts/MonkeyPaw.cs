@@ -6,6 +6,7 @@ public class MonkeyPaw : BodyPart
 {
     public MonkeyPaw()
     {
+        name = "MonkeyPaw";
         affectedStat = Enums.AffectedStat.LUCK;
         accuracy = GameDesignConstants.MONKEY_PAW_ACCURACY;
         damage = GameDesignConstants.MONKEY_PAW_POWER;

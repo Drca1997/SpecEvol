@@ -7,6 +7,7 @@ public class TentacleGrab : BodyPart
 
     public TentacleGrab()
     {
+        name = "TentacleGrab";
         affectedStat = Enums.AffectedStat.SPEED;
         accuracy = GameDesignConstants.TENTACLE_GRAB_ACCURACY;
         damage = GameDesignConstants.TENTACLE_GRAB_POWER;

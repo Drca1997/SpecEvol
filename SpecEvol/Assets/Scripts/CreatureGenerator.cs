@@ -51,6 +51,10 @@ public class CreatureGenerator : MonoBehaviour
         creatureData.MaximumHealth = Random.Range(50, 150);
         creatureData.MaximumSpeed = Random.Range(10, 90);
         creatureData.MaximumLuck = Random.Range(10, 90);
+
+        //Generate BodyParts and Shapes according to difficulty
+        //InstantiateCreatureBody();
+        creatureData.GetBodyShapeRefs();
         return enemy;
     }
 
@@ -78,7 +82,43 @@ public class CreatureGenerator : MonoBehaviour
 
         newPlayerCreature.AddComponent<HealthSystem>();
         //TO DO: instantiate default starting arm
+
         return newPlayerCreature;
+    }
+
+
+    public void InstantiateCreatureBody(GameObject creatureObject, CreatureData creatureData)
+    {
+        foreach (BodyShape shape in creatureData.BodyShapes)
+        {
+            string name = "";
+            if (shape is SquareBodyShape)
+            {
+                name = "SquareBodyShape";
+            }
+            else if (shape is CircleBodyShape)
+            {
+                name = "CircleBodyShape";
+            }
+            else if (shape is TriangleBodyShape)
+            {
+                name = "TriangleBodyShape";
+            }
+            GameObject shapeobj = new GameObject(name);
+            shapeobj.transform.parent = creatureObject.transform;
+            shapeobj.transform.localPosition = Vector3.zero;
+            SpriteRenderer spriteRenderer = shapeobj.AddComponent<SpriteRenderer>();
+            spriteRenderer.sprite = GameAssets.Instance.GetBodyShapeSpriteByName(name);
+            BodyShapeData bodyShapeData = shapeobj.AddComponent<BodyShapeData>();
+            bodyShapeData.BodyShape = shape;
+            foreach (BodyPart bodyPart in shape.AttachedBodyParts)
+            {
+                //Instantiate body part
+                GameObject bodyPartObj = new GameObject(bodyPart.ToString());
+                BodyPartData bodyPartData = bodyPartObj.GetComponent<BodyPartData>();
+                bodyPartData.BodyPart = bodyPart;
+            }
+        }
     }
 
 }

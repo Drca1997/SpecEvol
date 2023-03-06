@@ -25,6 +25,16 @@ public class HealthSystem : MonoBehaviour
         if (currentHealth <= 0)
         {
             //Calls Death Method/Script
+            if (gameObject == PlayerManager.Instance.PlayerGameObject)
+            {
+                //GameOver
+                GameManager.Instance.GameOver();
+            }
+            else
+            {
+                //Battle Victory
+                GameManager.Instance.BattleVictory();
+            }
         }
     }
 }

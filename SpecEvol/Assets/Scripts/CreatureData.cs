@@ -10,6 +10,7 @@ public class CreatureData : MonoBehaviour
     private int maximumSpeed;
     private int maximumLuck;
     private int currentLuck;
+    private int currentSpeed;
 
     private List<BodyShape> bodyShapes;
 
@@ -18,11 +19,24 @@ public class CreatureData : MonoBehaviour
     public int MaximumSpeed { get => maximumSpeed; set => maximumSpeed = value; }
     public int MaximumLuck { get => maximumLuck; set => maximumLuck = value; }
     public int CurrentLuck { get => currentLuck; set => currentLuck = value; }
+    public int CurrentSpeed { get => currentSpeed; set => currentSpeed = value; }
     public List<BodyShape> BodyShapes { get => bodyShapes; set => bodyShapes = value; }
 
     private void Start()
     {
         currentLuck = maximumHealth;
+        currentSpeed = maximumSpeed;
+    }
+
+    public void GetBodyShapeRefs()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).GetComponent<BodyShapeData>() != null)
+            {
+                bodyShapes.Add(transform.GetChild(i).GetComponent<BodyShapeData>().BodyShape);
+            }
+        }
     }
 
 }

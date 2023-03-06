@@ -6,11 +6,10 @@ using UnityEngine.SceneManagement;
 public class MutationStateManager : MonoBehaviour
 {
     [SerializeField]
-    private PlayerCreatureSO m_Creature;
-    [SerializeField]
     private GameObject playerBasePrefab;
     [SerializeField]
     private GameObject gameAssets;
+    
 
     private Enums.BodyShape initialBodyShape;
 
@@ -20,6 +19,7 @@ public class MutationStateManager : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(gameAssets);
+        DontDestroyOnLoad(PlayerManager.Instance.gameObject);
     }
 
     // Update is called once per frame
@@ -31,16 +31,8 @@ public class MutationStateManager : MonoBehaviour
     public void OnBodyShapeSelected()
     {
         GameObject newPlayer = CreatureGenerator.Instance.CreateNewPlayerCreature(playerBasePrefab, InitialBodyShape);
-        SavePlayerCreature(newPlayer);
+        PlayerManager.Instance.SavePlayerCreature(newPlayer);
         SceneManager.LoadScene("BattleScene");
     }
 
-    private void SavePlayerCreature(GameObject player)
-    {
-        CreatureData creatureData = player.GetComponent<CreatureData>();
-        m_Creature.maximumHealth = creatureData.MaximumHealth;
-        m_Creature.maximumSpeed = creatureData.MaximumSpeed;
-        m_Creature.maximumLuck = creatureData.MaximumLuck;
-        m_Creature.bodyShapes = creatureData.BodyShapes;
-    }
 }

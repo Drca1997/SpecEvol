@@ -7,6 +7,7 @@ public class BuffedBicep : BodyPart
     private float attackReduceAmount;
     public BuffedBicep()
     {
+        name = "BuffedBicep";
         affectedStat = Enums.AffectedStat.ATTACK;
         accuracy = GameDesignConstants.BUFFED_BICEP_ACCURACY;
         damage = 0;

@@ -8,7 +8,13 @@ public class GameAssets : MonoBehaviour
     public static GameAssets Instance { get { return _instance; } }
 
     [SerializeField]
-    private Sprite[] bodyShapeSprites; 
+    private Sprite[] bodyShapeSprites;
+
+    [SerializeField]
+    private Sprite[] bodyPartSprites;
+
+    private Dictionary<string, Sprite> bodyPartSpritesDict;
+
 
     private void Awake()
     {
@@ -25,7 +31,11 @@ public class GameAssets : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        bodyPartSpritesDict = new Dictionary<string, Sprite>();
+        foreach(Sprite sprite in bodyPartSprites)
+        {
+            bodyPartSpritesDict[sprite.name] = sprite;
+        }
     }
 
     public Sprite GetBodyShapeSpriteByName(string bodyShapeName)
@@ -44,6 +54,11 @@ public class GameAssets : MonoBehaviour
             sprite = bodyShapeSprites[2];
         }
         return sprite;
+    }
+
+    public Sprite GetBodyPartByName(string name)
+    {
+        return bodyPartSpritesDict[name];
     }
     
 }

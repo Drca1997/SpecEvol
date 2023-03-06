@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Enums;
 
 public class GameManager : MonoBehaviour
@@ -9,10 +10,27 @@ public class GameManager : MonoBehaviour
     public BattleState battleState;
     [SerializeField]
     private Transform playerBattleStationPosition;
+    [SerializeField]
+    private Transform enemyBattleStationPosition;
     private List<GameObject> battleParticipants; //ex: 0 -> Player, 1 - Enemy
     private List<int> turnOrder; // elementos indicam qual participante é: battleParticipants[i]
     private List<int> battleParticipantsSpeed;
     private List<int> initiative;
+
+    private static GameManager _instance;
+    public static GameManager Instance { get { return _instance; } }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +60,13 @@ public class GameManager : MonoBehaviour
 
     private List<GameObject> InstantiateBattleParticipants()
     {
-        return CreatureGenerator.Instance.InstantiateEnemies(1);
+        List<GameObject> spawnedEnemies = CreatureGenerator.Instance.InstantiateEnemies(1);
+        foreach(GameObject enemy in spawnedEnemies)
+        {
+            enemy.transform.parent = enemyBattleStationPosition;
+            enemy.transform.localPosition = Vector3.zero;
+        }
+        return spawnedEnemies;
     }
 
     private BattleState CalculateBattleState()
@@ -84,5 +108,16 @@ public class GameManager : MonoBehaviour
         Debug.Log("ENEMY TURN..");
         yield return new WaitForSeconds(1);
         NextTurn();
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("GAME OVER");
+    }
+
+    public void BattleVictory()
+    {
+        Debug.Log("VICTORY");
+        SceneManager.LoadScene("MutationScene");
     }
 }

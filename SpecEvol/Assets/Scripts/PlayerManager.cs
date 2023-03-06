@@ -46,32 +46,20 @@ public class PlayerManager : MonoBehaviour
         playerCreatureData.MaximumSpeed = playerCreature.maximumSpeed;
         playerCreatureData.MaximumLuck = playerCreature.maximumLuck;
         playerCreatureData.BodyShapes = playerCreature.bodyShapes;
+        
+        CreatureGenerator.Instance.InstantiateCreatureBody(PlayerGameObject, playerCreatureData);
+        
+        playerCreatureData.GetBodyShapeRefs();
+        SavePlayerCreature(playerGameObject);
+    }
 
-        foreach (BodyShape shape in playerCreatureData.BodyShapes)
-        {
-            string name = "";
-            if(shape is SquareBodyShape)
-            {
-                name = "SquareBodyShape";
-            }
-            else if(shape is CircleBodyShape)
-            {
-                name = "CircleBodyShape";
-            }
-            else if (shape is TriangleBodyShape)
-            {
-                name = "TriangleBodyShape";
-            }
-            GameObject shapeobj = new GameObject(name);
-            shapeobj.transform.parent = playerGameObject.transform;
-            shapeobj.transform.localPosition = Vector3.zero;
-            SpriteRenderer spriteRenderer = shapeobj.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = GameAssets.Instance.GetBodyShapeSpriteByName(name);
-            foreach (BodyPart bodyPart in shape.AttachedBodyParts)
-            {
-                //Instantiate body part
-            }
-        }
+    public void SavePlayerCreature(GameObject player)
+    {
+        CreatureData creatureData = player.GetComponent<CreatureData>();
+        playerCreature.maximumHealth = creatureData.MaximumHealth;
+        playerCreature.maximumSpeed = creatureData.MaximumSpeed;
+        playerCreature.maximumLuck = creatureData.MaximumLuck;
+        playerCreature.bodyShapes = creatureData.BodyShapes;
     }
 
 }

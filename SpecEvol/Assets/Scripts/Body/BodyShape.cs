@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Enums;
 
+[Serializable]
 public abstract class BodyShape
 {
+    protected Vector3[] bodyPartSlots;  
     protected AffectedStat affectedStat;
     private float buffAmount = GameDesignConstants.BODY_SHAPE_BUFF_AMOUNT;
 

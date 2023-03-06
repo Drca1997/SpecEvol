@@ -7,6 +7,7 @@ public class SimpleAttack : BodyPart
 
     public SimpleAttack()
     {
+        name = "SimpleAttack";
         accuracy = GameDesignConstants.SIMPLE_ATTACK_ACCURACY;
         damage = GameDesignConstants.SIMPLE_ATTACK_DAMAGE;
         damageType = Enums.DamageType.SLASHING;

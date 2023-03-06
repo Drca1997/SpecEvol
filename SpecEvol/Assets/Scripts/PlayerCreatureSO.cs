@@ -9,4 +9,10 @@ public class PlayerCreatureSO : ScriptableObject
     public int maximumSpeed;
     public int maximumLuck;
     public List<BodyShape> bodyShapes;
+
+
+    public bool IsInitialized()
+    {
+        return bodyShapes != null && bodyShapes.Count > 0;
+    }
 }

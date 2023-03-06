@@ -8,6 +8,7 @@ public class BigBonker : BodyPart
 
     public BigBonker()
     {
+        name = "BigBonker";
         accuracy = 0.25f;
         affectedStat = Enums.AffectedStat.HEALTH;
         damage = GameDesignConstants.BIG_BONKER_BASE_DAMAGE;

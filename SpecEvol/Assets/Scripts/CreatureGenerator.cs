@@ -58,15 +58,14 @@ public class CreatureGenerator : MonoBehaviour
         return enemy;
     }
 
-    public GameObject CreateNewPlayerCreature(GameObject playerBasePrefab, Enums.BodyShape initialBodyShape)
+    public GameObject CreateNewPlayerCreature(GameObject playerBasePrefab, Enums.BodyShape initialBodyShape, Vector3 spawnPosition)
     {
-        GameObject newPlayerCreature = Instantiate(playerBasePrefab);
+        GameObject newPlayerCreature = Instantiate(playerBasePrefab, spawnPosition, Quaternion.Euler(0, 0, 0), null);
         CreatureData playerCreatureData = newPlayerCreature.AddComponent<CreatureData>();
         playerCreatureData.MaximumHealth = GameDesignConstants.STARTING_PLAYER_HEALTH;
         playerCreatureData.MaximumSpeed = GameDesignConstants.STARTING_PLAYER_SPEED;
         playerCreatureData.MaximumLuck = GameDesignConstants.STARTING_PLAYER_LUCK;
         playerCreatureData.BodyShapes = new List<BodyShape>();
-        
         switch (initialBodyShape)
         {
             case Enums.BodyShape.SQUARE:
@@ -81,8 +80,9 @@ public class CreatureGenerator : MonoBehaviour
         }
 
         newPlayerCreature.AddComponent<HealthSystem>();
-        //TO DO: instantiate default starting arm
-
+        playerCreatureData.BodyShapes[0].AttachedBodyParts = new List<BodyPart>();
+        playerCreatureData.BodyShapes[0].AttachedBodyParts.Add(new SimpleAttack());
+        InstantiateCreatureBody(newPlayerCreature, playerCreatureData);
         return newPlayerCreature;
     }
 
@@ -115,7 +115,11 @@ public class CreatureGenerator : MonoBehaviour
             {
                 //Instantiate body part
                 GameObject bodyPartObj = new GameObject(bodyPart.ToString());
-                BodyPartData bodyPartData = bodyPartObj.GetComponent<BodyPartData>();
+                bodyPartObj.transform.parent = shapeobj.transform;
+                bodyPartObj.transform.localPosition = Vector3.zero;
+                SpriteRenderer bodyPartSpriteRenderer = shapeobj.AddComponent<SpriteRenderer>();
+                bodyPartSpriteRenderer.sprite = GameAssets.Instance.GetBodyPartByName(name);
+                BodyPartData bodyPartData = bodyPartObj.AddComponent<BodyPartData>();
                 bodyPartData.BodyPart = bodyPart;
             }
         }

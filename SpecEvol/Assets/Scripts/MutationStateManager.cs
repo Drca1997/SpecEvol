@@ -9,6 +9,8 @@ public class MutationStateManager : MonoBehaviour
     private GameObject playerBasePrefab;
     [SerializeField]
     private GameObject gameAssets;
+    [SerializeField]
+    private GameObject placeHolder;
     
 
     private Enums.BodyShape initialBodyShape;
@@ -30,7 +32,7 @@ public class MutationStateManager : MonoBehaviour
 
     public void OnBodyShapeSelected()
     {
-        GameObject newPlayer = CreatureGenerator.Instance.CreateNewPlayerCreature(playerBasePrefab, InitialBodyShape);
+        GameObject newPlayer = CreatureGenerator.Instance.CreateNewPlayerCreature(playerBasePrefab, InitialBodyShape, placeHolder.transform.position);
         PlayerManager.Instance.SavePlayerCreature(newPlayer);
     }
 

@@ -457,6 +457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBasePrefab: {fileID: 952246216202513803, guid: 1fa1a004e176aa745bd93b8428ee641e, type: 3}
   gameAssets: {fileID: 278819313}
+  placeHolder: {fileID: 1950746915}
 --- !u!114 &245720308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,7 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialBodyShapeChoice: {fileID: 800895892}
   mutationMenu: {fileID: 880136366}
-  battleButton: {fileID: 0}
+  battleButton: {fileID: 1234601815}
 --- !u!1 &278819313
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,7 +518,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fe95990946f63f6458afef98a7a343f1, type: 3}
   - {fileID: 21300000, guid: 0454518e31d19d442a98877bb097ce25, type: 3}
   - {fileID: 21300000, guid: da42e88310b3bd34bb0089d28d21d2b2, type: 3}
-  bodyPartSprites: []
+  bodyPartSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &278819315
 Transform:
   m_ObjectHideFlags: 0
@@ -2772,7 +2780,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1950746915}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

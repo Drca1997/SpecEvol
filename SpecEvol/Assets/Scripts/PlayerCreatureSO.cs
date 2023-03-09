@@ -8,11 +8,12 @@ public class PlayerCreatureSO : ScriptableObject
     public int maximumHealth;
     public int maximumSpeed;
     public int maximumLuck;
-    public List<BodyShape> bodyShapes;
+    public List<string> bodyMorphology;
+    public List<string> encodedBodyShapes;
 
-
+    
     public bool IsInitialized()
     {
-        return bodyShapes != null && bodyShapes.Count > 0;
+        return encodedBodyShapes != null && encodedBodyShapes.Count > 0;
     }
 }

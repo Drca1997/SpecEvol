@@ -7,6 +7,7 @@ public class LuckyDice : BodyPart
     public LuckyDice()
     {
         name = "LuckyDice";
+        actionName = "Get Lucky";
         affectedStat = Enums.AffectedStat.LUCK;
         accuracy = GameDesignConstants.LUCKY_DICE_ACCURACY;
         damage = GameDesignConstants.LUCKY_DICE_POWER;

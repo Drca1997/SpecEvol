@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BodyPartData : MonoBehaviour
 {
-
     private BodyPart bodyPart;
 
     public BodyPart BodyPart { get => bodyPart; set => bodyPart = value; }

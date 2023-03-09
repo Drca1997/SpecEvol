@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class UIManager : MonoBehaviour
     private GameObject initialBodyShapeChoice;
     [SerializeField]
     private GameObject mutationMenu;
+    [SerializeField]
+    private GameObject battleButton;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +19,10 @@ public class UIManager : MonoBehaviour
         if (!PlayerManager.Instance.PlayerCreature.IsInitialized()) 
         {
             initialBodyShapeChoice.SetActive(true);
+        }
+        else
+        {
+            mutationMenu.SetActive(true);
         }
     }
 
@@ -48,6 +56,16 @@ public class UIManager : MonoBehaviour
         mutationMenu.SetActive(true);
         GetComponent<MutationStateManager>().InitialBodyShape = Enums.BodyShape.TRIANGLE;
         GetComponent<MutationStateManager>().OnBodyShapeSelected();
+    }
+
+    public void OnBodyPart1()
+    {
+        battleButton.SetActive(true);
+    }
+
+    public void OnBodyPart2()
+    {
+        battleButton.SetActive(true);
     }
 
 }

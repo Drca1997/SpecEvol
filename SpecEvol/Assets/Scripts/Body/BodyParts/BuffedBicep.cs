@@ -8,6 +8,7 @@ public class BuffedBicep : BodyPart
     public BuffedBicep()
     {
         name = "BuffedBicep";
+        actionName = "Flex";
         affectedStat = Enums.AffectedStat.ATTACK;
         accuracy = GameDesignConstants.BUFFED_BICEP_ACCURACY;
         damage = 0;
@@ -18,5 +19,6 @@ public class BuffedBicep : BodyPart
     protected override void Execute(GameObject owner, GameObject enemy)
     {
         // Add Intimidated Status Effect
+
     }
 }

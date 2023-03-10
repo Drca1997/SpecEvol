@@ -52,8 +52,22 @@ public class CreatureGenerator : MonoBehaviour
         creatureData.MaximumSpeed = Random.Range(10, 90);
         creatureData.MaximumLuck = Random.Range(10, 90);
 
-        //Generate BodyParts and Shapes according to difficulty
-        //InstantiateCreatureBody();
+        //TO DO: Same Method but Generating BodyParts and Shapes according to difficulty
+        int num_shapes = Random.Range(1, 4);
+        List<string> encodedShapes = new List<string>();
+        List<string> encodedMorphology = new List<string>();
+        for (int i = 0; i < num_shapes; i++)
+        {
+            encodedShapes.Add(GameDesignConstants.ALL_SHAPES_LIST[Random.Range(0, 3)]);
+        }
+        for(int i = 0; i < encodedShapes.Count; i++)
+        {
+            encodedMorphology.Add(GameDesignConstants.ALL_BODY_PARTS_LIST[Random.Range(0, GameDesignConstants.ALL_BODY_PARTS_LIST.Length)]);
+            encodedMorphology.Add(GameDesignConstants.ALL_BODY_PARTS_LIST[Random.Range(0, GameDesignConstants.ALL_BODY_PARTS_LIST.Length)]);
+        }
+
+        creatureData.BodyShapes = BodyMorphologyDecoding(encodedMorphology, encodedShapes);
+        InstantiateCreatureBody(enemy, creatureData);
         creatureData.GetBodyShapeRefs();
         return enemy;
     }
@@ -83,6 +97,7 @@ public class CreatureGenerator : MonoBehaviour
         playerCreatureData.BodyShapes[0].AttachedBodyParts = new List<BodyPart>();
         playerCreatureData.BodyShapes[0].AttachedBodyParts.Add(new SimpleAttack());
         InstantiateCreatureBody(newPlayerCreature, playerCreatureData);
+        PlayerManager.Instance.PlayerGameObject = newPlayerCreature;
         return newPlayerCreature;
     }
 
@@ -109,6 +124,7 @@ public class CreatureGenerator : MonoBehaviour
             shapeobj.transform.localPosition = Vector3.zero;
             SpriteRenderer spriteRenderer = shapeobj.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = GameAssets.Instance.GetBodyShapeSpriteByName(name);
+            spriteRenderer.sortingOrder = 0;
             BodyShapeData bodyShapeData = shapeobj.AddComponent<BodyShapeData>();
             bodyShapeData.BodyShape = shape;
             foreach (BodyPart bodyPart in shape.AttachedBodyParts)
@@ -117,12 +133,99 @@ public class CreatureGenerator : MonoBehaviour
                 GameObject bodyPartObj = new GameObject(bodyPart.ToString());
                 bodyPartObj.transform.parent = shapeobj.transform;
                 bodyPartObj.transform.localPosition = Vector3.zero;
-                SpriteRenderer bodyPartSpriteRenderer = shapeobj.AddComponent<SpriteRenderer>();
-                bodyPartSpriteRenderer.sprite = GameAssets.Instance.GetBodyPartByName(name);
+                SpriteRenderer bodyPartSpriteRenderer = bodyPartObj.AddComponent<SpriteRenderer>();
+                bodyPartSpriteRenderer.sprite = GameAssets.Instance.GetBodyPartByName(bodyPart.Name);
+                bodyPartSpriteRenderer.sortingOrder = 1;
                 BodyPartData bodyPartData = bodyPartObj.AddComponent<BodyPartData>();
                 bodyPartData.BodyPart = bodyPart;
             }
         }
+    }
+
+    public List<string> BodyMorphologyEncoding(List<BodyShape> bodyShapes, out List<string> encodedBodyShapes)
+    {
+        List<string> encodedBodyMorphology = new List<string>();
+        encodedBodyShapes = new List<string>();
+        foreach (BodyShape shape in bodyShapes)
+        {
+            if (shape is SquareBodyShape)
+            {
+                encodedBodyShapes.Add("Square");
+            }
+            else if (shape is CircleBodyShape)
+            {
+                encodedBodyShapes.Add("Circle");
+            }
+            else if (shape is TriangleBodyShape)
+            {
+                encodedBodyShapes.Add("Triangle");
+            }
+            foreach (BodyPart part in shape.AttachedBodyParts)
+            {
+                encodedBodyMorphology.Add(part.Name);
+            }
+        }
+        return encodedBodyMorphology;
+    }
+
+    public List<BodyShape> BodyMorphologyDecoding(List<string> encodedMorphology, List<string> encodedShapes)
+    {
+        List<BodyShape> decodedBodyMorphology = new List<BodyShape>();
+        List<List<BodyPart>> allBodyParts = new List<List<BodyPart>>();
+        for (int i = 0; i < encodedMorphology.Count; i++)
+        {
+            if (i % 2 == 0)
+            {
+                List<BodyPart> shapeBodyParts = new List<BodyPart>();
+                allBodyParts.Add(shapeBodyParts);
+            }
+            switch (encodedMorphology[i])
+            {
+                case "BigBonker":
+                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new BigBonker());
+                    break;
+                case "BuffedBicep":
+                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new BuffedBicep());
+                    break;
+                case "LuckyDice":
+                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new LuckyDice());
+                    break;
+                case "MonkeyPaw":
+                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new MonkeyPaw());
+                    break;
+                case "PoisonousSpike":
+                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new PoisonousSpike());
+                    break;
+                case "SimpleAttack":
+                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new SimpleAttack());
+                    break;
+                case "TentacleGrab":
+                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new TentacleGrab());
+                    break;
+            }
+        }
+        for (int i = 0; i < encodedShapes.Count; i++)
+        {
+            BodyShape decodedBodyShape;
+            switch (encodedShapes[i])
+            {
+                case "Square":
+                    decodedBodyShape = new SquareBodyShape();
+                    break;
+                case "Circle":
+                    decodedBodyShape = new CircleBodyShape();
+                    break;
+                case "Triangle":
+                    decodedBodyShape = new TriangleBodyShape();
+                    break;
+                default:
+                    decodedBodyShape = new SquareBodyShape();
+                    break;
+            }
+            decodedBodyShape.AttachedBodyParts = allBodyParts[i];
+            decodedBodyMorphology.Add(decodedBodyShape);
+        }
+        return decodedBodyMorphology;
     }
 
 }

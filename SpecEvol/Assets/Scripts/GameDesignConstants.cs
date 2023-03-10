@@ -24,5 +24,8 @@ public static class GameDesignConstants
     public const int   MONKEY_PAW_POWER = 20;
     public const float BIG_BONKER_ACCURACY = 0.25f;
     public const int   BIG_BONKER_BASE_DAMAGE = 8;
+
+    public static string [] ALL_SHAPES_LIST = new string[] {"SquareBodyShape", "CircleBodyShape", "TriangleBodyShape"};
+    public static string [] ALL_BODY_PARTS_LIST = new string[] {"BigBonker", "BuffedBicep", "LuckyDice", "MonkeyPaw", "PoisonousSpike", "SimpleAttack", "TentacleGrab"};
     
 }

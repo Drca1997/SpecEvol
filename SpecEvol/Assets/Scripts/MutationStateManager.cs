@@ -36,10 +36,9 @@ public class MutationStateManager : MonoBehaviour
         PlayerManager.Instance.SavePlayerCreature(newPlayer);
     }
 
-
     public void OnNextBattleButton()
     {
-        PlayerManager.Instance.SavePlayerCreature(PlayerManager.Instance.gameObject);
+        PlayerManager.Instance.SavePlayerCreature(PlayerManager.Instance.PlayerGameObject);
         SceneManager.LoadScene("BattleScene");
     }
 

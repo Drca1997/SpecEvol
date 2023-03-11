@@ -64,8 +64,7 @@ public class GameManager : MonoBehaviour
         foreach(GameObject enemy in spawnedEnemies)
         {
             enemy.transform.parent = enemyBattleStationPosition;
-            Transform lastShape = enemy.transform.GetChild(enemy.transform.childCount - 1);
-            enemy.transform.localPosition = new Vector3(0f, -lastShape.GetComponent<Renderer>().bounds.min.y, 0f);
+            enemy.transform.localPosition = CreatureGenerator.Instance.GetCreatureSpawnPosition(enemy);
         }
         return spawnedEnemies;
     }

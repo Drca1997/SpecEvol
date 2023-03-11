@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class CreatureGenerator : MonoBehaviour
@@ -139,20 +140,20 @@ public class CreatureGenerator : MonoBehaviour
     private GameObject InstantiateBodyShape(string name, GameObject creatureObject, BodyShape shape)
     {
         GameObject shapeobj = new GameObject(name);
+        shapeobj.transform.parent = creatureObject.transform;
         SpriteRenderer spriteRenderer = shapeobj.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = GameAssets.Instance.GetBodyShapeSpriteByName(name);
         spriteRenderer.sortingOrder = 0;
-        if (creatureObject.transform.childCount == 0)
+        if (creatureObject.transform.childCount <= 1)
         {
             shapeobj.transform.localPosition = Vector3.zero;
         }
         else
         {
             Transform lastChild = creatureObject.transform.GetChild(creatureObject.transform.childCount - 1);
-            int offset = creatureObject.transform.childCount;
+            int offset = creatureObject.transform.childCount - 1;
             shapeobj.transform.localPosition = new Vector3(0f, -lastChild.GetComponent<Renderer>().bounds.extents.y * 2 * offset, 0f);
         }
-        shapeobj.transform.parent = creatureObject.transform;
         BodyShapeData bodyShapeData = shapeobj.AddComponent<BodyShapeData>();
         bodyShapeData.BodyShape = shape;
         GameObject bodyPartLeftHolder = new GameObject("BodyPartLeftHolder");
@@ -261,6 +262,23 @@ public class CreatureGenerator : MonoBehaviour
             decodedBodyMorphology.Add(decodedBodyShape);
         }
         return decodedBodyMorphology;
+    }
+
+    public Vector3 GetCreatureSpawnPosition(GameObject creature)
+    {
+        int numChild = creature.transform.childCount;
+        Transform lastChild = creature.transform.GetChild(numChild - 1);
+        Vector3 spawnPosition = new Vector3(0, 0, 0);
+        if (numChild == 1)
+        {
+            spawnPosition = new Vector3(0f, lastChild.GetComponent<Renderer>().bounds.size.y, 0f);
+        }
+        else
+        {
+            spawnPosition = new Vector3(0f, lastChild.GetComponent<Renderer>().bounds.size.y * (numChild * 2), 0f);
+
+        }
+        return spawnPosition;
     }
 
 }

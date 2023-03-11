@@ -50,6 +50,7 @@ public class PlayerManager : MonoBehaviour
         CreatureGenerator.Instance.InstantiateCreatureBody(PlayerGameObject, playerCreatureData);
         
         playerCreatureData.GetBodyShapeRefs();
+        playerGameObject.transform.localPosition = CreatureGenerator.Instance.GetCreatureSpawnPosition(playerGameObject);
         SavePlayerCreature(playerGameObject);
     }
 

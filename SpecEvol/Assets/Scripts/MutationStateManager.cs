@@ -10,7 +10,7 @@ public class MutationStateManager : MonoBehaviour
     [SerializeField]
     private GameObject gameAssets;
     [SerializeField]
-    private GameObject placeHolder;
+    private Transform placeHolder;
     
 
     private Enums.BodyShape initialBodyShape;
@@ -22,6 +22,10 @@ public class MutationStateManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameAssets);
         DontDestroyOnLoad(PlayerManager.Instance.gameObject);
+        if (PlayerManager.Instance.PlayerCreature.IsInitialized())
+        {
+            PlayerManager.Instance.CreatePlayer(placeHolder.transform);
+        }
     }
 
     // Update is called once per frame

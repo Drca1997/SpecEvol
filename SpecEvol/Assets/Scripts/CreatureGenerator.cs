@@ -44,7 +44,7 @@ public class CreatureGenerator : MonoBehaviour
         return enemies;
     }
 
-    private GameObject CreateRandomCreature()
+    public GameObject CreateRandomCreature()
     {
         GameObject enemy = new GameObject("Enemy");
         CreatureData creatureData = enemy.AddComponent<CreatureData>();
@@ -119,19 +119,12 @@ public class CreatureGenerator : MonoBehaviour
             {
                 name = "TriangleBodyShape";
             }
-            GameObject shapeobj = new GameObject(name);
-            shapeobj.transform.parent = creatureObject.transform;
-            shapeobj.transform.localPosition = Vector3.zero;
-            SpriteRenderer spriteRenderer = shapeobj.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = GameAssets.Instance.GetBodyShapeSpriteByName(name);
-            spriteRenderer.sortingOrder = 0;
-            BodyShapeData bodyShapeData = shapeobj.AddComponent<BodyShapeData>();
-            bodyShapeData.BodyShape = shape;
+            GameObject shapeobj = InstantiateBodyShape(name, creatureObject, shape);
             foreach (BodyPart bodyPart in shape.AttachedBodyParts)
             {
                 //Instantiate body part
                 GameObject bodyPartObj = new GameObject(bodyPart.ToString());
-                bodyPartObj.transform.parent = shapeobj.transform;
+                bodyPartObj.transform.parent = GetNextFreeBodyPartHolder(shapeobj.transform);
                 bodyPartObj.transform.localPosition = Vector3.zero;
                 SpriteRenderer bodyPartSpriteRenderer = bodyPartObj.AddComponent<SpriteRenderer>();
                 bodyPartSpriteRenderer.sprite = GameAssets.Instance.GetBodyPartByName(bodyPart.Name);
@@ -140,6 +133,48 @@ public class CreatureGenerator : MonoBehaviour
                 bodyPartData.BodyPart = bodyPart;
             }
         }
+    }
+
+
+    private GameObject InstantiateBodyShape(string name, GameObject creatureObject, BodyShape shape)
+    {
+        GameObject shapeobj = new GameObject(name);
+        SpriteRenderer spriteRenderer = shapeobj.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = GameAssets.Instance.GetBodyShapeSpriteByName(name);
+        spriteRenderer.sortingOrder = 0;
+        if (creatureObject.transform.childCount == 0)
+        {
+            shapeobj.transform.localPosition = Vector3.zero;
+        }
+        else
+        {
+            Transform lastChild = creatureObject.transform.GetChild(creatureObject.transform.childCount - 1);
+            int offset = creatureObject.transform.childCount;
+            shapeobj.transform.localPosition = new Vector3(0f, -lastChild.GetComponent<Renderer>().bounds.extents.y * 2 * offset, 0f);
+        }
+        shapeobj.transform.parent = creatureObject.transform;
+        BodyShapeData bodyShapeData = shapeobj.AddComponent<BodyShapeData>();
+        bodyShapeData.BodyShape = shape;
+        GameObject bodyPartLeftHolder = new GameObject("BodyPartLeftHolder");
+        bodyPartLeftHolder.transform.parent = shapeobj.transform;
+        bodyPartLeftHolder.transform.localPosition = new Vector3(-shapeobj.GetComponent<Renderer>().bounds.extents.x, 0f, 0f); 
+        GameObject bodyPartRightHolder = new GameObject("BodyPartRightHolder");
+        bodyPartRightHolder.transform.parent = shapeobj.transform;
+        bodyPartRightHolder.transform.localPosition = new Vector3(shapeobj.GetComponent<Renderer>().bounds.extents.x, 0f, 0f);
+        return shapeobj;
+    }
+
+    private Transform GetNextFreeBodyPartHolder(Transform parent)
+    {
+        if (parent.GetChild(0).childCount == 0)
+        {
+            return parent.GetChild(0);
+        }
+        else if (parent.GetChild(1).childCount == 0)
+        {
+            return parent.GetChild(1);
+        }
+        return null;
     }
 
     public List<string> BodyMorphologyEncoding(List<BodyShape> bodyShapes, out List<string> encodedBodyShapes)
@@ -209,13 +244,13 @@ public class CreatureGenerator : MonoBehaviour
             BodyShape decodedBodyShape;
             switch (encodedShapes[i])
             {
-                case "Square":
+                case "SquareBodyShape":
                     decodedBodyShape = new SquareBodyShape();
                     break;
-                case "Circle":
+                case "CircleBodyShape":
                     decodedBodyShape = new CircleBodyShape();
                     break;
-                case "Triangle":
+                case "TriangleBodyShape":
                     decodedBodyShape = new TriangleBodyShape();
                     break;
                 default:

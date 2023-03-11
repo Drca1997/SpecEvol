@@ -21,7 +21,6 @@ public class MutationStateManager : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(gameAssets);
-        DontDestroyOnLoad(PlayerManager.Instance.gameObject);
         if (PlayerManager.Instance.PlayerCreature.IsInitialized())
         {
             PlayerManager.Instance.CreatePlayer(placeHolder.transform);

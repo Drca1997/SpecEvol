@@ -51,7 +51,6 @@ public class PlayerManager : MonoBehaviour
         
         playerCreatureData.GetBodyShapeRefs();
         playerGameObject.transform.localPosition = CreatureGenerator.Instance.GetCreatureSpawnPosition(playerGameObject);
-        SavePlayerCreature(playerGameObject);
     }
 
     public void SavePlayerCreature(GameObject player)
@@ -62,6 +61,14 @@ public class PlayerManager : MonoBehaviour
         playerCreature.maximumLuck = creatureData.MaximumLuck;
         playerCreature.bodyMorphology = CreatureGenerator.Instance.BodyMorphologyEncoding(creatureData.BodyShapes, out List<string> encodedShapes);
         PlayerCreature.encodedBodyShapes = encodedShapes;
+    }
+
+    public void UpdatePlayerMorphology(string newPartName)
+    {
+        playerCreature.bodyMorphology.Add(newPartName);
+        Transform battleStation = playerGameObject.transform.parent;
+        Destroy(playerGameObject);
+        CreatePlayer(battleStation);
     }
 
     

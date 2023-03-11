@@ -39,4 +39,14 @@ public class CreatureData : MonoBehaviour
         }
     }
 
+    public List<BodyPart> GetBodyParts()
+    {
+        List<BodyPart> bodyParts = new List<BodyPart>();
+        foreach(BodyShape shape in bodyShapes)
+        {
+            bodyParts.AddRange(shape.AttachedBodyParts);
+        }
+        return bodyParts;
+    }
+
 }

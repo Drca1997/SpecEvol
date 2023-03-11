@@ -485,6 +485,7 @@ MonoBehaviour:
   initialBodyShapeChoice: {fileID: 800895892}
   mutationMenu: {fileID: 880136366}
   battleButton: {fileID: 1234601815}
+  defeatedArms: {fileID: 11400000, guid: 4217ff86eb18f4949abc15b8c08ebbcd, type: 2}
 --- !u!1 &278819313 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6532729389065541269, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
@@ -1256,7 +1257,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 245720309}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OnSquareSelect
+        m_MethodName: OnBodyPart2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1388,7 +1389,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 245720309}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OnSquareSelect
+        m_MethodName: OnBodyPart1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

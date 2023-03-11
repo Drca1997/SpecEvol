@@ -155,6 +155,7 @@ MonoBehaviour:
   battleState: 0
   playerBattleStationPosition: {fileID: 739470341}
   enemyBattleStationPosition: {fileID: 1071532411}
+  defeatedArms: {fileID: 11400000, guid: 4217ff86eb18f4949abc15b8c08ebbcd, type: 2}
 --- !u!4 &12492430
 Transform:
   m_ObjectHideFlags: 0

@@ -70,6 +70,7 @@ public class CreatureGenerator : MonoBehaviour
         creatureData.BodyShapes = BodyMorphologyDecoding(encodedMorphology, encodedShapes);
         InstantiateCreatureBody(enemy, creatureData);
         creatureData.GetBodyShapeRefs();
+        enemy.AddComponent<HealthSystem>();
         return enemy;
     }
 
@@ -186,15 +187,15 @@ public class CreatureGenerator : MonoBehaviour
         {
             if (shape is SquareBodyShape)
             {
-                encodedBodyShapes.Add("Square");
+                encodedBodyShapes.Add("SquareBodyShape");
             }
             else if (shape is CircleBodyShape)
             {
-                encodedBodyShapes.Add("Circle");
+                encodedBodyShapes.Add("CircleBodyShape");
             }
             else if (shape is TriangleBodyShape)
             {
-                encodedBodyShapes.Add("Triangle");
+                encodedBodyShapes.Add("TriangleBodyShape");
             }
             foreach (BodyPart part in shape.AttachedBodyParts)
             {

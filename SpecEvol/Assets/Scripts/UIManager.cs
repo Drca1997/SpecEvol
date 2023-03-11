@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -12,6 +13,8 @@ public class UIManager : MonoBehaviour
     private GameObject mutationMenu;
     [SerializeField]
     private GameObject battleButton;
+    [SerializeField]
+    private DefeatedArmsSO defeatedArms;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +25,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            mutationMenu.SetActive(true);
+            SetMutationMenuActive();
         }
     }
 
@@ -61,11 +64,24 @@ public class UIManager : MonoBehaviour
     public void OnBodyPart1()
     {
         battleButton.SetActive(true);
+        mutationMenu.SetActive(false);
+        PlayerManager.Instance.UpdatePlayerMorphology(mutationMenu.transform.GetChild(0).GetComponent<Image>().sprite.name);
     }
 
     public void OnBodyPart2()
     {
         battleButton.SetActive(true);
+        mutationMenu.SetActive(false);
+        PlayerManager.Instance.UpdatePlayerMorphology(mutationMenu.transform.GetChild(mutationMenu.transform.childCount - 1).GetComponent<Image>().sprite.name);
+    }
+
+    public void SetMutationMenuActive()
+    {
+        mutationMenu.SetActive(true);
+        Assert.IsTrue(defeatedArms.option1 != null);
+        Assert.IsTrue(defeatedArms.option2 != null);
+        mutationMenu.transform.GetChild(0).GetComponent<Image>().sprite = GameAssets.Instance.GetBodyPartByName(defeatedArms.option1);
+        mutationMenu.transform.GetChild(mutationMenu.transform.childCount - 1).GetComponent<Image>().sprite = GameAssets.Instance.GetBodyPartByName(defeatedArms.option2);
     }
 
 }

@@ -24,12 +24,14 @@ public class GameManager : MonoBehaviour
     private List<int> initiative;
     public static event EventHandler OnPlayerTurn;
     public static event EventHandler OnEnemyTurn;
+    public static event EventHandler OnUpdateTurnOrder;
     private bool actionChosen = false;
 
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
     public List<GameObject> BattleParticipants { get => battleParticipants; set => battleParticipants = value; }
+    public List<int> TurnOrder { get => turnOrder; set => turnOrder = value; }
 
     private void Awake()
     {
@@ -66,7 +68,7 @@ public class GameManager : MonoBehaviour
         battleParticipantsSpeed = battleParticipants.Select(p => p.GetComponent<CreatureData>().MaximumSpeed).ToList();
         initiative = Enumerable.Repeat(0, battleParticipantsSpeed.Count).ToList();
         turnOrder = TurnManager.StartBattleTurns(battleParticipantsSpeed, initiative);
-
+        OnUpdateTurnOrder?.Invoke(this, EventArgs.Empty);
         NextTurn(true);
     }
 
@@ -91,6 +93,7 @@ public class GameManager : MonoBehaviour
         if (!firstTurn)
         {
             turnOrder.RemoveAt(0);
+            OnUpdateTurnOrder?.Invoke(this, EventArgs.Empty);
         }
         if (turnOrder.Count == 0)
         {
@@ -111,7 +114,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("PLAYER TURN...");
         actionChosen = false;
-        OnPlayerTurn?.Invoke(this, new EventArgs());
+        OnPlayerTurn?.Invoke(this, EventArgs.Empty);
         while (!actionChosen)
         {
             yield return null;
@@ -128,7 +131,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator EnemyTurn()
     {
         Debug.Log("ENEMY TURN..");
-        OnEnemyTurn?.Invoke(this, new EventArgs());
+        OnEnemyTurn?.Invoke(this, EventArgs.Empty);
         yield return new WaitForSeconds(1);
         NextTurn();
     }

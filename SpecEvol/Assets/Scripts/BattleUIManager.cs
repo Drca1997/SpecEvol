@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 public class BattleUIManager : MonoBehaviour
@@ -11,10 +12,16 @@ public class BattleUIManager : MonoBehaviour
     private GameObject actionButtonPrefab;
     [SerializeField]
     private Transform scrollViewContent;
+    [SerializeField]
+    private Transform turnOrder;
 
     public static event EventHandler OnActionChosen;
 
-
+    private void Awake()
+    {
+        GameManager.OnUpdateTurnOrder += SetTurnOrder;
+        
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +67,22 @@ public class BattleUIManager : MonoBehaviour
 
     private void OnActionChosenClick()
     {
-        OnActionChosen?.Invoke(this, new EventArgs());
+        OnActionChosen?.Invoke(this, EventArgs.Empty);
     }
 
+    private void SetTurnOrder(object sender, EventArgs e)
+    {
+        for(int i = 0; i < turnOrder.childCount; i++)
+        {
+            Assert.IsTrue(GameManager.Instance.TurnOrder.Count >= 10);
+            if (GameManager.Instance.TurnOrder[i] == 0)
+            {
+                turnOrder.GetChild(i).GetComponent<Image>().sprite = GameAssets.Instance.CreaturesIcons[0];
+            }
+            else if (GameManager.Instance.TurnOrder[i] == 1)
+            {
+                turnOrder.GetChild(i).GetComponent<Image>().sprite = GameAssets.Instance.CreaturesIcons[1];
+            }
+        }
+    }
 }

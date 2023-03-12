@@ -7,11 +7,16 @@ public class GameAssets : MonoBehaviour
     private static GameAssets _instance;
     public static GameAssets Instance { get { return _instance; } }
 
+
     [SerializeField]
     private Sprite[] bodyShapeSprites;
 
     [SerializeField]
     private Sprite[] bodyPartSprites;
+
+    [SerializeField]
+    private Sprite [] creaturesIcons;
+    public Sprite[] CreaturesIcons { get => creaturesIcons;  }
 
     private Dictionary<string, Sprite> bodyPartSpritesDict;
 

@@ -2974,6 +2974,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameAssets
       objectReference: {fileID: 0}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: creaturesIcons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: creaturesIcons.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 4f3836c034c143243af7587e744e1056, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: creaturesIcons.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 022131849fb319a4dae78e51b67bcf18, type: 3}
     - target: {fileID: 6532729389065541271, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
       propertyPath: m_RootOrder
       value: 4

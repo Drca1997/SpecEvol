@@ -16,6 +16,13 @@ public class LuckyDice : BodyPart
 
     public override void Execute(GameObject owner, GameObject enemy)
     {
-        owner.GetComponent<CreatureData>().CurrentLuck += damage;
+        if (ShouldExecute())
+        {
+            owner.GetComponent<CreatureData>().CurrentLuck += damage;
+        }
+        else
+        {
+            Debug.Log("LUCKY DICE MISS");
+        }
     }
 }

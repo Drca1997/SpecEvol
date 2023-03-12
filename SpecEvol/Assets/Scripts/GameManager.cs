@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour
         if (turnOrder.Count == 0)
         {
             turnOrder = TurnManager.CalculateMoreTurns(battleParticipantsSpeed, initiative);
+            OnUpdateTurnOrder?.Invoke(this, EventArgs.Empty);
         }
         battleState = CalculateBattleState();
         if (battleState == BattleState.PLAYER_TURN)
@@ -119,6 +120,15 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
 
+        }
+        CreatureData creatureData = PlayerManager.Instance.PlayerGameObject.GetComponent<CreatureData>();
+        if (creatureData.SlowedDown > 0)
+        {
+            creatureData.SlowedDown--;
+            if (creatureData.SlowedDown == 0)
+            {
+                creatureData.CurrentSpeed = creatureData.MaximumSpeed; //full recovery ou só amount que perdeu?
+            }
         }
         NextTurn();
     }
@@ -180,5 +190,17 @@ public class GameManager : MonoBehaviour
             }
             defeatedArms.option2 = differentBodyPartsNames[option2Index];
         }
+    }
+
+    public void RecalculateTurnOrder()
+    {
+        battleParticipantsSpeed.Clear();
+        initiative.Clear();
+        turnOrder.Clear();
+        battleParticipantsSpeed = battleParticipants.Select(p => p.GetComponent<CreatureData>().CurrentSpeed).ToList();
+        initiative = Enumerable.Repeat(0, battleParticipantsSpeed.Count).ToList();
+        turnOrder = TurnManager.StartBattleTurns(battleParticipantsSpeed, initiative);
+        OnUpdateTurnOrder?.Invoke(this, EventArgs.Empty);
+        return;
     }
 }

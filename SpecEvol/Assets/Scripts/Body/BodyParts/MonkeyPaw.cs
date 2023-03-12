@@ -16,6 +16,13 @@ public class MonkeyPaw : BodyPart
 
     public override void Execute(GameObject owner, GameObject enemy)
     {
-        enemy.GetComponent<CreatureData>().CurrentLuck -= damage;
+        if (ShouldExecute())
+        {
+            enemy.GetComponent<CreatureData>().CurrentLuck -= damage;
+        }
+        else
+        {
+            Debug.Log("JYNX MISS");
+        }
     }
 }

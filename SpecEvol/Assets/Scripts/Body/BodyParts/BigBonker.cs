@@ -19,8 +19,16 @@ public class BigBonker : BodyPart
 
     public override void Execute(GameObject owner, GameObject enemy)
     {
-        enemy.GetComponent<HealthSystem>().ChangeHealth(- (damage + damageStack));
-        damageStack += damage;
-        //to do: reset damage stack when failed. it is not here tho
+        if (ShouldExecute())
+        {
+            enemy.GetComponent<HealthSystem>().ChangeHealth(- (damage + damageStack));
+            damageStack += damage;
+            Debug.Log("BIG BONKER SUCCESS");
+        }
+        else
+        {
+            damageStack = 0;
+            Debug.Log("BIG BONKER MISS");
+        }
     }
 }

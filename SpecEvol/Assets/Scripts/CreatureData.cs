@@ -14,6 +14,8 @@ public class CreatureData : MonoBehaviour
 
     private List<BodyShape> bodyShapes;
 
+    private int slowedDown = 0;
+
     public string CreatureName { get => creatureName; set => creatureName = value; }
     public int MaximumHealth { get => maximumHealth; set => maximumHealth = value; }
     public int MaximumSpeed { get => maximumSpeed; set => maximumSpeed = value; }
@@ -21,6 +23,7 @@ public class CreatureData : MonoBehaviour
     public int CurrentLuck { get => currentLuck; set => currentLuck = value; }
     public int CurrentSpeed { get => currentSpeed; set => currentSpeed = value; }
     public List<BodyShape> BodyShapes { get => bodyShapes; set => bodyShapes = value; }
+    public int SlowedDown { get => slowedDown; set => slowedDown = value; }
 
     private void Start()
     {

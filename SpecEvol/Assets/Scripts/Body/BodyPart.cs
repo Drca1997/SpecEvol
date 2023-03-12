@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Enums;
+using Random = UnityEngine.Random;
 
 [Serializable]
 public abstract class BodyPart
@@ -19,5 +20,15 @@ public abstract class BodyPart
     public string ActionName { get => actionName; }
 
     public abstract void Execute(GameObject owner, GameObject enemy);
+
+    protected bool ShouldExecute()
+    {
+        int res = Random.Range(0, 100);
+        if (res <= accuracy)
+        {
+            return true;
+        }
+        return false;
+    }
     
 }

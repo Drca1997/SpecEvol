@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TentacleGrab : BodyPart
 {
-
     public TentacleGrab()
     {
         name = "TentacleGrab";
@@ -17,10 +16,17 @@ public class TentacleGrab : BodyPart
 
     public override void Execute(GameObject owner, GameObject enemy)
     {
-        //enemy.GetComponent<CreatureData>().CurrentLuck = damage;
-        //Add Slowed Down Status
-        //enemy.GetComponent<CreatureData>().StatusEffects.Add(Enums.S);
-        //RecalculateTurnOrder 
+        if (ShouldExecute())
+        {
+            enemy.GetComponent<CreatureData>().CurrentSpeed -= damage;
+            //Add Slowed Down Status
+            enemy.GetComponent<CreatureData>().SlowedDown = 3;
+            //RecalculateTurnOrder 
+            GameManager.Instance.RecalculateTurnOrder();
+        }
+        else
+        {
+            Debug.Log("TENTACLE GRAB MISS");
+        }
     }
-    
 }

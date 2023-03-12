@@ -121,15 +121,7 @@ public class GameManager : MonoBehaviour
             yield return null;
 
         }
-        CreatureData creatureData = PlayerManager.Instance.PlayerGameObject.GetComponent<CreatureData>();
-        if (creatureData.SlowedDown > 0)
-        {
-            creatureData.SlowedDown--;
-            if (creatureData.SlowedDown == 0)
-            {
-                creatureData.CurrentSpeed = creatureData.MaximumSpeed; //full recovery ou só amount que perdeu?
-            }
-        }
+        PlayerManager.Instance.PlayerGameObject.GetComponent<CreatureData>().UpdateStatus();
         NextTurn();
     }
 

@@ -19,7 +19,15 @@ public class SimpleAttack : BodyPart
     {
         if (ShouldExecute())
         {
-            enemy.GetComponent<HealthSystem>().ChangeHealth(-damage);
+            if (owner.GetComponent<CreatureData>().Intimidated > 0)
+            {
+                enemy.GetComponent<HealthSystem>().ChangeHealth((int)Mathf.Floor(-damage * GameDesignConstants.BUFFED_BICEP_POWER));
+
+            }
+            else
+            {
+                enemy.GetComponent<HealthSystem>().ChangeHealth(-damage);
+            }
             Debug.Log("SIMPLE ATTACK");
         }
         else

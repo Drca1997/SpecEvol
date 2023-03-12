@@ -21,7 +21,14 @@ public class BigBonker : BodyPart
     {
         if (ShouldExecute())
         {
-            enemy.GetComponent<HealthSystem>().ChangeHealth(- (damage + damageStack));
+            if (owner.GetComponent<CreatureData>().Intimidated > 0)
+            {
+                enemy.GetComponent<HealthSystem>().ChangeHealth((int)Mathf.Floor(- (damage + damageStack) * GameDesignConstants.BUFFED_BICEP_POWER)); 
+            }
+            else
+            {
+                enemy.GetComponent<HealthSystem>().ChangeHealth(- (damage + damageStack));
+            }
             damageStack += damage;
             Debug.Log("BIG BONKER SUCCESS");
         }

@@ -18,7 +18,14 @@ public class BuffedBicep : BodyPart
 
     public override void Execute(GameObject owner, GameObject enemy)
     {
-        // Add Intimidated Status Effect
+        if (ShouldExecute())
+        {
+            enemy.GetComponent<CreatureData>().Intimidated = 3;
+        }
+        else
+        {
+            Debug.Log("FLEX MISS");
+        }
 
     }
 }

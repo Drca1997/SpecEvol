@@ -15,6 +15,9 @@ public class CreatureData : MonoBehaviour
     private List<BodyShape> bodyShapes;
 
     private int slowedDown = 0;
+    private int intimidated = 0;
+    private int jynxed = 0;
+    private int luckied = 0;
 
     public string CreatureName { get => creatureName; set => creatureName = value; }
     public int MaximumHealth { get => maximumHealth; set => maximumHealth = value; }
@@ -24,6 +27,9 @@ public class CreatureData : MonoBehaviour
     public int CurrentSpeed { get => currentSpeed; set => currentSpeed = value; }
     public List<BodyShape> BodyShapes { get => bodyShapes; set => bodyShapes = value; }
     public int SlowedDown { get => slowedDown; set => slowedDown = value; }
+    public int Intimidated { get => intimidated; set => intimidated = value; }
+    public int Jynxed { get => jynxed; set => jynxed = value; }
+    public int Luckied { get => luckied; set => luckied = value; }
 
     private void Start()
     {
@@ -53,4 +59,35 @@ public class CreatureData : MonoBehaviour
         return bodyParts;
     }
 
+    public void UpdateStatus()
+    {
+        if (slowedDown > 0)
+        {
+            slowedDown--;
+            if (slowedDown == 0)
+            {
+                currentSpeed = maximumSpeed; //full recovery ou só amount que perdeu?
+            }
+        }
+        if (intimidated > 0)
+        {
+            intimidated--;
+        }
+        if (luckied > 0)
+        {
+            luckied--;
+            if (luckied == 0)
+            {
+                currentLuck = maximumLuck;
+            }
+        }
+        if (jynxed > 0)
+        {
+            jynxed--;
+            if (jynxed == 0)
+            {
+                currentLuck = maximumLuck;
+            }
+        }
+    }
 }

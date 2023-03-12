@@ -11,6 +11,8 @@ public class MutationStateManager : MonoBehaviour
     private GameObject gameAssets;
     [SerializeField]
     private Transform placeHolder;
+    [SerializeField]
+    private GameObject playerManagerObject;
     
 
     private Enums.BodyShape initialBodyShape;
@@ -21,9 +23,14 @@ public class MutationStateManager : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(gameAssets);
+        DontDestroyOnLoad(playerManagerObject);
         if (PlayerManager.Instance.PlayerCreature.IsInitialized())
         {
             PlayerManager.Instance.CreatePlayer(placeHolder.transform);
+            if (IsBodyShapeLevelUpTime())
+            {
+
+            }
         }
     }
 
@@ -36,6 +43,8 @@ public class MutationStateManager : MonoBehaviour
     public void OnBodyShapeSelected()
     {
         GameObject newPlayer = CreatureGenerator.Instance.CreateNewPlayerCreature(playerBasePrefab, InitialBodyShape, placeHolder.transform.position);
+        newPlayer.transform.parent = placeHolder.transform;
+        newPlayer.transform.localPosition = CreatureGenerator.Instance.GetCreatureSpawnPosition(newPlayer);
         PlayerManager.Instance.SavePlayerCreature(newPlayer);
     }
 
@@ -43,6 +52,11 @@ public class MutationStateManager : MonoBehaviour
     {
         PlayerManager.Instance.SavePlayerCreature(PlayerManager.Instance.PlayerGameObject);
         SceneManager.LoadScene("BattleScene");
+    }
+
+    private bool IsBodyShapeLevelUpTime()
+    {
+        return false;
     }
 
 }

@@ -14,7 +14,7 @@ public class PoisonousSpike : BodyPart
         damageType = Enums.DamageType.CHEMICAL;
     }
 
-    protected override void Execute(GameObject owner, GameObject enemy)
+    public override void Execute(GameObject owner, GameObject enemy)
     {
         //Add Status Effect of Poison
     }

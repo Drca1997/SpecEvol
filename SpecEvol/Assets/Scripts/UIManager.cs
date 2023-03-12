@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
     private GameObject battleButton;
     [SerializeField]
     private DefeatedArmsSO defeatedArms;
+    [SerializeField]
+    private GameObject playerPlaceHolder;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +42,7 @@ public class UIManager : MonoBehaviour
         Debug.Log("SQUARE");
         initialBodyShapeChoice.SetActive(false);
         battleButton.SetActive(true);
+        playerPlaceHolder.SetActive(true);
         GetComponent<MutationStateManager>().InitialBodyShape = Enums.BodyShape.SQUARE;
         GetComponent<MutationStateManager>().OnBodyShapeSelected();
     }
@@ -47,6 +50,7 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("CIRCLE");
         initialBodyShapeChoice.SetActive(false);
+        playerPlaceHolder.SetActive(true);
         battleButton.SetActive(true);
         GetComponent<MutationStateManager>().InitialBodyShape = Enums.BodyShape.CIRCLE;
         GetComponent<MutationStateManager>().OnBodyShapeSelected();
@@ -56,6 +60,7 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("TRIANGLE");
         initialBodyShapeChoice.SetActive(false);
+        playerPlaceHolder.SetActive(true);
         battleButton.SetActive(true);
         GetComponent<MutationStateManager>().InitialBodyShape = Enums.BodyShape.TRIANGLE;
         GetComponent<MutationStateManager>().OnBodyShapeSelected();
@@ -77,6 +82,7 @@ public class UIManager : MonoBehaviour
 
     public void SetMutationMenuActive()
     {
+        playerPlaceHolder.SetActive(true);
         mutationMenu.SetActive(true);
         Assert.IsTrue(defeatedArms.option1 != null);
         Assert.IsTrue(defeatedArms.option2 != null);

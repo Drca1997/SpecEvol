@@ -30,6 +30,7 @@ public class CreatureData : MonoBehaviour
 
     public void GetBodyShapeRefs()
     {
+        bodyShapes.Clear();
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).GetComponent<BodyShapeData>() != null)

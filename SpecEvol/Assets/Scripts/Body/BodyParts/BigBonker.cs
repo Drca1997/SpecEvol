@@ -17,7 +17,7 @@ public class BigBonker : BodyPart
         damageStack = 0;
     }
 
-    protected override void Execute(GameObject owner, GameObject enemy)
+    public override void Execute(GameObject owner, GameObject enemy)
     {
         enemy.GetComponent<HealthSystem>().ChangeHealth(- (damage + damageStack));
         damageStack += damage;

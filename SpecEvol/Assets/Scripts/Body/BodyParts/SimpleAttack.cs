@@ -15,7 +15,7 @@ public class SimpleAttack : BodyPart
         affectedStat = Enums.AffectedStat.HEALTH;
     }
 
-    protected override void Execute(GameObject owner, GameObject enemy)
+    public override void Execute(GameObject owner, GameObject enemy)
     {
         enemy.GetComponent<HealthSystem>().ChangeHealth(-damage); 
     }

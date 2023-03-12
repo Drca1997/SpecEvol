@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Enums;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,14 +15,20 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Transform enemyBattleStationPosition;
     [SerializeField]
-    private DefeatedArmsSO defeatedArms;
+    private DefeatedArmsSO defeatedArms; 
+    [SerializeField]
+    private LevelSO levelSO;
     private List<GameObject> battleParticipants; //ex: 0 -> Player, 1 - Enemy
     private List<int> turnOrder; // elementos indicam qual participante é: battleParticipants[i]
     private List<int> battleParticipantsSpeed;
     private List<int> initiative;
+    public static event EventHandler OnPlayerTurn;
+    public static event EventHandler OnEnemyTurn;
 
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
+
+    public List<GameObject> BattleParticipants { get => battleParticipants; set => battleParticipants = value; }
 
     private void Awake()
     {
@@ -100,6 +108,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator PlayerTurn()
     {
         Debug.Log("PLAYER TURN...");
+        OnPlayerTurn?.Invoke(this, new EventArgs());
         yield return new WaitForSeconds(1);
         battleParticipants[1].GetComponent<HealthSystem>().ChangeHealth(-20);
         NextTurn();
@@ -108,6 +117,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator EnemyTurn()
     {
         Debug.Log("ENEMY TURN..");
+        OnEnemyTurn?.Invoke(this, new EventArgs());
         yield return new WaitForSeconds(1);
         NextTurn();
     }
@@ -121,6 +131,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("VICTORY");
         GetRandomBodyPartChoicesFromFallenEnemy();
+        levelSO.level += 1;
         SceneManager.LoadScene("MutationScene");
     }
 

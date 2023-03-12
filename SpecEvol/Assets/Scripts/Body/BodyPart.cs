@@ -16,7 +16,8 @@ public abstract class BodyPart
     protected DamageType damageType;
 
     public string Name { get => name; }
+    public string ActionName { get => actionName; }
 
-    protected abstract void Execute(GameObject owner, GameObject enemy);
+    public abstract void Execute(GameObject owner, GameObject enemy);
     
 }

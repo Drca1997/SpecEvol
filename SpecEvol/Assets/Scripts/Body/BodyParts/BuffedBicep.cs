@@ -16,7 +16,7 @@ public class BuffedBicep : BodyPart
         attackReduceAmount = GameDesignConstants.BUFFED_BICEP_POWER;
     }
 
-    protected override void Execute(GameObject owner, GameObject enemy)
+    public override void Execute(GameObject owner, GameObject enemy)
     {
         // Add Intimidated Status Effect
 

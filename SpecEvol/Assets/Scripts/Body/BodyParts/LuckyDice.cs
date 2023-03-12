@@ -14,7 +14,7 @@ public class LuckyDice : BodyPart
         damageType = Enums.DamageType.NONE;
     }
 
-    protected override void Execute(GameObject owner, GameObject enemy)
+    public override void Execute(GameObject owner, GameObject enemy)
     {
         owner.GetComponent<CreatureData>().CurrentLuck += damage;
     }

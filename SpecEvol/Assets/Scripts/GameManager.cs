@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
 
     private void SetupBattle()
     {
+        initiative = new List<int>();
         battleState = BattleState.START;
         battleParticipants = new List<GameObject>();    
         battleParticipants.Add(PlayerManager.Instance.PlayerGameObject);
@@ -95,7 +96,7 @@ public class GameManager : MonoBehaviour
             turnOrder.RemoveAt(0);
             OnUpdateTurnOrder?.Invoke(this, EventArgs.Empty);
         }
-        if (turnOrder.Count == 0)
+        if (turnOrder.Count <= 10)
         {
             turnOrder = TurnManager.CalculateMoreTurns(battleParticipantsSpeed, initiative);
             OnUpdateTurnOrder?.Invoke(this, EventArgs.Empty);

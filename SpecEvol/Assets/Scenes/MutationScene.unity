@@ -541,6 +541,7 @@ MonoBehaviour:
   gameAssets: {fileID: 278819313}
   placeHolder: {fileID: 123226319}
   playerManagerObject: {fileID: 1564672027}
+  levelSO: {fileID: 11400000, guid: a950c76e688256948837cb3ab1e9522e, type: 2}
 --- !u!114 &245720308
 MonoBehaviour:
   m_ObjectHideFlags: 0

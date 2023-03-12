@@ -74,7 +74,6 @@ public class BattleUIManager : MonoBehaviour
     {
         for(int i = 0; i < turnOrder.childCount; i++)
         {
-            Assert.IsTrue(GameManager.Instance.TurnOrder.Count >= 10);
             if (GameManager.Instance.TurnOrder[i] == 0)
             {
                 turnOrder.GetChild(i).GetComponent<Image>().sprite = GameAssets.Instance.CreaturesIcons[0];

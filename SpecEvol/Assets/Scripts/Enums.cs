@@ -32,6 +32,7 @@ public class Enums
     {
         SQUARE,
         CIRCLE,
-        TRIANGLE
+        TRIANGLE,
+        UNDEFINED
     }
 }

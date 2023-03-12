@@ -13,11 +13,13 @@ public class MutationStateManager : MonoBehaviour
     private Transform placeHolder;
     [SerializeField]
     private GameObject playerManagerObject;
+    [SerializeField]
+    private LevelSO levelSO;
     
 
-    private Enums.BodyShape initialBodyShape;
+    private Enums.BodyShape choosenBodyShape;
 
-    public Enums.BodyShape InitialBodyShape { get => initialBodyShape; set => initialBodyShape = value; }
+    public Enums.BodyShape ChoosenBodyShape { get => choosenBodyShape; set => choosenBodyShape = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -42,10 +44,31 @@ public class MutationStateManager : MonoBehaviour
 
     public void OnBodyShapeSelected()
     {
-        GameObject newPlayer = CreatureGenerator.Instance.CreateNewPlayerCreature(playerBasePrefab, InitialBodyShape, placeHolder.transform.position);
-        newPlayer.transform.parent = placeHolder.transform;
-        newPlayer.transform.localPosition = CreatureGenerator.Instance.GetCreatureSpawnPosition(newPlayer);
-        PlayerManager.Instance.SavePlayerCreature(newPlayer);
+        if (levelSO.level <= 0) 
+        {
+            GameObject newPlayer = CreatureGenerator.Instance.CreateNewPlayerCreature(playerBasePrefab, ChoosenBodyShape, placeHolder.transform.position);
+            newPlayer.transform.parent = placeHolder.transform;
+            newPlayer.transform.localPosition = CreatureGenerator.Instance.GetCreatureSpawnPosition(newPlayer);
+            PlayerManager.Instance.SavePlayerCreature(newPlayer);
+        }
+        else
+        {
+            switch (choosenBodyShape)
+            {
+                case Enums.BodyShape.SQUARE:
+                    PlayerManager.Instance.UpdatePlayerShape("SquareBodyShape");
+                    break;
+                case Enums.BodyShape.CIRCLE:
+                    PlayerManager.Instance.UpdatePlayerShape("CircleBodyShape");
+                    break;
+                case Enums.BodyShape.TRIANGLE:
+                    PlayerManager.Instance.UpdatePlayerShape("TriangleBodyShape");
+                    break;
+                default:
+                    break;
+            }
+            choosenBodyShape = Enums.BodyShape.UNDEFINED;
+        }
     }
 
     public void OnNextBattleButton()
@@ -56,6 +79,10 @@ public class MutationStateManager : MonoBehaviour
 
     private bool IsBodyShapeLevelUpTime()
     {
+        if (levelSO.level % 3 == 0)
+        {
+            return true;
+        }
         return false;
     }
 

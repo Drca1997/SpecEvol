@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
         initialBodyShapeChoice.SetActive(false);
         battleButton.SetActive(true);
         playerPlaceHolder.SetActive(true);
-        GetComponent<MutationStateManager>().InitialBodyShape = Enums.BodyShape.SQUARE;
+        GetComponent<MutationStateManager>().ChoosenBodyShape = Enums.BodyShape.SQUARE;
         GetComponent<MutationStateManager>().OnBodyShapeSelected();
     }
     public void OnCircleSelect()
@@ -52,7 +52,7 @@ public class UIManager : MonoBehaviour
         initialBodyShapeChoice.SetActive(false);
         playerPlaceHolder.SetActive(true);
         battleButton.SetActive(true);
-        GetComponent<MutationStateManager>().InitialBodyShape = Enums.BodyShape.CIRCLE;
+        GetComponent<MutationStateManager>().ChoosenBodyShape = Enums.BodyShape.CIRCLE;
         GetComponent<MutationStateManager>().OnBodyShapeSelected();
     }
 
@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
         initialBodyShapeChoice.SetActive(false);
         playerPlaceHolder.SetActive(true);
         battleButton.SetActive(true);
-        GetComponent<MutationStateManager>().InitialBodyShape = Enums.BodyShape.TRIANGLE;
+        GetComponent<MutationStateManager>().ChoosenBodyShape = Enums.BodyShape.TRIANGLE;
         GetComponent<MutationStateManager>().OnBodyShapeSelected();
     }
 

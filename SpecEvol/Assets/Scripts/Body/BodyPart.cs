@@ -23,7 +23,8 @@ public abstract class BodyPart
 
     protected bool ShouldExecute()
     {
-        int res = Random.Range(0, 100);
+        int num = Random.Range(0, 100);
+        float res = (float)num / 100;
         if (res <= accuracy)
         {
             return true;

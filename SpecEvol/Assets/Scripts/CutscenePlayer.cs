@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CutscenePlayer : MonoBehaviour
@@ -31,6 +32,7 @@ public class CutscenePlayer : MonoBehaviour
             scriptParts[i - 1].gameObject.SetActive(false);
             scriptParts[i].gameObject.SetActive(true);
         }
+        SceneManager.LoadScene("MutationScene");
 
     }
 }

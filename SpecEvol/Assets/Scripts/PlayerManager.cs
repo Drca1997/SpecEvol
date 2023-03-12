@@ -71,6 +71,14 @@ public class PlayerManager : MonoBehaviour
         CreatePlayer(battleStation);
     }
 
+    public void UpdatePlayerShape(string newShapeName)
+    {
+        playerCreature.encodedBodyShapes.Add(newShapeName);
+        Transform battleStation = playerGameObject.transform.parent;
+        Destroy(playerGameObject);
+        CreatePlayer(battleStation);
+    }
+
     
 
 }

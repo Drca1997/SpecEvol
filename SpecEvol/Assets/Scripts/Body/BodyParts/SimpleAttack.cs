@@ -17,6 +17,7 @@ public class SimpleAttack : BodyPart
 
     public override void Execute(GameObject owner, GameObject enemy)
     {
-        enemy.GetComponent<HealthSystem>().ChangeHealth(-damage); 
+        enemy.GetComponent<HealthSystem>().ChangeHealth(-damage);
+        Debug.Log("SIMPLE ATTACK");
     }
 }

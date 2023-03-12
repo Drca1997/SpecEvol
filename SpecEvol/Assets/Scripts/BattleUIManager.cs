@@ -12,6 +12,8 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField]
     private Transform scrollViewContent;
 
+    public static event EventHandler OnActionChosen;
+
 
 
     // Start is called before the first frame update
@@ -37,6 +39,7 @@ public class BattleUIManager : MonoBehaviour
             newButton.transform.parent = scrollViewContent;
             newButton.GetComponentInChildren<TextMeshProUGUI>().SetText(bodyPart.ActionName);
             newButton.GetComponent<Button>().onClick.AddListener(() => bodyPart.Execute(PlayerManager.Instance.PlayerGameObject, GameManager.Instance.BattleParticipants[1]));
+            newButton.GetComponent<Button>().onClick.AddListener(OnActionChosenClick);
         }
     }
 
@@ -54,4 +57,10 @@ public class BattleUIManager : MonoBehaviour
     {
         scrollViewContent.gameObject.SetActive(toggleValue);
     }
+
+    private void OnActionChosenClick()
+    {
+        OnActionChosen?.Invoke(this, new EventArgs());
+    }
+
 }

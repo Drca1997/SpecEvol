@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     private List<int> initiative;
     public static event EventHandler OnPlayerTurn;
     public static event EventHandler OnEnemyTurn;
+    private bool actionChosen = false;
 
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         PlayerManager.Instance.CreatePlayer(playerBattleStationPosition);
+        BattleUIManager.OnActionChosen += OnActionChosen;
         SetupBattle();
     }
 
@@ -108,10 +110,19 @@ public class GameManager : MonoBehaviour
     private IEnumerator PlayerTurn()
     {
         Debug.Log("PLAYER TURN...");
+        actionChosen = false;
         OnPlayerTurn?.Invoke(this, new EventArgs());
-        yield return new WaitForSeconds(1);
-        battleParticipants[1].GetComponent<HealthSystem>().ChangeHealth(-20);
+        while (!actionChosen)
+        {
+            yield return null;
+
+        }
         NextTurn();
+    }
+
+    private void OnActionChosen(object sender, EventArgs e)
+    {
+        actionChosen = true;
     }
 
     private IEnumerator EnemyTurn()

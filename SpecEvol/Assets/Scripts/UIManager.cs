@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Build.Content;
@@ -21,6 +22,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MutationStateManager.OnBodyShapeLevelUp += OnBodyShapeLevelUp;
         if (!PlayerManager.Instance.PlayerCreature.IsInitialized()) 
         {
             initialBodyShapeChoice.SetActive(true);
@@ -35,6 +37,13 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnBodyShapeLevelUp(object sender, EventArgs e)
+    {
+        initialBodyShapeChoice.SetActive(true);
+        mutationMenu.SetActive(false);
+        playerPlaceHolder.SetActive(false);
     }
 
     public void OnSquareSelect()
@@ -65,6 +74,7 @@ public class UIManager : MonoBehaviour
         GetComponent<MutationStateManager>().ChoosenBodyShape = Enums.BodyShape.TRIANGLE;
         GetComponent<MutationStateManager>().OnBodyShapeSelected();
     }
+
 
     public void OnBodyPart1()
     {

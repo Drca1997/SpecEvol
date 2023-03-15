@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class TentacleGrab : BodyPart
 {
+    private int slowDownPower;
     public TentacleGrab()
     {
         name = "TentacleGrab";
         actionName = "Grab";
-        affectedStat = Enums.AffectedStat.SPEED;
         accuracy = GameDesignConstants.TENTACLE_GRAB_ACCURACY;
-        damage = GameDesignConstants.TENTACLE_GRAB_POWER;
-        damageType = Enums.DamageType.NONE;
+        damage = GameDesignConstants.TENTACLE_GRAB_DAMAGE;
+        slowDownPower = GameDesignConstants.TENTACLE_GRAB_POWER;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)
     {
-        if (ShouldExecute())
+        GetAttackModifiers(owner);
+        if (ShouldExecute(attackLuckModifier))
         {
-            enemy.GetComponent<CreatureData>().CurrentSpeed -= damage;
+            enemy.GetComponent<HealthSystem>().ChangeHealth(-totalAttackDamage);
+            enemy.GetComponent<CreatureData>().CurrentSpeed -= slowDownPower;
             //Add Slowed Down Status
             enemy.GetComponent<CreatureData>().SlowedDown = 3;
             //RecalculateTurnOrder 

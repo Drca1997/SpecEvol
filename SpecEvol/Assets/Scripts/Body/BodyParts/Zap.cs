@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoisonousSpike : BodyPart
+public class Zap : BodyPart
 {
-    public PoisonousSpike()
+    public Zap()
     {
-        name = "PoisonousSpike";
-        actionName = "Poison";
-        accuracy = GameDesignConstants.POISONOUS_SPIKE_ACCURACY;
-        damage = GameDesignConstants.POISONOUS_SPIKE_DAMAGE;
+        name = "Zap";
+        actionName = "Zap";
+        accuracy = GameDesignConstants.ZAP_ACCURACY;
+        damage = GameDesignConstants.ZAP_DAMAGE;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)
@@ -18,11 +18,11 @@ public class PoisonousSpike : BodyPart
         if (ShouldExecute(attackLuckModifier))
         {
             enemy.GetComponent<HealthSystem>().ChangeHealth(-totalAttackDamage);
-            //TO DO Check if Poison
+            //TO DO: make enemy skip a turn
         }
         else
         {
-            Debug.Log("POISONOUS SPIKE FAIL");
+            Debug.Log("ZAP MISS");
         }
     }
 }

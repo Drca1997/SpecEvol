@@ -44,13 +44,13 @@ public class PlayerManager : MonoBehaviour
         CreatureData playerCreatureData = playerGameObject.AddComponent<CreatureData>();
         playerCreatureData.MaximumHealth = playerCreature.maximumHealth;
         playerCreatureData.MaximumSpeed = playerCreature.maximumSpeed;
-        playerCreatureData.MaximumLuck = playerCreature.maximumLuck;
         playerCreatureData.BodyShapes = CreatureGenerator.Instance.BodyMorphologyDecoding(playerCreature.bodyMorphology, playerCreature.encodedBodyShapes);
         
         CreatureGenerator.Instance.InstantiateCreatureBody(PlayerGameObject, playerCreatureData);
         
         playerCreatureData.GetBodyShapeRefs();
         playerGameObject.transform.localPosition = CreatureGenerator.Instance.GetCreatureSpawnPosition(playerGameObject);
+        playerCreatureData.CalculateStats();
     }
 
     public void SavePlayerCreature(GameObject player)
@@ -58,7 +58,6 @@ public class PlayerManager : MonoBehaviour
         CreatureData creatureData = player.GetComponent<CreatureData>();
         playerCreature.maximumHealth = creatureData.MaximumHealth;
         playerCreature.maximumSpeed = creatureData.MaximumSpeed;
-        playerCreature.maximumLuck = creatureData.MaximumLuck;
         playerCreature.bodyMorphology = CreatureGenerator.Instance.BodyMorphologyEncoding(creatureData.BodyShapes, out List<string> encodedShapes);
         PlayerCreature.encodedBodyShapes = encodedShapes;
     }
@@ -77,6 +76,12 @@ public class PlayerManager : MonoBehaviour
         Transform battleStation = playerGameObject.transform.parent;
         Destroy(playerGameObject);
         CreatePlayer(battleStation);
+        UpdatePlayerStats();
+    }
+
+    private void UpdatePlayerStats()
+    {
+
     }
 
     

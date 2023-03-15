@@ -414,7 +414,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Circles are natural and healthier. They offer more health than the other
+  m_text: Circles are resilient and healthier. They offer more health than the other
     body shapes.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -873,7 +873,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &880136367
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1712,7 +1712,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fe95990946f63f6458afef98a7a343f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f20717b52e062ea49a6d784ae13699a8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1787,7 +1787,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: da42e88310b3bd34bb0089d28d21d2b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b847dfceb34499a458fe75a001584ef5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1940,7 +1940,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Squares are strong and robust. Body parts attached to a circle deal more
+  m_text: 'Squares are strong and robust. Body parts attached to a square deal more
     damage than on other body shapes. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2075,7 +2075,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0454518e31d19d442a98877bb097ce25, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89e7dfc3258ca5741a85c088f5e4ae18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2839,7 +2839,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.53727305, g: 0.9245283, b: 0.9167832, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2987,6 +2987,30 @@ PrefabInstance:
       propertyPath: creaturesIcons.Array.data[1]
       value: 
       objectReference: {fileID: 21300000, guid: 022131849fb319a4dae78e51b67bcf18, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyPartSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: d7b3efac3fafc2a4c83a0932990d9ed1, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyPartSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 352b8df6a88c92140922172b99d82af2, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyPartSprites.Array.data[6]
+      value: 
+      objectReference: {fileID: 21300000, guid: b76c2caa046e91c44a45585ca055e283, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyShapeSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: f20717b52e062ea49a6d784ae13699a8, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyShapeSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 89e7dfc3258ca5741a85c088f5e4ae18, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyShapeSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: b847dfceb34499a458fe75a001584ef5, type: 3}
     - target: {fileID: 6532729389065541271, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
       propertyPath: m_RootOrder
       value: 4

@@ -37,4 +37,9 @@ public class HealthSystem : MonoBehaviour
             }
         }
     }
+
+    public void UpdateMaximumHealth(int health)
+    {
+        currentHealth = health;
+    }
 }

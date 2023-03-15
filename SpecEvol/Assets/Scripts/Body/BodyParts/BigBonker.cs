@@ -10,26 +10,18 @@ public class BigBonker : BodyPart
     {
         name = "BigBonker";
         actionName = "Big Bonk";
-        accuracy = 0.25f;
-        affectedStat = Enums.AffectedStat.HEALTH;
+        accuracy = GameDesignConstants.BIG_BONKER_ACCURACY;
         damage = GameDesignConstants.BIG_BONKER_BASE_DAMAGE;
-        damageType = Enums.DamageType.BONK;
         damageStack = 0;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)
     {
-        if (ShouldExecute())
+        GetAttackModifiers(owner);
+        if (ShouldExecute(attackLuckModifier))
         {
-            if (owner.GetComponent<CreatureData>().Intimidated > 0)
-            {
-                enemy.GetComponent<HealthSystem>().ChangeHealth((int)Mathf.Floor(- (damage + damageStack) * GameDesignConstants.BUFFED_BICEP_POWER)); 
-            }
-            else
-            {
-                enemy.GetComponent<HealthSystem>().ChangeHealth(- (damage + damageStack));
-            }
-            damageStack += damage;
+            enemy.GetComponent<HealthSystem>().ChangeHealth(- totalAttackDamage - damageStack);
+            damageStack += totalAttackDamage;
             Debug.Log("BIG BONKER SUCCESS");
         }
         else

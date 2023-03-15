@@ -8,17 +8,16 @@ public class LuckyDice : BodyPart
     {
         name = "LuckyDice";
         actionName = "Get Lucky";
-        affectedStat = Enums.AffectedStat.LUCK;
         accuracy = GameDesignConstants.LUCKY_DICE_ACCURACY;
         damage = GameDesignConstants.LUCKY_DICE_POWER;
-        damageType = Enums.DamageType.NONE;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)
     {
-        if (ShouldExecute())
+        GetAttackModifiers(owner);
+        if (ShouldExecute(attackLuckModifier))
         {
-            owner.GetComponent<CreatureData>().CurrentLuck += damage;
+            owner.GetComponent<CreatureData>().Luckied = 3;
         }
         else
         {

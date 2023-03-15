@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
 
     private List<GameObject> InstantiateBattleParticipants()
     {
-        List<GameObject> spawnedEnemies = CreatureGenerator.Instance.InstantiateEnemies(1);
+        List<GameObject> spawnedEnemies = CreatureGenerator.Instance.InstantiateEnemies(1, levelSO.level);
         foreach(GameObject enemy in spawnedEnemies)
         {
             enemy.transform.parent = enemyBattleStationPosition;
@@ -148,6 +148,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("VICTORY");
         GetRandomBodyPartChoicesFromFallenEnemy();
+        PlayerManager.Instance.PlayerGameObject.GetComponent<CreatureData>().ResetBodyPartsStatus();
         levelSO.level += 1;
         SceneManager.LoadScene("MutationScene");
     }

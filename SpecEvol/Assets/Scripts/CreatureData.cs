@@ -8,8 +8,6 @@ public class CreatureData : MonoBehaviour
     private string creatureName;
     private int maximumHealth;
     private int maximumSpeed;
-    private int maximumLuck;
-    private int currentLuck;
     private int currentSpeed;
 
     private List<BodyShape> bodyShapes;
@@ -22,8 +20,6 @@ public class CreatureData : MonoBehaviour
     public string CreatureName { get => creatureName; set => creatureName = value; }
     public int MaximumHealth { get => maximumHealth; set => maximumHealth = value; }
     public int MaximumSpeed { get => maximumSpeed; set => maximumSpeed = value; }
-    public int MaximumLuck { get => maximumLuck; set => maximumLuck = value; }
-    public int CurrentLuck { get => currentLuck; set => currentLuck = value; }
     public int CurrentSpeed { get => currentSpeed; set => currentSpeed = value; }
     public List<BodyShape> BodyShapes { get => bodyShapes; set => bodyShapes = value; }
     public int SlowedDown { get => slowedDown; set => slowedDown = value; }
@@ -33,7 +29,6 @@ public class CreatureData : MonoBehaviour
 
     private void Start()
     {
-        currentLuck = maximumHealth;
         currentSpeed = maximumSpeed;
     }
 
@@ -78,7 +73,7 @@ public class CreatureData : MonoBehaviour
             luckied--;
             if (luckied == 0)
             {
-                currentLuck = maximumLuck;
+                //currentLuck = maximumLuck;
             }
         }
         if (jynxed > 0)
@@ -86,8 +81,106 @@ public class CreatureData : MonoBehaviour
             jynxed--;
             if (jynxed == 0)
             {
-                currentLuck = maximumLuck;
+                //currentLuck = maximumLuck;
             }
         }
+    }
+
+    public void UpdateBodyPartsActiveStatus()
+    {
+        foreach (BodyShape shape in bodyShapes)
+        {
+            foreach (BodyPart part in shape.AttachedBodyParts)
+            {
+                if (part.OnFire > 0)
+                {
+                    part.OnFire--;
+                }
+            }
+        }
+    }
+
+    public void ResetBodyPartsStatus()
+    {
+        foreach (BodyShape shape in bodyShapes)
+        {
+            foreach (BodyPart part in shape.AttachedBodyParts)
+            {
+                if (part.CutOff)
+                {
+                    part.CutOff = false;
+                }
+                if (part.OnFire > 0)
+                {
+                    part.OnFire = 0;
+                }
+            }
+        }
+    }
+
+    public void CalculateStats()
+    {
+        maximumHealth = 0;
+        maximumSpeed = 0;
+        foreach(BodyShape shape in bodyShapes)
+        {
+            if (shape is CircleBodyShape)
+            {
+                MaximumHealth += 33;
+                MaximumSpeed += 25;
+            }   
+            else if(shape is TriangleBodyShape)
+            {
+                MaximumHealth += 25;
+                MaximumSpeed += 33;
+            }
+            else
+            {
+                MaximumHealth += 25;
+                MaximumSpeed += 25;
+            }
+        }
+        currentSpeed = MaximumSpeed;
+        GetComponent<HealthSystem>().UpdateMaximumHealth(maximumHealth);
+    }
+
+    public int GetSquareDamageBonus()
+    {
+        int damageBonus = 0;
+        foreach(BodyShape shape in bodyShapes)
+        {
+            if (shape is SquareBodyShape)
+            {
+                damageBonus += 2;
+            }
+        }
+        return damageBonus;
+    }
+
+    public int GetLuckModifier()
+    {
+        int modifier = 0;
+        if (luckied > 0)
+        {
+            modifier += GameDesignConstants.LUCKY_DICE_POWER;
+        }
+        else if(jynxed > 0)
+        {
+            modifier -= GameDesignConstants.MONKEY_PAW_POWER;
+        }
+        return modifier;
+    }
+
+    public BodyPart GetRandomBodyPart()
+    {
+        List<BodyPart> allParts = new List<BodyPart>();
+        foreach (BodyShape shape in bodyShapes)
+        {
+            foreach(BodyPart part in shape.AttachedBodyParts)
+            {
+                allParts.Add(part);
+            }
+        }
+        return allParts[Random.Range(0, allParts.Count)];
     }
 }

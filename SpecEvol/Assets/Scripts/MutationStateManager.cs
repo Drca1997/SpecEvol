@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,8 +16,8 @@ public class MutationStateManager : MonoBehaviour
     private GameObject playerManagerObject;
     [SerializeField]
     private LevelSO levelSO;
-    
 
+    public static event EventHandler OnBodyShapeLevelUp;
     private Enums.BodyShape choosenBodyShape;
 
     public Enums.BodyShape ChoosenBodyShape { get => choosenBodyShape; set => choosenBodyShape = value; }
@@ -31,7 +32,7 @@ public class MutationStateManager : MonoBehaviour
             PlayerManager.Instance.CreatePlayer(placeHolder.transform);
             if (IsBodyShapeLevelUpTime())
             {
-
+                OnBodyShapeLevelUp?.Invoke(this, EventArgs.Empty);
             }
         }
     }

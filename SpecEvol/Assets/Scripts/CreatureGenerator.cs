@@ -34,15 +34,58 @@ public class CreatureGenerator : MonoBehaviour
         
     }
 
-    public List<GameObject> InstantiateEnemies(int numEnemies)
+    public List<GameObject> InstantiateEnemies(int numEnemies, int currentLevel)
     {
         List<GameObject> enemies = new List<GameObject>();
         for(int i = 0; i < numEnemies; i++)
         {
-            enemies.Add(CreateRandomCreature());
+            enemies.Add(CreateCreatureAccordingtToDifficulty(currentLevel));
         }
         
         return enemies;
+    }
+
+    private GameObject CreateCreatureAccordingtToDifficulty(int currentLevel)
+    {
+        GameObject enemy = new GameObject("Enemy");
+        CreatureData creatureData = enemy.AddComponent<CreatureData>();
+        //creatureData.MaximumHealth = Random.Range(50, 150);
+        //creatureData.MaximumSpeed = Random.Range(10, 90);
+        //creatureData.MaximumLuck = Random.Range(10, 90);
+        List<string> encodedShapes = new List<string>();
+        List<string> encodedMorphology = new List<string>();
+        int numShapes;
+        if (currentLevel < 3)
+        {
+            numShapes = 1;
+        }
+        else if(currentLevel < 6)
+        {
+            numShapes = 2;
+        }
+        else if(currentLevel < 9)
+        {
+            numShapes = 3;
+        }
+        else
+        {
+            numShapes = 4;
+        }
+        for (int i = 0; i < numShapes; i++)
+        {
+            encodedShapes.Add(GameDesignConstants.ALL_SHAPES_LIST[Random.Range(0, 3)]);
+        }
+        for (int i = 0; i < encodedShapes.Count; i++)
+        {
+            encodedMorphology.Add(GameDesignConstants.ALL_BODY_PARTS_LIST[Random.Range(0, GameDesignConstants.ALL_BODY_PARTS_LIST.Length)]);
+            encodedMorphology.Add(GameDesignConstants.ALL_BODY_PARTS_LIST[Random.Range(0, GameDesignConstants.ALL_BODY_PARTS_LIST.Length)]);
+        }
+        creatureData.BodyShapes = BodyMorphologyDecoding(encodedMorphology, encodedShapes);
+        InstantiateCreatureBody(enemy, creatureData);
+        creatureData.GetBodyShapeRefs();
+        creatureData.CalculateStats();
+        enemy.AddComponent<HealthSystem>();
+        return enemy;
     }
 
     public GameObject CreateRandomCreature()
@@ -51,9 +94,7 @@ public class CreatureGenerator : MonoBehaviour
         CreatureData creatureData = enemy.AddComponent<CreatureData>();
         creatureData.MaximumHealth = Random.Range(50, 150);
         creatureData.MaximumSpeed = Random.Range(10, 90);
-        creatureData.MaximumLuck = Random.Range(10, 90);
 
-        //TO DO: Same Method but Generating BodyParts and Shapes according to difficulty
         int num_shapes = Random.Range(1, 4);
         List<string> encodedShapes = new List<string>();
         List<string> encodedMorphology = new List<string>();
@@ -78,9 +119,6 @@ public class CreatureGenerator : MonoBehaviour
     {
         GameObject newPlayerCreature = Instantiate(playerBasePrefab, spawnPosition, Quaternion.Euler(0, 0, 0), null);
         CreatureData playerCreatureData = newPlayerCreature.AddComponent<CreatureData>();
-        playerCreatureData.MaximumHealth = GameDesignConstants.STARTING_PLAYER_HEALTH;
-        playerCreatureData.MaximumSpeed = GameDesignConstants.STARTING_PLAYER_SPEED;
-        playerCreatureData.MaximumLuck = GameDesignConstants.STARTING_PLAYER_LUCK;
         playerCreatureData.BodyShapes = new List<BodyShape>();
         switch (initialBodyShape)
         {
@@ -100,6 +138,8 @@ public class CreatureGenerator : MonoBehaviour
         playerCreatureData.BodyShapes[0].AttachedBodyParts.Add(new SimpleAttack());
         InstantiateCreatureBody(newPlayerCreature, playerCreatureData);
         PlayerManager.Instance.PlayerGameObject = newPlayerCreature;
+        playerCreatureData.CalculateStats();
+
         return newPlayerCreature;
     }
 
@@ -126,11 +166,15 @@ public class CreatureGenerator : MonoBehaviour
             {
                 //Instantiate body part
                 GameObject bodyPartObj = new GameObject(bodyPart.ToString());
-                bodyPartObj.transform.parent = GetNextFreeBodyPartHolder(shapeobj.transform);
+                bodyPartObj.transform.parent = GetNextFreeBodyPartHolder(shapeobj.transform, out bool isLeft);
                 bodyPartObj.transform.localPosition = Vector3.zero;
                 SpriteRenderer bodyPartSpriteRenderer = bodyPartObj.AddComponent<SpriteRenderer>();
                 bodyPartSpriteRenderer.sprite = GameAssets.Instance.GetBodyPartByName(bodyPart.Name);
                 bodyPartSpriteRenderer.sortingOrder = 1;
+                if (isLeft)
+                {
+                    bodyPartObj.transform.rotation = Quaternion.Euler(0, 180, 0);
+                }
                 BodyPartData bodyPartData = bodyPartObj.AddComponent<BodyPartData>();
                 bodyPartData.BodyPart = bodyPart;
             }
@@ -166,16 +210,19 @@ public class CreatureGenerator : MonoBehaviour
         return shapeobj;
     }
 
-    private Transform GetNextFreeBodyPartHolder(Transform parent)
+    private Transform GetNextFreeBodyPartHolder(Transform parent, out bool isLeft)
     {
         if (parent.GetChild(0).childCount == 0)
         {
+            isLeft = true;
             return parent.GetChild(0);
         }
         else if (parent.GetChild(1).childCount == 0)
         {
+            isLeft = false;
             return parent.GetChild(1);
         }
+        isLeft = false;
         return null;
     }
 

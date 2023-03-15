@@ -11,23 +11,14 @@ public class SimpleAttack : BodyPart
         actionName = "Attack";
         accuracy = GameDesignConstants.SIMPLE_ATTACK_ACCURACY;
         damage = GameDesignConstants.SIMPLE_ATTACK_DAMAGE;
-        damageType = Enums.DamageType.SLASHING;
-        affectedStat = Enums.AffectedStat.HEALTH;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)
     {
-        if (ShouldExecute())
+        GetAttackModifiers(owner);
+        if (ShouldExecute(attackLuckModifier))
         {
-            if (owner.GetComponent<CreatureData>().Intimidated > 0)
-            {
-                enemy.GetComponent<HealthSystem>().ChangeHealth((int)Mathf.Floor(-damage * GameDesignConstants.BUFFED_BICEP_POWER));
-
-            }
-            else
-            {
-                enemy.GetComponent<HealthSystem>().ChangeHealth(-damage);
-            }
+            enemy.GetComponent<HealthSystem>().ChangeHealth(-totalAttackDamage);
             Debug.Log("SIMPLE ATTACK");
         }
         else

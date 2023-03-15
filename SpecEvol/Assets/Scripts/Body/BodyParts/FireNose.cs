@@ -25,4 +25,3 @@ public class FireNose : BodyPart
         }
     }
 }
-}

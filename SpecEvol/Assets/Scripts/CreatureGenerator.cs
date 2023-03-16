@@ -83,8 +83,8 @@ public class CreatureGenerator : MonoBehaviour
         creatureData.BodyShapes = BodyMorphologyDecoding(encodedMorphology, encodedShapes);
         InstantiateCreatureBody(enemy, creatureData);
         creatureData.GetBodyShapeRefs();
-        creatureData.CalculateStats();
         enemy.AddComponent<HealthSystem>();
+        creatureData.CalculateStats();
         return enemy;
     }
 
@@ -187,7 +187,7 @@ public class CreatureGenerator : MonoBehaviour
         GameObject shapeobj = new GameObject(name);
         shapeobj.transform.parent = creatureObject.transform;
         SpriteRenderer spriteRenderer = shapeobj.AddComponent<SpriteRenderer>();
-        spriteRenderer.sprite = GameAssets.Instance.GetBodyShapeSpriteByName(name);
+        spriteRenderer.sprite = GameAssets.Instance.GetBodyShapeSpriteByName(name, creatureObject.transform.childCount - 1);
         spriteRenderer.sortingOrder = 0;
         if (creatureObject.transform.childCount <= 1)
         {
@@ -210,7 +210,7 @@ public class CreatureGenerator : MonoBehaviour
         return shapeobj;
     }
 
-    private Transform GetNextFreeBodyPartHolder(Transform parent, out bool isLeft)
+    public Transform GetNextFreeBodyPartHolder(Transform parent, out bool isLeft)
     {
         if (parent.GetChild(0).childCount == 0)
         {

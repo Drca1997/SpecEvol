@@ -20,7 +20,6 @@ public class BattleUIManager : MonoBehaviour
     private void Awake()
     {
         GameManager.OnUpdateTurnOrder += SetTurnOrder;
-        
     }
 
     // Start is called before the first frame update
@@ -62,7 +61,10 @@ public class BattleUIManager : MonoBehaviour
 
     private void ToggleScrollView(bool toggleValue)
     {
-        scrollViewContent.gameObject.SetActive(toggleValue);
+        if (scrollViewContent != null)
+        {
+            scrollViewContent.gameObject.SetActive(toggleValue);
+        }
     }
 
     private void OnActionChosenClick()
@@ -72,15 +74,19 @@ public class BattleUIManager : MonoBehaviour
 
     private void SetTurnOrder(object sender, EventArgs e)
     {
-        for(int i = 0; i < turnOrder.childCount; i++)
+        if(turnOrder != null)
         {
-            if (GameManager.Instance.TurnOrder[i] == 0)
+
+            for(int i = 0; i < turnOrder.childCount; i++)
             {
-                turnOrder.GetChild(i).GetComponent<Image>().sprite = GameAssets.Instance.CreaturesIcons[0];
-            }
-            else if (GameManager.Instance.TurnOrder[i] == 1)
-            {
-                turnOrder.GetChild(i).GetComponent<Image>().sprite = GameAssets.Instance.CreaturesIcons[1];
+                if (GameManager.Instance.TurnOrder[i] == 0)
+                {
+                    turnOrder.GetChild(i).GetComponent<Image>().sprite = GameAssets.Instance.CreaturesIcons[0];
+                }
+                else if (GameManager.Instance.TurnOrder[i] == 1)
+                {
+                    turnOrder.GetChild(i).GetComponent<Image>().sprite = GameAssets.Instance.CreaturesIcons[1];
+                }
             }
         }
     }

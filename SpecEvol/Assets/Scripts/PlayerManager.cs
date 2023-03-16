@@ -50,6 +50,7 @@ public class PlayerManager : MonoBehaviour
         
         playerCreatureData.GetBodyShapeRefs();
         playerGameObject.transform.localPosition = CreatureGenerator.Instance.GetCreatureSpawnPosition(playerGameObject);
+        playerGameObject.AddComponent<HealthSystem>();
         playerCreatureData.CalculateStats();
     }
 
@@ -64,7 +65,16 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdatePlayerMorphology(string newPartName)
     {
-        playerCreature.bodyMorphology.Add(newPartName);
+        if (HasFreeSlotEncoding())
+        {
+            playerCreature.bodyMorphology.Add(newPartName);
+        }
+        else
+        {
+            int replacedPartIndex = Random.Range(0, playerCreature.bodyMorphology.Count);
+            playerCreature.bodyMorphology.RemoveAt(replacedPartIndex);
+            playerCreature.bodyMorphology.Insert(replacedPartIndex, newPartName); 
+        }
         Transform battleStation = playerGameObject.transform.parent;
         Destroy(playerGameObject);
         CreatePlayer(battleStation);
@@ -82,6 +92,24 @@ public class PlayerManager : MonoBehaviour
     private void UpdatePlayerStats()
     {
 
+    }
+
+    public bool HasFreeSlot()
+    {
+        foreach(BodyShape shape in playerGameObject.GetComponent<CreatureData>().BodyShapes)
+        {
+            if (shape.AttachedBodyParts.Count < 2)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool HasFreeSlotEncoding()
+    {
+        int numShapes = playerCreature.encodedBodyShapes.Count;
+        return playerCreature.bodyMorphology.Count == numShapes * 2 ? false : true;
     }
 
     

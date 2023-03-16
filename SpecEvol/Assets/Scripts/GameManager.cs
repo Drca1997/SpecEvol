@@ -56,7 +56,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        #if DEBUG
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            BattleVictory();
+        }
+        #endif
     }
 
     private void SetupBattle()

@@ -9,7 +9,14 @@ public class GameAssets : MonoBehaviour
 
 
     [SerializeField]
-    private Sprite[] bodyShapeSprites;
+    private Sprite[] squareBodyShapeSprites;
+    [SerializeField]
+    private Sprite[] circleBodyShapeSprites;
+    [SerializeField]
+    private Sprite[] triangleBodyShapeSprites;
+
+    [SerializeField]
+    private Sprite legsSprite;
 
     [SerializeField]
     private Sprite[] bodyPartSprites;
@@ -43,20 +50,20 @@ public class GameAssets : MonoBehaviour
         }
     }
 
-    public Sprite GetBodyShapeSpriteByName(string bodyShapeName)
+    public Sprite GetBodyShapeSpriteByName(string bodyShapeName, int index)
     {
         Sprite sprite = null;
         if (bodyShapeName.Equals("SquareBodyShape"))
         {
-            sprite = bodyShapeSprites[0];
+            sprite = squareBodyShapeSprites[index];
         }
         else if (bodyShapeName.Equals("CircleBodyShape"))
         {
-            sprite = bodyShapeSprites[1];
+            sprite = circleBodyShapeSprites[index];
         }
         else if (bodyShapeName.Equals("TriangleBodyShape"))
         {
-            sprite = bodyShapeSprites[2];
+            sprite = triangleBodyShapeSprites[index];
         }
         return sprite;
     }

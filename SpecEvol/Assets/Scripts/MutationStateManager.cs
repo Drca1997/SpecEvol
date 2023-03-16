@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MutationStateManager : MonoBehaviour
 {
@@ -16,8 +18,19 @@ public class MutationStateManager : MonoBehaviour
     private GameObject playerManagerObject;
     [SerializeField]
     private LevelSO levelSO;
+    [SerializeField]
+    private GameObject initialBodyShapeChoice;
+    [SerializeField]
+    private GameObject mutationMenu;
+    [SerializeField]
+    private GameObject keepCurrentMenu;
+    [SerializeField]
+    private GameObject battleButton;
+    [SerializeField]
+    private DefeatedArmsSO defeatedArms;
+    [SerializeField]
+    private GameObject playerPlaceHolder;
 
-    public static event EventHandler OnBodyShapeLevelUp;
     private Enums.BodyShape choosenBodyShape;
 
     public Enums.BodyShape ChoosenBodyShape { get => choosenBodyShape; set => choosenBodyShape = value; }
@@ -30,10 +43,16 @@ public class MutationStateManager : MonoBehaviour
         if (PlayerManager.Instance.PlayerCreature.IsInitialized())
         {
             PlayerManager.Instance.CreatePlayer(placeHolder.transform);
+            SetMutationMenuActive();
             if (IsBodyShapeLevelUpTime())
             {
-                OnBodyShapeLevelUp?.Invoke(this, EventArgs.Empty);
+                OnBodyShapeLevelUp();
+                
             }
+        }
+        else
+        {
+            initialBodyShapeChoice.SetActive(true);
         }
     }
 
@@ -41,6 +60,13 @@ public class MutationStateManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnBodyShapeLevelUp()
+    {
+        initialBodyShapeChoice.SetActive(true);
+        mutationMenu.SetActive(false);
+        playerPlaceHolder.SetActive(false);
     }
 
     public void OnBodyShapeSelected()
@@ -86,5 +112,72 @@ public class MutationStateManager : MonoBehaviour
         }
         return false;
     }
+
+    public void OnSquareSelect()
+    {
+        Debug.Log("SQUARE");
+        initialBodyShapeChoice.SetActive(false);
+        battleButton.SetActive(true);
+        playerPlaceHolder.SetActive(true);
+        GetComponent<MutationStateManager>().ChoosenBodyShape = Enums.BodyShape.SQUARE;
+        GetComponent<MutationStateManager>().OnBodyShapeSelected();
+    }
+    public void OnCircleSelect()
+    {
+        Debug.Log("CIRCLE");
+        initialBodyShapeChoice.SetActive(false);
+        playerPlaceHolder.SetActive(true);
+        battleButton.SetActive(true);
+        GetComponent<MutationStateManager>().ChoosenBodyShape = Enums.BodyShape.CIRCLE;
+        GetComponent<MutationStateManager>().OnBodyShapeSelected();
+    }
+
+    public void OnTriangleSelect()
+    {
+        Debug.Log("TRIANGLE");
+        initialBodyShapeChoice.SetActive(false);
+        playerPlaceHolder.SetActive(true);
+        battleButton.SetActive(true);
+        GetComponent<MutationStateManager>().ChoosenBodyShape = Enums.BodyShape.TRIANGLE;
+        GetComponent<MutationStateManager>().OnBodyShapeSelected();
+    }
+
+
+    public void OnBodyPart1()
+    {
+        battleButton.SetActive(true);
+        mutationMenu.SetActive(false);
+        PlayerManager.Instance.UpdatePlayerMorphology(mutationMenu.transform.GetChild(0).GetComponent<Image>().sprite.name);
+    }
+
+    public void OnBodyPart2()
+    {
+        battleButton.SetActive(true);
+        mutationMenu.SetActive(false);
+        PlayerManager.Instance.UpdatePlayerMorphology(mutationMenu.transform.GetChild(1).GetComponent<Image>().sprite.name);
+    }
+
+    public void OnKeepCurrent()
+    {
+        battleButton.SetActive(true);
+        mutationMenu.SetActive(false);
+    }
+
+    public void SetMutationMenuActive()
+    {
+        playerPlaceHolder.SetActive(true);
+        mutationMenu.SetActive(true);
+        
+        if (PlayerManager.Instance.HasFreeSlot())
+        {
+            keepCurrentMenu.SetActive(false);
+        }
+        Assert.IsTrue(defeatedArms.option1 != null);
+        Assert.IsTrue(defeatedArms.option2 != null);
+        mutationMenu.transform.GetChild(0).GetComponent<Image>().sprite = GameAssets.Instance.GetBodyPartByName(defeatedArms.option1);
+        mutationMenu.transform.GetChild(1).GetComponent<Image>().sprite = GameAssets.Instance.GetBodyPartByName(defeatedArms.option2);
+    }
+
+    
 
 }

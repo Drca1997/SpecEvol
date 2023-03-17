@@ -188,6 +188,10 @@ public class CreatureGenerator : MonoBehaviour
         shapeobj.transform.parent = creatureObject.transform;
         SpriteRenderer spriteRenderer = shapeobj.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = GameAssets.Instance.GetBodyShapeSpriteByName(name, creatureObject.transform.childCount - 1);
+        if (creatureObject == PlayerManager.Instance.PlayerGameObject)
+        {
+            shapeobj.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
         spriteRenderer.sortingOrder = 0;
         if (creatureObject.transform.childCount <= 1)
         {
@@ -195,9 +199,9 @@ public class CreatureGenerator : MonoBehaviour
         }
         else
         {
-            Transform lastChild = creatureObject.transform.GetChild(creatureObject.transform.childCount - 1);
-            int offset = creatureObject.transform.childCount - 1;
-            shapeobj.transform.localPosition = new Vector3(0f, -lastChild.GetComponent<Renderer>().bounds.extents.y * 2 * offset, 0f);
+            //Transform lastChild = creatureObject.transform.GetChild(creatureObject.transform.childCount - 1);
+            //int offset = creatureObject.transform.childCount - 1;
+            shapeobj.transform.localPosition = CalculateShapeLocalPosition(creatureObject.transform);//new Vector3(0f, -lastChild.GetComponent<Renderer>().bounds.extents.y * 2 * offset, 0f);
         }
         BodyShapeData bodyShapeData = shapeobj.AddComponent<BodyShapeData>();
         bodyShapeData.BodyShape = shape;
@@ -255,36 +259,32 @@ public class CreatureGenerator : MonoBehaviour
     public List<BodyShape> BodyMorphologyDecoding(List<string> encodedMorphology, List<string> encodedShapes)
     {
         List<BodyShape> decodedBodyMorphology = new List<BodyShape>();
-        List<List<BodyPart>> allBodyParts = new List<List<BodyPart>>();
+        //List<List<BodyPart>> allBodyParts = new List<List<BodyPart>>();
+        List<BodyPart> allBodyParts = new List<BodyPart>();
         for (int i = 0; i < encodedMorphology.Count; i++)
         {
-            if (i % 2 == 0)
-            {
-                List<BodyPart> shapeBodyParts = new List<BodyPart>();
-                allBodyParts.Add(shapeBodyParts);
-            }
             switch (encodedMorphology[i])
             {
                 case "BigBonker":
-                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new BigBonker());
+                    allBodyParts.Add(new BigBonker());
                     break;
                 case "BuffedBicep":
-                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new BuffedBicep());
+                    allBodyParts.Add(new BuffedBicep());
                     break;
                 case "LuckyDice":
-                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new LuckyDice());
+                    allBodyParts.Add(new LuckyDice());
                     break;
                 case "MonkeyPaw":
-                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new MonkeyPaw());
+                    allBodyParts.Add(new MonkeyPaw());
                     break;
                 case "PoisonousSpike":
-                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new PoisonousSpike());
+                    allBodyParts.Add(new PoisonousSpike());
                     break;
                 case "SimpleAttack":
-                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new SimpleAttack());
+                    allBodyParts.Add(new SimpleAttack());
                     break;
                 case "TentacleGrab":
-                    allBodyParts[(int)Mathf.Floor(i / 2)].Add(new TentacleGrab());
+                    allBodyParts.Add(new TentacleGrab());
                     break;
             }
         }
@@ -306,7 +306,16 @@ public class CreatureGenerator : MonoBehaviour
                     decodedBodyShape = new SquareBodyShape();
                     break;
             }
-            decodedBodyShape.AttachedBodyParts = allBodyParts[i];
+            List<BodyPart> attachedBodyParts = new List<BodyPart>();
+            if (i * 2 < allBodyParts.Count)
+            {
+                attachedBodyParts.Add(allBodyParts[i * 2]);
+                if(i * 2 + 1 < allBodyParts.Count)
+                {
+                    attachedBodyParts.Add(allBodyParts[i * 2 + 1]);
+                }    
+            }
+            decodedBodyShape.AttachedBodyParts = attachedBodyParts;
             decodedBodyMorphology.Add(decodedBodyShape);
         }
         return decodedBodyMorphology;
@@ -315,8 +324,8 @@ public class CreatureGenerator : MonoBehaviour
     public Vector3 GetCreatureSpawnPosition(GameObject creature)
     {
         int numChild = creature.transform.childCount;
-        Transform lastChild = creature.transform.GetChild(numChild - 1);
-        Vector3 spawnPosition = new Vector3(0, 0, 0);
+        /*Transform lastChild = creature.transform.GetChild(numChild - 1);
+        Vector3 spawnPosition;
         if (numChild == 1)
         {
             spawnPosition = new Vector3(0f, lastChild.GetComponent<Renderer>().bounds.size.y, 0f);
@@ -325,8 +334,33 @@ public class CreatureGenerator : MonoBehaviour
         {
             spawnPosition = new Vector3(0f, lastChild.GetComponent<Renderer>().bounds.size.y * (numChild * 2), 0f);
 
+        }*/
+        float totalHeight = 0;
+        for(int i = 0; i < numChild; i++)
+        {
+            totalHeight += creature.transform.GetChild(i).GetComponent<Renderer>().bounds.size.y * creature.transform.GetChild(i).localScale.y;
         }
-        return spawnPosition;
+
+        return new Vector3(0f, totalHeight - creature.transform.GetChild(0).localScale.y, 0f);
+    }
+
+    private Vector3 CalculateShapeLocalPosition(Transform parent)
+    {
+        float totalHeight = 0;
+        if (parent.childCount == 2)
+        {
+
+            totalHeight = parent.GetChild(1).GetComponent<Renderer>().bounds.size.y + parent.GetChild(1).localScale.y;
+            totalHeight -= 0.2f;
+        }
+        else
+        {
+            for (int i = 1; i < parent.childCount; i++)
+            {
+                totalHeight += parent.GetChild(i).GetComponent<Renderer>().bounds.size.y + parent.GetChild(i).localScale.y;
+            }
+        }
+        return new Vector3(0f, -totalHeight, 0f);
     }
 
 }

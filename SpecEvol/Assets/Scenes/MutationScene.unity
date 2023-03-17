@@ -677,6 +677,7 @@ MonoBehaviour:
   initialBodyShapeChoice: {fileID: 800895892}
   mutationMenu: {fileID: 880136366}
   keepCurrentMenu: {fileID: 506944688}
+  replaceLabel: {fileID: 2007260381}
   battleButton: {fileID: 1234601815}
   defeatedArms: {fileID: 11400000, guid: 4217ff86eb18f4949abc15b8c08ebbcd, type: 2}
   playerPlaceHolder: {fileID: 123226317}

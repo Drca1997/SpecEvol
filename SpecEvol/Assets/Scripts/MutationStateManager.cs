@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -24,6 +25,8 @@ public class MutationStateManager : MonoBehaviour
     private GameObject mutationMenu;
     [SerializeField]
     private GameObject keepCurrentMenu;
+    [SerializeField]
+    private TextMeshProUGUI replaceLabel;
     [SerializeField]
     private GameObject battleButton;
     [SerializeField]
@@ -77,6 +80,7 @@ public class MutationStateManager : MonoBehaviour
             newPlayer.transform.parent = placeHolder.transform;
             newPlayer.transform.localPosition = CreatureGenerator.Instance.GetCreatureSpawnPosition(newPlayer);
             PlayerManager.Instance.SavePlayerCreature(newPlayer);
+            battleButton.SetActive(true);
         }
         else
         {
@@ -95,6 +99,7 @@ public class MutationStateManager : MonoBehaviour
                     break;
             }
             choosenBodyShape = Enums.BodyShape.UNDEFINED;
+            SetMutationMenuActive();
         }
     }
 
@@ -117,19 +122,18 @@ public class MutationStateManager : MonoBehaviour
     {
         Debug.Log("SQUARE");
         initialBodyShapeChoice.SetActive(false);
-        battleButton.SetActive(true);
         playerPlaceHolder.SetActive(true);
-        GetComponent<MutationStateManager>().ChoosenBodyShape = Enums.BodyShape.SQUARE;
-        GetComponent<MutationStateManager>().OnBodyShapeSelected();
+        ChoosenBodyShape = Enums.BodyShape.SQUARE;
+        OnBodyShapeSelected();
     }
     public void OnCircleSelect()
     {
         Debug.Log("CIRCLE");
         initialBodyShapeChoice.SetActive(false);
         playerPlaceHolder.SetActive(true);
-        battleButton.SetActive(true);
-        GetComponent<MutationStateManager>().ChoosenBodyShape = Enums.BodyShape.CIRCLE;
-        GetComponent<MutationStateManager>().OnBodyShapeSelected();
+        
+        ChoosenBodyShape = Enums.BodyShape.CIRCLE;
+        OnBodyShapeSelected();
     }
 
     public void OnTriangleSelect()
@@ -137,9 +141,8 @@ public class MutationStateManager : MonoBehaviour
         Debug.Log("TRIANGLE");
         initialBodyShapeChoice.SetActive(false);
         playerPlaceHolder.SetActive(true);
-        battleButton.SetActive(true);
-        GetComponent<MutationStateManager>().ChoosenBodyShape = Enums.BodyShape.TRIANGLE;
-        GetComponent<MutationStateManager>().OnBodyShapeSelected();
+        ChoosenBodyShape = Enums.BodyShape.TRIANGLE;
+        OnBodyShapeSelected();
     }
 
 
@@ -171,6 +174,7 @@ public class MutationStateManager : MonoBehaviour
         if (PlayerManager.Instance.HasFreeSlot())
         {
             keepCurrentMenu.SetActive(false);
+            replaceLabel.SetText("Choose New Body Part:");
         }
         Assert.IsTrue(defeatedArms.option1 != null);
         Assert.IsTrue(defeatedArms.option2 != null);

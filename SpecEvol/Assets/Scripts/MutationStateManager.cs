@@ -71,11 +71,7 @@ public class MutationStateManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     private void OnBodyShapeLevelUp()
     {

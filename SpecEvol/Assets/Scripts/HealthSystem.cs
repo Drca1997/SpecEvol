@@ -35,6 +35,7 @@ public class HealthSystem : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + changeAmount, 0, int.MaxValue);
         AudioManager.instance.Play("DamageDone");
         OnHealthChanged?.Invoke(this, new OnHealthChangedArgs {gameObject = gameObject });
+        DamagePopup.Create(gameObject.transform.position + new Vector3(2, 0, 0), changeAmount);
         if (currentHealth <= 0)
         {
             //Calls Death Method/Script

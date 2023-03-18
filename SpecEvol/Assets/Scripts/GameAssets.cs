@@ -23,7 +23,11 @@ public class GameAssets : MonoBehaviour
 
     [SerializeField]
     private Sprite [] creaturesIcons;
+
+    [SerializeField]
+    private GameObject damagePopupPrefab;
     public Sprite[] CreaturesIcons { get => creaturesIcons;  }
+    public GameObject DamagePopupPrefab { get => damagePopupPrefab; set => damagePopupPrefab = value; }
 
     private Dictionary<string, Sprite> bodyPartSpritesDict;
 

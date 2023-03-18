@@ -20,7 +20,16 @@ public class DecisionMaking : MonoBehaviour
 
     public void GetAction()
     {
-        int action = Random.Range(0, allBodyParts.Count);
+        bool valid = false;
+        int action;
+        while (!valid)
+        {
+            action = Random.Range(0, allBodyParts.Count);
+            if (!allBodyParts[action].CutOff)
+            {
+                valid = true;
+            }
+        }
         allBodyParts[action].Execute(gameObject, PlayerManager.Instance.PlayerGameObject);
     }
 }

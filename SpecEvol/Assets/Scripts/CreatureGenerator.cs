@@ -77,6 +77,7 @@ public class CreatureGenerator : MonoBehaviour
             encodedMorphology.Add(GameDesignConstants.ALL_BODY_PARTS_LIST[GetRandomUniqueBodyPartIndex(encodedMorphology)]);
             encodedMorphology.Add(GameDesignConstants.ALL_BODY_PARTS_LIST[GetRandomUniqueBodyPartIndex(encodedMorphology)]);
         }
+        CheckIfAtLeastOneDamageDealerArm(encodedMorphology);
         creatureData.BodyShapes = BodyMorphologyDecoding(encodedMorphology, encodedShapes);
         InstantiateCreatureBody(enemy, creatureData);
         creatureData.GetBodyShapeRefs();
@@ -84,6 +85,25 @@ public class CreatureGenerator : MonoBehaviour
         creatureData.CalculateStats();
         enemy.AddComponent<DecisionMaking>();
         return enemy;
+    }
+
+
+    private void CheckIfAtLeastOneDamageDealerArm(List<string> encodedMorphology)
+    {
+        bool val = false;
+        foreach (string part in encodedMorphology)
+        {
+            if (!(part.Equals("BuffedBicep") || part.Equals("LuckyDice") || part.Equals("MonkeyPaw") || part.Equals("Sword")))
+            {
+                val = true;
+                break;
+            } 
+                    
+        }
+        if (!val)
+        {
+            encodedMorphology[encodedMorphology.Count - 1] = "SimpleAttack";
+        }
     }
 
     private int GetRandomUniqueBodyPartIndex(List<string> bodyParts)
@@ -271,7 +291,6 @@ public class CreatureGenerator : MonoBehaviour
     public List<BodyShape> BodyMorphologyDecoding(List<string> encodedMorphology, List<string> encodedShapes)
     {
         List<BodyShape> decodedBodyMorphology = new List<BodyShape>();
-        //List<List<BodyPart>> allBodyParts = new List<List<BodyPart>>();
         List<BodyPart> allBodyParts = new List<BodyPart>();
         for (int i = 0; i < encodedMorphology.Count; i++)
         {
@@ -282,6 +301,9 @@ public class CreatureGenerator : MonoBehaviour
                     break;
                 case "BuffedBicep":
                     allBodyParts.Add(new BuffedBicep());
+                    break;
+                case "FireNose":
+                    allBodyParts.Add(new FireNose());
                     break;
                 case "LuckyDice":
                     allBodyParts.Add(new LuckyDice());
@@ -295,8 +317,14 @@ public class CreatureGenerator : MonoBehaviour
                 case "SimpleAttack":
                     allBodyParts.Add(new SimpleAttack());
                     break;
+                case "Sword":
+                    allBodyParts.Add(new Sword());
+                    break;
                 case "TentacleGrab":
                     allBodyParts.Add(new TentacleGrab());
+                    break;
+                case "Zap":
+                    allBodyParts.Add(new Zap());
                     break;
             }
         }

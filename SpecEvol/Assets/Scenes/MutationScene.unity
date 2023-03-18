@@ -4661,6 +4661,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyPartSprites.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
       propertyPath: creaturesIcons.Array.data[0]
       value: 
       objectReference: {fileID: 21300000, guid: 4f3836c034c143243af7587e744e1056, type: 3}
@@ -4669,17 +4673,45 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 022131849fb319a4dae78e51b67bcf18, type: 3}
     - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyPartSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: f375e2cb361591c4882586a51b14bc78, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
       propertyPath: bodyPartSprites.Array.data[1]
       value: 
       objectReference: {fileID: 21300000, guid: d7b3efac3fafc2a4c83a0932990d9ed1, type: 3}
     - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyPartSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: f912a2a7f7de5c047a53f3a8d5509a7e, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyPartSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 76ee862ce39483b4796f602eaab66f2b, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyPartSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: 9ad67246a73229e42a7050acefbc1c14, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
       propertyPath: bodyPartSprites.Array.data[5]
       value: 
-      objectReference: {fileID: 21300000, guid: 352b8df6a88c92140922172b99d82af2, type: 3}
+      objectReference: {fileID: 21300000, guid: f02cb1801db2aa24a8cebe2592c186e4, type: 3}
     - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
       propertyPath: bodyPartSprites.Array.data[6]
       value: 
+      objectReference: {fileID: 21300000, guid: 352b8df6a88c92140922172b99d82af2, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyPartSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300000, guid: 3130983f60d5a794b86a52f2ee515f54, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyPartSprites.Array.data[8]
+      value: 
       objectReference: {fileID: 21300000, guid: b76c2caa046e91c44a45585ca055e283, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: bodyPartSprites.Array.data[9]
+      value: 
+      objectReference: {fileID: 21300000, guid: 83cdbfef0bb33554c9c971ecb9d0d3b0, type: 3}
     - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
       propertyPath: bodyShapeSprites.Array.data[0]
       value: 

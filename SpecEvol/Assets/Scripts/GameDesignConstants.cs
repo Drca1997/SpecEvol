@@ -18,7 +18,7 @@ public static class GameDesignConstants
     public const float POISONOUS_SPIKE_POISON_ACCURACY = 0.5f;
     public const int   POISONOUS_SPIKE_POISON_DAMAGE = 4;
     public const float FIRE_NOSE_ACCURACY = 0.5f;
-    public const int FIRE_NOSE_ON_FIRE_DAMAGE = 10;
+    public const int   FIRE_NOSE_ON_FIRE_DAMAGE = 10;
     public const float LUCKY_DICE_ACCURACY = 0.5f;
     public const int   LUCKY_DICE_POWER = 25;
     public const float MONKEY_PAW_ACCURACY = 0.5f;
@@ -31,6 +31,7 @@ public static class GameDesignConstants
 
 
     public static string [] ALL_SHAPES_LIST = new string[] {"SquareBodyShape", "CircleBodyShape", "TriangleBodyShape"};
-    public static string [] ALL_BODY_PARTS_LIST = new string[] {"BigBonker", "BuffedBicep", "LuckyDice", "MonkeyPaw", "PoisonousSpike", "SimpleAttack", "TentacleGrab"};
+    public static string [] ALL_BODY_PARTS_LIST = new string[] {"BigBonker", "BuffedBicep", "FireNose", "LuckyDice", "MonkeyPaw", "PoisonousSpike", "SimpleAttack", "Sword", "TentacleGrab", "Zap"};
     
+
 }

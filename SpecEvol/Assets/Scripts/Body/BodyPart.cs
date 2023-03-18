@@ -35,8 +35,12 @@ public abstract class BodyPart
         float res = (float)num / 100;
         if (res <= accuracy)
         {
+            int attackSound = Random.Range(1, 3);
+            AudioManager.instance.Play("Attack" + attackSound.ToString());
             return true;
         }
+        int failedAttackSound = Random.Range(1, 5);
+        AudioManager.instance.Play("FailedAttack" + failedAttackSound.ToString());
         return false;
     }
 

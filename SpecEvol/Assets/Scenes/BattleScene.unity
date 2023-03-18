@@ -159,6 +159,20 @@ MonoBehaviour:
   levelSO: {fileID: 11400000, guid: a950c76e688256948837cb3ab1e9522e, type: 2}
   playerHealthBar: {fileID: 101750798}
   enemyHealthBar: {fileID: 1797518887}
+  battleSoundtrackSource: {fileID: 385946396}
+  battleSoundtracks:
+  - name: Combat1
+    clip: {fileID: 8300000, guid: 4ccd20a93519bfc4cbb17e00d4e0ebde, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Combat2
+    clip: {fileID: 8300000, guid: de3c47e26b533d04c89f493b23d88cd4, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!4 &12492430
 Transform:
   m_ObjectHideFlags: 0
@@ -352,9 +366,8 @@ Transform:
   m_Children:
   - {fileID: 12492430}
   - {fileID: 931545072}
-  - {fileID: 385946395}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &101750796
 PrefabInstance:
@@ -543,7 +556,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &275001205
 GameObject:
@@ -706,7 +719,7 @@ GameObject:
   - component: {fileID: 385946395}
   - component: {fileID: 385946396}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: BattleSoundtrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -723,8 +736,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 59902885}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &385946396
 AudioSource:
@@ -1233,7 +1246,7 @@ Transform:
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &739470342
 SpriteRenderer:
@@ -1484,7 +1497,7 @@ Transform:
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1080674263
 GameObject:
@@ -1873,7 +1886,7 @@ Transform:
   m_Children:
   - {fileID: 1822748105}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1518837393
 MonoBehaviour:

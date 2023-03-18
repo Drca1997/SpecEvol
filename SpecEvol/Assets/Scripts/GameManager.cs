@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
     private GameObject playerHealthBar;
     [SerializeField]
     private GameObject enemyHealthBar;
+    [SerializeField]
+    private AudioSource battleSoundtrackSource;
+    [SerializeField]
+    private Sound[] battleSoundtracks; 
     private List<GameObject> battleParticipants; //ex: 0 -> Player, 1 - Enemy
     private List<int> turnOrder; // elementos indicam qual participante é: battleParticipants[i]
     private List<int> battleParticipantsSpeed;
@@ -54,6 +58,9 @@ public class GameManager : MonoBehaviour
     {
         PlayerManager.Instance.CreatePlayer(playerBattleStationPosition);
         BattleUIManager.OnActionChosen += OnActionChosen;
+        battleSoundtrackSource.clip = battleSoundtracks[Random.Range(0, battleSoundtracks.Length)].clip;
+        battleSoundtrackSource.Play();
+        battleSoundtrackSource.loop = true;
         SetupBattle();
     }
 
@@ -157,11 +164,14 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        int loseSound = Random.Range(1, 4);
+        AudioManager.instance.Play("Lose" + loseSound.ToString());
         Debug.Log("GAME OVER");
     }
 
     public void BattleVictory()
     {
+        AudioManager.instance.Play("Win1");
         Debug.Log("VICTORY");
         GetRandomBodyPartChoicesFromFallenEnemy();
         PlayerManager.Instance.PlayerGameObject.GetComponent<CreatureData>().ResetBodyPartsStatus();

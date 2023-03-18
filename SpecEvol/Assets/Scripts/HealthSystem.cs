@@ -32,6 +32,7 @@ public class HealthSystem : MonoBehaviour
     public void ChangeHealth(int changeAmount)
     {
         currentHealth = Mathf.Clamp(currentHealth + changeAmount, 0, int.MaxValue);
+        AudioManager.instance.Play("DamageDone");
         OnHealthChanged?.Invoke(this, new OnHealthChangedArgs {gameObject = gameObject });
         if (currentHealth <= 0)
         {

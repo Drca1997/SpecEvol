@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class MutationStateManager : MonoBehaviour
 {
@@ -125,6 +126,8 @@ public class MutationStateManager : MonoBehaviour
     {
         if (levelSO.level % 3 == 0)
         {
+            int levelUpSound = Random.Range(1, 3);
+            AudioManager.instance.Play("LevelUp" + levelUpSound.ToString());
             return true;
         }
         return false;
@@ -160,6 +163,7 @@ public class MutationStateManager : MonoBehaviour
 
     public void OnBodyPart1()
     {
+        AudioManager.instance.Play("MenuItemSelect");
         battleButton.SetActive(true);
         mutationMenu.SetActive(false);
         PlayerManager.Instance.UpdatePlayerMorphology(mutationMenu.transform.GetChild(0).GetComponent<Image>().sprite.name);
@@ -167,6 +171,7 @@ public class MutationStateManager : MonoBehaviour
 
     public void OnBodyPart2()
     {
+        AudioManager.instance.Play("MenuItemSelect");
         battleButton.SetActive(true);
         mutationMenu.SetActive(false);
         PlayerManager.Instance.UpdatePlayerMorphology(mutationMenu.transform.GetChild(1).GetComponent<Image>().sprite.name);
@@ -174,6 +179,7 @@ public class MutationStateManager : MonoBehaviour
 
     public void OnKeepCurrent()
     {
+        AudioManager.instance.Play("MenuItemSelect");
         battleButton.SetActive(true);
         mutationMenu.SetActive(false);
     }

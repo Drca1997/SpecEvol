@@ -2280,85 +2280,85 @@ MonoBehaviour:
   - name: DamageDone
     clip: {fileID: 8300000, guid: 4c05c30f6f4861d44901d9dc6f650fd0, type: 3}
     volume: 1
-    pitch: 1.1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Attack1
     clip: {fileID: 8300000, guid: dcf5255b7c7d9074d98da76fb7e74cd5, type: 3}
     volume: 1
-    pitch: 0.98
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Attack2
     clip: {fileID: 8300000, guid: f381b1d9195d61647b3acf910f6ae72c, type: 3}
     volume: 1
-    pitch: 0.91
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: LevelUp1
     clip: {fileID: 8300000, guid: 70a88ab9748ee3b44ad9538e375d954d, type: 3}
     volume: 1
-    pitch: 0.91
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: LevelUp2
     clip: {fileID: 8300000, guid: 6e296f853c9023c43b28a9c12dab2b60, type: 3}
     volume: 1
-    pitch: 0.91
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Win1
     clip: {fileID: 8300000, guid: e16b901160c875045a1ec017fc7501a3, type: 3}
     volume: 1
-    pitch: 0.91
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Lose1
     clip: {fileID: 8300000, guid: 31cb21ac1600b564bace503dbe386f29, type: 3}
     volume: 1
-    pitch: 0.91
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Lose2
     clip: {fileID: 8300000, guid: 71872c36b8d40b24386873c716ec8590, type: 3}
     volume: 1
-    pitch: 0.91
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Lose3
     clip: {fileID: 8300000, guid: 1668b6347cda3dd449df0b13028c1202, type: 3}
     volume: 1
-    pitch: 0.91
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: MenuItemSelect
     clip: {fileID: 8300000, guid: e1394e39d2b138145a643325f113c8ca, type: 3}
     volume: 1
-    pitch: 0.91
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: FailedAttack1
     clip: {fileID: 8300000, guid: b9b30d506445a4445a16d0deebe2ac5f, type: 3}
     volume: 1
-    pitch: 0.91
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: FailedAttack2
     clip: {fileID: 8300000, guid: ea3ebc1339144764f9f871f8bc027370, type: 3}
     volume: 1
-    pitch: 0.91
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: FailedAttack3
     clip: {fileID: 8300000, guid: ac83f854414d74b4ca03ce9feede8e24, type: 3}
     volume: 1
-    pitch: 0.91
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: FailedAttack4
     clip: {fileID: 8300000, guid: 66ec7f58ebf42a94a82e2197d338f53c, type: 3}
     volume: 1
-    pitch: 0.91
+    pitch: 1
     loop: 0
     source: {fileID: 0}
 --- !u!1 &1234601815

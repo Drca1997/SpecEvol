@@ -16,6 +16,7 @@ public class PlayerManager : MonoBehaviour
 
     public PlayerCreatureSO PlayerCreature { get => playerCreature; set => playerCreature = value; }
     public GameObject PlayerGameObject { get => playerGameObject; set => playerGameObject = value; }
+    public GameObject PlayerBasePrefab { get => playerBasePrefab; }
 
     private void Awake()
     {

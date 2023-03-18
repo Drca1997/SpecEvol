@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
 
     private List<GameObject> InstantiateBattleParticipants()
     {
-        List<GameObject> spawnedEnemies = CreatureGenerator.Instance.InstantiateEnemies(1, levelSO.level);
+        List<GameObject> spawnedEnemies = CreatureGenerator.Instance.InstantiateEnemies(1, levelSO.level, enemyBattleStationPosition);
         foreach(GameObject enemy in spawnedEnemies)
         {
             enemy.transform.parent = enemyBattleStationPosition;

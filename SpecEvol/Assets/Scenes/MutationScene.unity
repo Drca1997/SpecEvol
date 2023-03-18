@@ -4665,6 +4665,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: enemyEyesSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
       propertyPath: creaturesIcons.Array.data[0]
       value: 
       objectReference: {fileID: 21300000, guid: 4f3836c034c143243af7587e744e1056, type: 3}
@@ -4672,6 +4676,10 @@ PrefabInstance:
       propertyPath: creaturesIcons.Array.data[1]
       value: 
       objectReference: {fileID: 21300000, guid: 022131849fb319a4dae78e51b67bcf18, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: playerEyesSprites.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
       propertyPath: bodyPartSprites.Array.data[0]
       value: 
@@ -4724,6 +4732,26 @@ PrefabInstance:
       propertyPath: bodyShapeSprites.Array.data[2]
       value: 
       objectReference: {fileID: 21300000, guid: b847dfceb34499a458fe75a001584ef5, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: enemyEyesSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 7f3e6ab323a15da4bbdc8c41c653196f, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: enemyEyesSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 2d56e26651ec743428a3015ff5136c1a, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: playerEyesSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 3b82c07c83d116344afc3969d4274566, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: playerEyesSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: f83c4e833e454b346b9e1bd5f0252e33, type: 3}
+    - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
+      propertyPath: playerEyesSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 538b142254d972b4facb1a9c2ca393fe, type: 3}
     - target: {fileID: 6532729389065541270, guid: 79239544f402ae5488cf33b76be1d3f5, type: 3}
       propertyPath: circleBodyShapeSprites.Array.size
       value: 3

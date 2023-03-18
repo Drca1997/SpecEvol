@@ -21,7 +21,7 @@ public class DecisionMaking : MonoBehaviour
     public void GetAction()
     {
         bool valid = false;
-        int action;
+        int action = 0;
         while (!valid)
         {
             action = Random.Range(0, allBodyParts.Count);

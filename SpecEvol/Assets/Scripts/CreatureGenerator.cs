@@ -34,20 +34,20 @@ public class CreatureGenerator : MonoBehaviour
         
     }
 
-    public List<GameObject> InstantiateEnemies(int numEnemies, int currentLevel)
+    public List<GameObject> InstantiateEnemies(int numEnemies, int currentLevel, Transform enemySpawnPosition)
     {
         List<GameObject> enemies = new List<GameObject>();
         for(int i = 0; i < numEnemies; i++)
         {
-            enemies.Add(CreateCreatureAccordingtToDifficulty(currentLevel));
+            enemies.Add(CreateCreatureAccordingtToDifficulty(currentLevel, enemySpawnPosition));
         }
         
         return enemies;
     }
 
-    private GameObject CreateCreatureAccordingtToDifficulty(int currentLevel)
+    private GameObject CreateCreatureAccordingtToDifficulty(int currentLevel, Transform enemySpawnPosition)
     {
-        GameObject enemy = new GameObject("Enemy");
+        GameObject enemy = Instantiate(PlayerManager.Instance.PlayerBasePrefab, enemySpawnPosition);
         CreatureData creatureData = enemy.AddComponent<CreatureData>();
         List<string> encodedShapes = new List<string>();
         List<string> encodedMorphology = new List<string>();
@@ -211,6 +211,8 @@ public class CreatureGenerator : MonoBehaviour
                 bodyPartData.BodyPart = bodyPart;
             }
         }
+        InstantiateEyes(creatureObject, isPlayer);
+        InstantiateLegs(creatureObject, isPlayer);
     }
 
 
@@ -244,6 +246,36 @@ public class CreatureGenerator : MonoBehaviour
         bodyPartRightHolder.transform.parent = shapeobj.transform;
         bodyPartRightHolder.transform.localPosition = new Vector3(shapeobj.GetComponent<Renderer>().bounds.extents.x, 0f, 0f);
         return shapeobj;
+    }
+
+    private void InstantiateEyes(GameObject creature, bool isPlayer= false)
+    {
+        GameObject eyes = new GameObject("Eyes");
+        eyes.transform.SetParent(creature.transform.GetChild(0).transform);
+        eyes.transform.localPosition = Vector3.zero;
+        SpriteRenderer spriteRenderer = eyes.AddComponent<SpriteRenderer>();
+        if (isPlayer)
+        {
+            spriteRenderer.sprite = GameAssets.Instance.GetPlayerEyesSpriteByName("Normal");
+        }
+        else
+        {
+            spriteRenderer.sprite = GameAssets.Instance.GetEnemyEyesSpriteByName("Normal");
+        }
+    }
+
+    private void InstantiateLegs(GameObject creatureObject, bool isPlayer = false)
+    {
+        GameObject legs = new GameObject("Legs");
+        SpriteRenderer spriteRenderer = legs.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = GameAssets.Instance.LegsSprite;
+        spriteRenderer.sortingOrder = -1;
+        if (isPlayer)
+        {
+            spriteRenderer.flipX = true;
+        }
+        legs.transform.SetParent(creatureObject.transform);
+        legs.transform.localPosition = CalculateShapeLocalPosition(creatureObject.transform);
     }
 
     public Transform GetNextFreeBodyPartHolder(Transform parent, out bool isLeft)
@@ -390,13 +422,13 @@ public class CreatureGenerator : MonoBehaviour
         if (parent.childCount == 2)
         {
             totalHeight = parent.GetChild(1).GetComponent<Renderer>().bounds.size.y * parent.GetChild(1).localScale.y;
-            totalHeight -= 0.2f;
         }
         else
         {
             for (int i = 1; i < parent.childCount; i++)
             {
                 totalHeight += parent.GetChild(i).GetComponent<Renderer>().bounds.size.y * parent.GetChild(i).localScale.y;
+                //totalHeight -= 0.2f;
             }
         }
         return new Vector3(0f, -totalHeight, 0f);

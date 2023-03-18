@@ -26,10 +26,20 @@ public class GameAssets : MonoBehaviour
 
     [SerializeField]
     private GameObject damagePopupPrefab;
+
+    [SerializeField]
+    private Sprite[] playerEyesSprites;
+
+    [SerializeField]
+    private Sprite[] enemyEyesSprites;
+
     public Sprite[] CreaturesIcons { get => creaturesIcons;  }
     public GameObject DamagePopupPrefab { get => damagePopupPrefab; set => damagePopupPrefab = value; }
+    public Sprite LegsSprite { get => legsSprite; }
 
     private Dictionary<string, Sprite> bodyPartSpritesDict;
+    private Dictionary<string, Sprite> playerEyesDict;
+    private Dictionary<string, Sprite> enemyEyesDict;
 
 
     private void Awake()
@@ -47,10 +57,17 @@ public class GameAssets : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bodyPartSpritesDict = new Dictionary<string, Sprite>();
-        foreach(Sprite sprite in bodyPartSprites)
+        BuildAssetsDictionary(ref bodyPartSpritesDict, bodyPartSprites);
+        BuildAssetsDictionary(ref playerEyesDict, playerEyesSprites);
+        BuildAssetsDictionary(ref enemyEyesDict, enemyEyesSprites);
+    }
+
+    private void BuildAssetsDictionary(ref Dictionary<string, Sprite> dictionary, Sprite[] sprites)
+    {
+        dictionary = new Dictionary<string, Sprite>();
+        foreach (Sprite sprite in sprites)
         {
-            bodyPartSpritesDict[sprite.name] = sprite;
+            dictionary[sprite.name] = sprite;
         }
     }
 
@@ -77,4 +94,13 @@ public class GameAssets : MonoBehaviour
         return bodyPartSpritesDict[name];
     }
     
+    public Sprite GetPlayerEyesSpriteByName(string name)
+    {
+        return playerEyesDict[name];
+    }
+
+    public Sprite GetEnemyEyesSpriteByName(string name)
+    {
+        return enemyEyesDict[name];
+    }
 }

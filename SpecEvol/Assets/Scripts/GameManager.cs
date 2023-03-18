@@ -178,7 +178,14 @@ public class GameManager : MonoBehaviour
         GetRandomBodyPartChoicesFromFallenEnemy();
         PlayerManager.Instance.PlayerGameObject.GetComponent<CreatureData>().ResetBodyPartsStatus();
         levelSO.level += 1;
-        SceneManager.LoadScene("MutationScene");
+        if (levelSO.level < 10)
+        {
+            SceneManager.LoadScene("MutationScene");
+        }
+        else
+        {
+            SceneManager.LoadScene("VictoryScene");
+        }
     }
 
     private void GetRandomBodyPartChoicesFromFallenEnemy()

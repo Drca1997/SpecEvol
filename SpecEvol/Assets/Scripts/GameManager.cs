@@ -159,6 +159,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("ENEMY TURN..");
         OnEnemyTurn?.Invoke(this, EventArgs.Empty);
         yield return new WaitForSeconds(1);
+        battleParticipants[1].GetComponent<DecisionMaking>().GetAction();
+        battleParticipants[1].GetComponent<CreatureData>().UpdateStatus();
         NextTurn();
     }
 

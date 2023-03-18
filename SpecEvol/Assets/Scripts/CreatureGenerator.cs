@@ -82,6 +82,7 @@ public class CreatureGenerator : MonoBehaviour
         creatureData.GetBodyShapeRefs();
         enemy.AddComponent<HealthSystem>();
         creatureData.CalculateStats();
+        enemy.AddComponent<DecisionMaking>();
         return enemy;
     }
 

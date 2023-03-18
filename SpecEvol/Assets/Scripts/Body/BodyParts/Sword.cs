@@ -7,7 +7,7 @@ public class Sword : BodyPart
 {
     private bool used;
 
-    public static event EventHandler OnCut;
+    public static event EventHandler<OnCutArgs> OnCut;
     public class OnCutArgs: EventArgs
     {
         public int cutBodyPartIndex;

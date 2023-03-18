@@ -49,6 +49,10 @@ public abstract class BodyPart
         CreatureData ownerCreatureData = owner.GetComponent<CreatureData>();
         attackLuckModifier = ownerCreatureData.GetLuckModifier();
         totalAttackDamage = GetTotalAttackDamage(ownerCreatureData);
+        if (onFire > 0)
+        {
+            owner.GetComponent<HealthSystem>().ChangeHealth(-GameDesignConstants.FIRE_NOSE_ON_FIRE_DAMAGE);
+        }
     }
 
     protected int GetTotalAttackDamage(CreatureData creatureData)

@@ -17,7 +17,7 @@ public class FireNose : BodyPart
         GetAttackModifiers(owner);
         if (ShouldExecute(attackLuckModifier))
         {
-            enemy.GetComponent<CreatureData>().GetRandomBodyPart().OnFire = 3;
+            enemy.GetComponent<CreatureData>().GetRandomBodyPart(out int bodyPartIndex).OnFire = 3;
         }
         else
         {

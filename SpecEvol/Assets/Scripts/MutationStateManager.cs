@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 using Random = UnityEngine.Random;
 
 public class MutationStateManager : MonoBehaviour
@@ -86,7 +87,14 @@ public class MutationStateManager : MonoBehaviour
         {
             GameObject newPlayer = CreatureGenerator.Instance.CreateNewPlayerCreature(playerBasePrefab, ChoosenBodyShape, placeHolder.transform.position);
             newPlayer.transform.parent = placeHolder.transform;
+            Vector3 oldScale = newPlayer.transform.localScale;
+            newPlayer.transform.localScale = Vector3.one;
+            for (int i = 0; i < newPlayer.transform.childCount; i++)
+            {
+                newPlayer.transform.GetChild(i).transform.localScale = oldScale;
+            }
             newPlayer.transform.localPosition = CreatureGenerator.Instance.GetCreatureSpawnPosition(newPlayer);
+            newPlayer.transform.GetChild(newPlayer.transform.childCount - 1).localPosition -= new Vector3(0f, 1.2f, 0f);
             PlayerManager.Instance.SavePlayerCreature(newPlayer);
             battleButton.SetActive(true);
         }
@@ -120,7 +128,7 @@ public class MutationStateManager : MonoBehaviour
 
     private bool IsBodyShapeLevelUpTime()
     {
-        if (levelSO.level % 3 == 0)
+        if (levelSO.level % 3 == 0 && levelSO.level < 9)
         {
             int levelUpSound = Random.Range(1, 3);
             AudioManager.instance.Play("LevelUp" + levelUpSound.ToString());

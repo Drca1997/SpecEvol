@@ -165,13 +165,19 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 4ccd20a93519bfc4cbb17e00d4e0ebde, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   - name: Combat2
     clip: {fileID: 8300000, guid: de3c47e26b533d04c89f493b23d88cd4, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
+    loop: 1
+    source: {fileID: 0}
+  - name: BossMusic
+    clip: {fileID: 8300000, guid: 52f94f4a3ed113142812b83f56210829, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
     source: {fileID: 0}
 --- !u!4 &12492430
 Transform:
@@ -446,7 +452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7948564116358683354, guid: 607b7fe60dff22f40b2ccfd40d29ecfc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 398.42468
+      value: 683.4247
       objectReference: {fileID: 0}
     - target: {fileID: 7948564116358683354, guid: 607b7fe60dff22f40b2ccfd40d29ecfc, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -869,7 +875,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 549, y: 355}
+  m_AnchoredPosition: {x: 301.7688, y: 355}
   m_SizeDelta: {x: 290.5194, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &437438006
@@ -1972,7 +1978,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 250
+  m_Spacing: 9
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -2132,7 +2138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7948564116358683354, guid: 607b7fe60dff22f40b2ccfd40d29ecfc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1497.2312
+      value: 1250
       objectReference: {fileID: 0}
     - target: {fileID: 7948564116358683354, guid: 607b7fe60dff22f40b2ccfd40d29ecfc, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2396,7 +2402,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -538, y: 355}
+  m_AnchoredPosition: {x: -253, y: 355}
   m_SizeDelta: {x: 290.5194, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1990772457

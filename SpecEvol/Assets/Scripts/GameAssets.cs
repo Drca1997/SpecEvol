@@ -33,9 +33,12 @@ public class GameAssets : MonoBehaviour
     [SerializeField]
     private Sprite[] enemyEyesSprites;
 
+    [SerializeField]
+    private Sprite bossHead;
     public Sprite[] CreaturesIcons { get => creaturesIcons;  }
     public GameObject DamagePopupPrefab { get => damagePopupPrefab; set => damagePopupPrefab = value; }
     public Sprite LegsSprite { get => legsSprite; }
+    public Sprite BossHead { get => bossHead; }
 
     private Dictionary<string, Sprite> bodyPartSpritesDict;
     private Dictionary<string, Sprite> playerEyesDict;

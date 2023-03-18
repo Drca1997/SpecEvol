@@ -58,7 +58,14 @@ public class GameManager : MonoBehaviour
     {
         PlayerManager.Instance.CreatePlayer(playerBattleStationPosition);
         BattleUIManager.OnActionChosen += OnActionChosen;
-        battleSoundtrackSource.clip = battleSoundtracks[Random.Range(0, battleSoundtracks.Length)].clip;
+        if (levelSO.level < 9)
+        {
+            battleSoundtrackSource.clip = battleSoundtracks[Random.Range(0, battleSoundtracks.Length - 1)].clip;
+        }
+        else
+        {
+            battleSoundtrackSource.clip = battleSoundtracks[battleSoundtracks.Length - 1].clip;
+        }
         battleSoundtrackSource.Play();
         battleSoundtrackSource.loop = true;
         SetupBattle();

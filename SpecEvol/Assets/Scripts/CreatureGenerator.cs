@@ -60,13 +60,9 @@ public class CreatureGenerator : MonoBehaviour
         {
             numShapes = 2;
         }
-        else if(currentLevel < 9)
-        {
-            numShapes = 3;
-        }
         else
         {
-            numShapes = 4;
+            numShapes = 3;
         }
         for (int i = 0; i < numShapes; i++)
         {
@@ -80,6 +76,11 @@ public class CreatureGenerator : MonoBehaviour
         CheckIfAtLeastOneDamageDealerArm(encodedMorphology);
         creatureData.BodyShapes = BodyMorphologyDecoding(encodedMorphology, encodedShapes);
         InstantiateCreatureBody(enemy, creatureData);
+        if (currentLevel >= 9)
+        {
+            enemy.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+            InstantiateBossHead(enemy);
+        }
         creatureData.GetBodyShapeRefs();
         enemy.AddComponent<HealthSystem>();
         creatureData.CalculateStats();
@@ -202,7 +203,7 @@ public class CreatureGenerator : MonoBehaviour
                 bodyPartObj.transform.localPosition = Vector3.zero;
                 SpriteRenderer bodyPartSpriteRenderer = bodyPartObj.AddComponent<SpriteRenderer>();
                 bodyPartSpriteRenderer.sprite = GameAssets.Instance.GetBodyPartByName(bodyPart.Name);
-                bodyPartSpriteRenderer.sortingOrder = 1;
+                bodyPartSpriteRenderer.sortingOrder = 3;
                 if (isLeft)
                 {
                     bodyPartObj.transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -226,7 +227,7 @@ public class CreatureGenerator : MonoBehaviour
         {
             spriteRenderer.flipX = true;
         }
-        spriteRenderer.sortingOrder = 0;
+        spriteRenderer.sortingOrder = 1;
         if (creatureObject.transform.childCount <= 1)
         {
             shapeobj.transform.localPosition = Vector3.zero;
@@ -254,6 +255,7 @@ public class CreatureGenerator : MonoBehaviour
         eyes.transform.SetParent(creature.transform.GetChild(0).transform);
         eyes.transform.localPosition = Vector3.zero;
         SpriteRenderer spriteRenderer = eyes.AddComponent<SpriteRenderer>();
+        spriteRenderer.sortingOrder = 2;
         if (isPlayer)
         {
             spriteRenderer.sprite = GameAssets.Instance.GetPlayerEyesSpriteByName("Normal");
@@ -262,6 +264,7 @@ public class CreatureGenerator : MonoBehaviour
         {
             spriteRenderer.sprite = GameAssets.Instance.GetEnemyEyesSpriteByName("Normal");
         }
+        
     }
 
     private void InstantiateLegs(GameObject creatureObject, bool isPlayer = false)
@@ -269,13 +272,23 @@ public class CreatureGenerator : MonoBehaviour
         GameObject legs = new GameObject("Legs");
         SpriteRenderer spriteRenderer = legs.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = GameAssets.Instance.LegsSprite;
-        spriteRenderer.sortingOrder = -1;
+        spriteRenderer.sortingOrder = 0;
         if (isPlayer)
         {
             spriteRenderer.flipX = true;
         }
         legs.transform.SetParent(creatureObject.transform);
         legs.transform.localPosition = CalculateShapeLocalPosition(creatureObject.transform);
+    }
+
+    private void InstantiateBossHead(GameObject boss)
+    {
+        GameObject head = new GameObject("BossHead");
+        SpriteRenderer spriteRenderer = head.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = GameAssets.Instance.BossHead;
+        head.transform.SetParent(boss.transform);
+        head.transform.localPosition = new Vector3(0f, boss.transform.GetChild(0).GetComponent<Renderer>().bounds.size.y * 2, 0f);
+        head.transform.SetAsFirstSibling();
     }
 
     public Transform GetNextFreeBodyPartHolder(Transform parent, out bool isLeft)
@@ -412,8 +425,12 @@ public class CreatureGenerator : MonoBehaviour
         {
             totalHeight += creature.transform.GetChild(i).GetComponent<Renderer>().bounds.size.y * creature.transform.GetChild(i).localScale.y;
         }
+        if (numChild >= 5)
+        {
+            totalHeight -= creature.transform.GetChild(0).GetComponent<Renderer>().bounds.size.y * creature.transform.GetChild(0).localScale.y;
+        }
 
-        return new Vector3(0f, totalHeight - creature.transform.GetChild(0).localScale.y, 0f);
+        return new Vector3(0f, totalHeight - creature.transform.GetChild(0).localScale.y - 0.7f, 0f);
     }
 
     private Vector3 CalculateShapeLocalPosition(Transform parent)

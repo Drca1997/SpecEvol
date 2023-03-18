@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
     private DefeatedArmsSO defeatedArms; 
     [SerializeField]
     private LevelSO levelSO;
+    [SerializeField]
+    private GameObject playerHealthBar;
+    [SerializeField]
+    private GameObject enemyHealthBar;
     private List<GameObject> battleParticipants; //ex: 0 -> Player, 1 - Enemy
     private List<int> turnOrder; // elementos indicam qual participante é: battleParticipants[i]
     private List<int> battleParticipantsSpeed;
@@ -70,6 +74,7 @@ public class GameManager : MonoBehaviour
         battleState = BattleState.START;
         battleParticipants = new List<GameObject>();    
         battleParticipants.Add(PlayerManager.Instance.PlayerGameObject);
+        playerHealthBar.GetComponent<HealthBar>().Init(PlayerManager.Instance.PlayerGameObject);
         battleParticipants.AddRange(InstantiateBattleParticipants());
         battleParticipantsSpeed = battleParticipants.Select(p => p.GetComponent<CreatureData>().MaximumSpeed).ToList();
         initiative = Enumerable.Repeat(0, battleParticipantsSpeed.Count).ToList();
@@ -84,7 +89,13 @@ public class GameManager : MonoBehaviour
         foreach(GameObject enemy in spawnedEnemies)
         {
             enemy.transform.parent = enemyBattleStationPosition;
+            enemy.transform.localScale = PlayerManager.Instance.PlayerGameObject.transform.localScale;
+            for(int i = 0; i < enemy.transform.childCount; i++)
+            {
+                enemy.transform.GetChild(i).transform.localScale = PlayerManager.Instance.PlayerGameObject.transform.GetChild(0).transform.localScale;
+            }
             enemy.transform.localPosition = CreatureGenerator.Instance.GetCreatureSpawnPosition(enemy);
+            enemyHealthBar.GetComponent<HealthBar>().Init(enemy);
         }
         return spawnedEnemies;
     }

@@ -49,9 +49,6 @@ public class CreatureGenerator : MonoBehaviour
     {
         GameObject enemy = new GameObject("Enemy");
         CreatureData creatureData = enemy.AddComponent<CreatureData>();
-        //creatureData.MaximumHealth = Random.Range(50, 150);
-        //creatureData.MaximumSpeed = Random.Range(10, 90);
-        //creatureData.MaximumLuck = Random.Range(10, 90);
         List<string> encodedShapes = new List<string>();
         List<string> encodedMorphology = new List<string>();
         int numShapes;
@@ -77,8 +74,8 @@ public class CreatureGenerator : MonoBehaviour
         }
         for (int i = 0; i < encodedShapes.Count; i++)
         {
-            encodedMorphology.Add(GameDesignConstants.ALL_BODY_PARTS_LIST[Random.Range(0, GameDesignConstants.ALL_BODY_PARTS_LIST.Length)]);
-            encodedMorphology.Add(GameDesignConstants.ALL_BODY_PARTS_LIST[Random.Range(0, GameDesignConstants.ALL_BODY_PARTS_LIST.Length)]);
+            encodedMorphology.Add(GameDesignConstants.ALL_BODY_PARTS_LIST[GetRandomUniqueBodyPartIndex(encodedMorphology)]);
+            encodedMorphology.Add(GameDesignConstants.ALL_BODY_PARTS_LIST[GetRandomUniqueBodyPartIndex(encodedMorphology)]);
         }
         creatureData.BodyShapes = BodyMorphologyDecoding(encodedMorphology, encodedShapes);
         InstantiateCreatureBody(enemy, creatureData);
@@ -88,6 +85,20 @@ public class CreatureGenerator : MonoBehaviour
         return enemy;
     }
 
+    private int GetRandomUniqueBodyPartIndex(List<string> bodyParts)
+    {
+        bool valid = false;
+        int index = 0;
+        while (!valid)
+        {
+            index = Random.Range(0, GameDesignConstants.ALL_BODY_PARTS_LIST.Length);
+            if (!bodyParts.Contains(GameDesignConstants.ALL_BODY_PARTS_LIST[index]))
+            {
+                valid = true;
+            }
+        }
+        return index;
+    }
     public GameObject CreateRandomCreature()
     {
         GameObject enemy = new GameObject("Enemy");
@@ -349,15 +360,14 @@ public class CreatureGenerator : MonoBehaviour
         float totalHeight = 0;
         if (parent.childCount == 2)
         {
-
-            totalHeight = parent.GetChild(1).GetComponent<Renderer>().bounds.size.y + parent.GetChild(1).localScale.y;
+            totalHeight = parent.GetChild(1).GetComponent<Renderer>().bounds.size.y * parent.GetChild(1).localScale.y;
             totalHeight -= 0.2f;
         }
         else
         {
             for (int i = 1; i < parent.childCount; i++)
             {
-                totalHeight += parent.GetChild(i).GetComponent<Renderer>().bounds.size.y + parent.GetChild(i).localScale.y;
+                totalHeight += parent.GetChild(i).GetComponent<Renderer>().bounds.size.y * parent.GetChild(i).localScale.y;
             }
         }
         return new Vector3(0f, -totalHeight, 0f);

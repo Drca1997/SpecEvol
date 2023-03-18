@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,12 @@ using UnityEngine;
 public class Sword : BodyPart
 {
     private bool used;
+
+    public static event EventHandler OnCut;
+    public class OnCutArgs: EventArgs
+    {
+        public int cutBodyPartIndex;
+    }
 
     public Sword()
     {
@@ -24,8 +31,14 @@ public class Sword : BodyPart
             GetAttackModifiers(owner);
             if (ShouldExecute(attackLuckModifier))
             {
-                enemy.GetComponent<CreatureData>().GetRandomBodyPart().CutOff = true; 
-                //TO DO: if enemy is player, deactivate cutted off body part action button in UI
+                BodyPart cutPart = enemy.GetComponent<CreatureData>().GetRandomBodyPart(out int bodyPartIndex);
+                cutPart.CutOff = true;
+
+                //if enemy is player, deactivate cutted off body part action button in UI
+                if (enemy == PlayerManager.Instance.PlayerGameObject)
+                {
+                    OnCut?.Invoke(this, new OnCutArgs {cutBodyPartIndex = bodyPartIndex});
+                }
                 used = true;
             }
             else

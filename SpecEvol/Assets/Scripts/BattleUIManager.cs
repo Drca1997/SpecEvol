@@ -28,6 +28,7 @@ public class BattleUIManager : MonoBehaviour
         InstantiateActionButtons();
         GameManager.OnPlayerTurn += OnPlayerTurn;
         GameManager.OnEnemyTurn += OnEnemyTurn;
+        Sword.OnCut += OnSwordCut;
     }
 
     // Update is called once per frame
@@ -89,5 +90,11 @@ public class BattleUIManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnSwordCut(object sender, Sword.OnCutArgs args)
+    {
+        scrollViewContent.transform.GetChild(args.cutBodyPartIndex).GetComponent<Button>().enabled = false;
+        scrollViewContent.transform.GetChild(args.cutBodyPartIndex).GetComponentInChildren<TextMeshProUGUI>().text = "Disabled (Cut By Sword)";
     }
 }

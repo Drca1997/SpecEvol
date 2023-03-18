@@ -16,6 +16,7 @@ public class CreatureData : MonoBehaviour
     private int intimidated = 0;
     private int jynxed = 0;
     private int luckied = 0;
+    private int poisoned = 0;
 
     public string CreatureName { get => creatureName; set => creatureName = value; }
     public int MaximumHealth { get => maximumHealth; set => maximumHealth = value; }
@@ -26,6 +27,7 @@ public class CreatureData : MonoBehaviour
     public int Intimidated { get => intimidated; set => intimidated = value; }
     public int Jynxed { get => jynxed; set => jynxed = value; }
     public int Luckied { get => luckied; set => luckied = value; }
+    public int Poisoned { get => poisoned; set => poisoned = value; }
 
     private void Start()
     {
@@ -56,6 +58,7 @@ public class CreatureData : MonoBehaviour
 
     public void UpdateStatus()
     {
+        UpdateBodyPartsActiveStatus();
         if (slowedDown > 0)
         {
             slowedDown--;
@@ -71,18 +74,15 @@ public class CreatureData : MonoBehaviour
         if (luckied > 0)
         {
             luckied--;
-            if (luckied == 0)
-            {
-                //currentLuck = maximumLuck;
-            }
         }
         if (jynxed > 0)
         {
             jynxed--;
-            if (jynxed == 0)
-            {
-                //currentLuck = maximumLuck;
-            }
+        }
+        if (poisoned > 0)
+        {
+            poisoned--;
+            GetComponent<HealthSystem>().ChangeHealth(-GameDesignConstants.POISONOUS_SPIKE_POISON_DAMAGE);
         }
     }
 
@@ -171,7 +171,7 @@ public class CreatureData : MonoBehaviour
         return modifier;
     }
 
-    public BodyPart GetRandomBodyPart()
+    public BodyPart GetRandomBodyPart(out int bodyPartIndex)
     {
         List<BodyPart> allParts = new List<BodyPart>();
         foreach (BodyShape shape in bodyShapes)
@@ -181,6 +181,7 @@ public class CreatureData : MonoBehaviour
                 allParts.Add(part);
             }
         }
-        return allParts[Random.Range(0, allParts.Count)];
+        bodyPartIndex = Random.Range(0, allParts.Count);
+        return allParts[bodyPartIndex];
     }
 }

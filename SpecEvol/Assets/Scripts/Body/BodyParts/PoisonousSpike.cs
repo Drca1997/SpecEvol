@@ -18,11 +18,27 @@ public class PoisonousSpike : BodyPart
         if (ShouldExecute(attackLuckModifier))
         {
             enemy.GetComponent<HealthSystem>().ChangeHealth(-totalAttackDamage);
-            //TO DO Check if Poison
+            //Check if Poison
+            if (DidItPoison())
+            {
+                enemy.GetComponent<CreatureData>().Poisoned = 3;
+            }
         }
         else
         {
             Debug.Log("POISONOUS SPIKE FAIL");
         }
+    }
+
+    private bool DidItPoison()
+    {
+        int num = Random.Range(0, 100);
+        num += Mathf.Clamp(num, 0, 99);
+        float res = (float)num / 100;
+        if (res <= GameDesignConstants.POISONOUS_SPIKE_POISON_ACCURACY)
+        {
+            return true;
+        }
+        return false;
     }
 }

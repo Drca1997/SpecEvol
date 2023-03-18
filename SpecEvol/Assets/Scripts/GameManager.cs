@@ -223,4 +223,22 @@ public class GameManager : MonoBehaviour
         OnUpdateTurnOrder?.Invoke(this, EventArgs.Empty);
         return;
     }
+
+    public void SkipTurn(GameObject creature)
+    {
+        if (creature != PlayerManager.Instance.PlayerGameObject)
+        {
+            turnOrder.RemoveAt(FindCreatureNextTurn(1));
+        }
+        else
+        {
+            turnOrder.RemoveAt(FindCreatureNextTurn(0));
+        }
+        OnUpdateTurnOrder?.Invoke(this, EventArgs.Empty);
+    }
+
+    private int FindCreatureNextTurn(int creatureNumber)
+    {
+        return turnOrder.IndexOf(creatureNumber);
+    }
 }

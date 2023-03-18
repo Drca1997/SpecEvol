@@ -18,7 +18,8 @@ public class Zap : BodyPart
         if (ShouldExecute(attackLuckModifier))
         {
             enemy.GetComponent<HealthSystem>().ChangeHealth(-totalAttackDamage);
-            //TO DO: make enemy skip a turn
+            //make enemy skip a turn
+            GameManager.Instance.SkipTurn(enemy);
         }
         else
         {

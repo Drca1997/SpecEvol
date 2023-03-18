@@ -136,7 +136,7 @@ public class CreatureGenerator : MonoBehaviour
         newPlayerCreature.AddComponent<HealthSystem>();
         playerCreatureData.BodyShapes[0].AttachedBodyParts = new List<BodyPart>();
         playerCreatureData.BodyShapes[0].AttachedBodyParts.Add(new SimpleAttack());
-        InstantiateCreatureBody(newPlayerCreature, playerCreatureData);
+        InstantiateCreatureBody(newPlayerCreature, playerCreatureData, true);
         PlayerManager.Instance.PlayerGameObject = newPlayerCreature;
         playerCreatureData.CalculateStats();
 
@@ -144,7 +144,7 @@ public class CreatureGenerator : MonoBehaviour
     }
 
 
-    public void InstantiateCreatureBody(GameObject creatureObject, CreatureData creatureData)
+    public void InstantiateCreatureBody(GameObject creatureObject, CreatureData creatureData, bool isPlayer = false)
     {
         foreach (BodyShape shape in creatureData.BodyShapes)
         {
@@ -161,7 +161,7 @@ public class CreatureGenerator : MonoBehaviour
             {
                 name = "TriangleBodyShape";
             }
-            GameObject shapeobj = InstantiateBodyShape(name, creatureObject, shape);
+            GameObject shapeobj = InstantiateBodyShape(name, creatureObject, shape, isPlayer);
             foreach (BodyPart bodyPart in shape.AttachedBodyParts)
             {
                 //Instantiate body part
@@ -182,15 +182,15 @@ public class CreatureGenerator : MonoBehaviour
     }
 
 
-    private GameObject InstantiateBodyShape(string name, GameObject creatureObject, BodyShape shape)
+    private GameObject InstantiateBodyShape(string name, GameObject creatureObject, BodyShape shape, bool isPlayer= false)
     {
         GameObject shapeobj = new GameObject(name);
         shapeobj.transform.parent = creatureObject.transform;
         SpriteRenderer spriteRenderer = shapeobj.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = GameAssets.Instance.GetBodyShapeSpriteByName(name, creatureObject.transform.childCount - 1);
-        if (creatureObject == PlayerManager.Instance.PlayerGameObject)
+        if (isPlayer)
         {
-            shapeobj.transform.rotation = Quaternion.Euler(0, 180, 0);
+            spriteRenderer.flipX = true;
         }
         spriteRenderer.sortingOrder = 0;
         if (creatureObject.transform.childCount <= 1)

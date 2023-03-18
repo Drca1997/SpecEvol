@@ -16,7 +16,4 @@ MonoBehaviour:
   maximumSpeed: 25
   maximumLuck: 0
   bodyMorphology: []
-  encodedBodyShapes:
-  - TriangleBodyShape
-  - TriangleBodyShape
-  - TriangleBodyShape
+  encodedBodyShapes: []

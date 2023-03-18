@@ -20,6 +20,11 @@ public class MutationStateManager : MonoBehaviour
     [SerializeField]
     private LevelSO levelSO;
     [SerializeField]
+    private DefeatedArmsSO defeatedArms;
+    [SerializeField]
+    private GameObject playerPlaceHolder;
+    [Header("UI References")]
+    [SerializeField]
     private GameObject initialBodyShapeChoice;
     [SerializeField]
     private GameObject mutationMenu;
@@ -30,9 +35,14 @@ public class MutationStateManager : MonoBehaviour
     [SerializeField]
     private GameObject battleButton;
     [SerializeField]
-    private DefeatedArmsSO defeatedArms;
+    private GameObject statsMenu;
     [SerializeField]
-    private GameObject playerPlaceHolder;
+    private TextMeshProUGUI healthValue;
+    [SerializeField]
+    private TextMeshProUGUI speedValue;
+    [SerializeField]
+    private TextMeshProUGUI damageBonusValue;
+
 
     private Enums.BodyShape choosenBodyShape;
 
@@ -46,6 +56,7 @@ public class MutationStateManager : MonoBehaviour
         if (PlayerManager.Instance.PlayerCreature.IsInitialized())
         {
             PlayerManager.Instance.CreatePlayer(placeHolder.transform);
+            SetStatsMenuActive();
             SetMutationMenuActive();
             if (IsBodyShapeLevelUpTime())
             {
@@ -101,6 +112,7 @@ public class MutationStateManager : MonoBehaviour
             choosenBodyShape = Enums.BodyShape.UNDEFINED;
             SetMutationMenuActive();
         }
+        SetStatsMenuActive();
     }
 
     public void OnNextBattleButton()
@@ -180,6 +192,15 @@ public class MutationStateManager : MonoBehaviour
         Assert.IsTrue(defeatedArms.option2 != null);
         mutationMenu.transform.GetChild(0).GetComponent<Image>().sprite = GameAssets.Instance.GetBodyPartByName(defeatedArms.option1);
         mutationMenu.transform.GetChild(1).GetComponent<Image>().sprite = GameAssets.Instance.GetBodyPartByName(defeatedArms.option2);
+    }
+
+    private void SetStatsMenuActive()
+    {
+        statsMenu.SetActive(true);
+        healthValue.SetText(PlayerManager.Instance.PlayerGameObject.GetComponent<CreatureData>().MaximumHealth.ToString());
+        speedValue.SetText(PlayerManager.Instance.PlayerGameObject.GetComponent<CreatureData>().MaximumSpeed.ToString());
+        damageBonusValue.SetText("+" + PlayerManager.Instance.PlayerGameObject.GetComponent<CreatureData>().GetSquareDamageBonus().ToString());
+    
     }
 
     

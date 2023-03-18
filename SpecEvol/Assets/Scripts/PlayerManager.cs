@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour
         playerCreatureData.MaximumSpeed = playerCreature.maximumSpeed;
         playerCreatureData.BodyShapes = CreatureGenerator.Instance.BodyMorphologyDecoding(playerCreature.bodyMorphology, playerCreature.encodedBodyShapes);
         
-        CreatureGenerator.Instance.InstantiateCreatureBody(PlayerGameObject, playerCreatureData);
+        CreatureGenerator.Instance.InstantiateCreatureBody(PlayerGameObject, playerCreatureData, true);
         
         playerCreatureData.GetBodyShapeRefs();
         playerGameObject.transform.localPosition = CreatureGenerator.Instance.GetCreatureSpawnPosition(playerGameObject);

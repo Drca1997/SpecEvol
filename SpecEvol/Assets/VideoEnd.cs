@@ -6,6 +6,8 @@ using UnityEngine.Video;
 
 public class VideoEnd : MonoBehaviour
 {
+    public string nextSceneName;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,6 @@ public class VideoEnd : MonoBehaviour
 
     private void EndReached(VideoPlayer vp)
     {
-        SceneManager.LoadSceneAsync("MutationScene");
+        SceneManager.LoadSceneAsync(nextSceneName);
     }
 }

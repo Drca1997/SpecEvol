@@ -369,6 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88904e2cbbf235428868db72c5233a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextSceneName: MutationScene
 --- !u!1 &1284132833
 GameObject:
   m_ObjectHideFlags: 0

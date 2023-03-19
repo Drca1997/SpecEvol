@@ -257,4 +257,11 @@ public class GameManager : MonoBehaviour
     {
         return turnOrder.IndexOf(creatureNumber);
     }
+
+    void OnDestroy() 
+    { 
+        OnEnemyTurn = null; 
+        OnPlayerTurn = null; 
+        OnUpdateTurnOrder = null;
+    }
 }

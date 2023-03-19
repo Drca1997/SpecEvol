@@ -32,18 +32,20 @@ public class BattleUIManager : MonoBehaviour
         GameManager.OnPlayerTurn += OnPlayerTurn;
         GameManager.OnEnemyTurn += OnEnemyTurn;
         Sword.OnCut += OnSwordCut;
+        FireNose.OnFirePart += OnFire;
+        CreatureData.OnFireEnd += OnFireReset;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void InstantiateActionButtons()
     {
         List<BodyPart> bodyParts = PlayerManager.Instance.PlayerGameObject.GetComponent<CreatureData>().GetBodyParts();
-        foreach(BodyPart bodyPart in bodyParts)
+        foreach (BodyPart bodyPart in bodyParts)
         {
             GameObject newButton = Instantiate(actionButtonPrefab);
             newButton.transform.parent = scrollViewContent;
@@ -55,14 +57,15 @@ public class BattleUIManager : MonoBehaviour
             UIButtonOnhover script = newButton.AddComponent<UIButtonOnhover>();
             script.InfoPanelPrefab = infoPanelPrefab;
             newButton.AddComponent<OnHoverTrigger>();
+            newButton.AddComponent<BodyPartOnFire>();
         }
     }
 
     private void OnPlayerTurn(object sender, EventArgs e)
     {
         ToggleScrollView(true);
-    } 
-    
+    }
+
     private void OnEnemyTurn(object sender, EventArgs e)
     {
         ToggleScrollView(false);
@@ -83,10 +86,10 @@ public class BattleUIManager : MonoBehaviour
 
     private void SetTurnOrder(object sender, EventArgs e)
     {
-        if(turnOrder != null)
+        if (turnOrder != null)
         {
 
-            for(int i = 0; i < turnOrder.childCount; i++)
+            for (int i = 0; i < turnOrder.childCount; i++)
             {
                 if (i < GameManager.Instance.TurnOrder.Count)
                 {
@@ -112,4 +115,16 @@ public class BattleUIManager : MonoBehaviour
         scrollViewContent.transform.GetChild(args.cutBodyPartIndex).GetComponentInChildren<TextMeshProUGUI>().text = "Disabled (Cut By Claw)";
         scrollViewContent.transform.GetChild(args.cutBodyPartIndex).GetComponent<Button>().enabled = false;
     }
+
+    private void OnFire(object sender, FireNose.OnFireArgs args)
+    {
+        scrollViewContent.transform.GetChild(args.bodyPartIndex).GetComponent<BodyPartOnFire>().SetOnFireStatus(true);
+    }
+
+    private void OnFireReset(object sender, CreatureData.OnFireEndArgs args)
+    {
+        scrollViewContent.transform.GetChild(args.bodyPartIndex).GetComponent<BodyPartOnFire>().SetOnFireStatus(false);
+    }
+
+    
 }

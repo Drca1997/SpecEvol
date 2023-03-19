@@ -1,9 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FireNose : BodyPart
 {
+    public static event EventHandler<OnFireArgs> OnFirePart;
+    public class OnFireArgs: EventArgs
+    {
+        public int bodyPartIndex;
+    }
+
     public FireNose()
     {
         name = "FireNose";
@@ -20,6 +27,7 @@ public class FireNose : BodyPart
         if (ShouldExecute(attackLuckModifier))
         {
             enemy.GetComponent<CreatureData>().GetRandomBodyPart(out int bodyPartIndex).OnFire = 3;
+            OnFirePart?.Invoke(this, new OnFireArgs { bodyPartIndex = bodyPartIndex});
         }
         else
         {

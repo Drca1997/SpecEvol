@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Random = UnityEngine.Random;
 
 public class CreatureData : MonoBehaviour
 {
@@ -17,6 +19,12 @@ public class CreatureData : MonoBehaviour
     private int jynxed = 0;
     private int luckied = 0;
     private int poisoned = 0;
+
+    public static event EventHandler<OnFireEndArgs> OnFireEnd;
+    public class OnFireEndArgs : EventArgs
+    {
+        public int bodyPartIndex;
+    }
 
     public string CreatureName { get => creatureName; set => creatureName = value; }
     public int MaximumHealth { get => maximumHealth; set => maximumHealth = value; }
@@ -88,6 +96,7 @@ public class CreatureData : MonoBehaviour
 
     public void UpdateBodyPartsActiveStatus()
     {
+        int i = 0;
         foreach (BodyShape shape in bodyShapes)
         {
             foreach (BodyPart part in shape.AttachedBodyParts)
@@ -95,7 +104,12 @@ public class CreatureData : MonoBehaviour
                 if (part.OnFire > 0)
                 {
                     part.OnFire--;
+                    if (part.OnFire == 0 && gameObject == PlayerManager.Instance.gameObject)
+                    {
+                        OnFireEnd?.Invoke(this, new OnFireEndArgs { bodyPartIndex = i});
+                    }
                 }
+                i++;
             }
         }
     }
@@ -162,11 +176,11 @@ public class CreatureData : MonoBehaviour
         int modifier = 0;
         if (luckied > 0)
         {
-            modifier += GameDesignConstants.LUCKY_DICE_POWER;
+            modifier -= GameDesignConstants.LUCKY_DICE_POWER;
         }
         else if(jynxed > 0)
         {
-            modifier -= GameDesignConstants.MONKEY_PAW_POWER;
+            modifier += GameDesignConstants.MONKEY_PAW_POWER;
         }
         return modifier;
     }

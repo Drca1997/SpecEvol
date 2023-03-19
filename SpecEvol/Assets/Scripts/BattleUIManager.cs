@@ -57,6 +57,7 @@ public class BattleUIManager : MonoBehaviour
             bodyPartData.BodyPart = bodyPart;
             UIButtonOnhover script = newButton.AddComponent<UIButtonOnhover>();
             script.InfoPanelPrefab = infoPanelPrefab;
+            script.garbage = GameManager.Instance.Garbage;
             newButton.AddComponent<OnHoverTrigger>();
             newButton.AddComponent<BodyPartOnFire>();
         }

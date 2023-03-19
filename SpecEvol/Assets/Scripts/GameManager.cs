@@ -25,7 +25,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private AudioSource battleSoundtrackSource;
     [SerializeField]
-    private Sound[] battleSoundtracks; 
+    private Sound[] battleSoundtracks;
+    [SerializeField]
+    private Transform garbage;
+
     private List<GameObject> battleParticipants; //ex: 0 -> Player, 1 - Enemy
     private List<int> turnOrder; // elementos indicam qual participante é: battleParticipants[i]
     private List<int> battleParticipantsSpeed;
@@ -40,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> BattleParticipants { get => battleParticipants; set => battleParticipants = value; }
     public List<int> TurnOrder { get => turnOrder; set => turnOrder = value; }
+    public Transform Garbage { get => garbage;  }
 
     private void Awake()
     {
@@ -166,6 +170,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("ENEMY TURN..");
         OnEnemyTurn?.Invoke(this, EventArgs.Empty);
         yield return new WaitForSeconds(1);
+        DestroyRemainingInfoPanel();
         battleParticipants[1].GetComponent<DecisionMaking>().GetAction();
         battleParticipants[1].GetComponent<CreatureData>().UpdateStatus(false);
         NextTurn();
@@ -256,6 +261,14 @@ public class GameManager : MonoBehaviour
     private int FindCreatureNextTurn(int creatureNumber)
     {
         return turnOrder.IndexOf(creatureNumber);
+    }
+
+    private void DestroyRemainingInfoPanel()
+    {
+        for(int i = garbage.childCount - 1; i >= 0; i--)
+        {
+            Destroy(garbage.GetChild(i).gameObject);
+        }
     }
 
     void OnDestroy() 

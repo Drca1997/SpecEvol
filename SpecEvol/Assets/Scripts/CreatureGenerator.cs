@@ -74,7 +74,7 @@ public class CreatureGenerator : MonoBehaviour
             encodedMorphology.Add(GameDesignConstants.ALL_BODY_PARTS_LIST[GetRandomUniqueBodyPartIndex(encodedMorphology)]);
         }
 #if UNITY_EDITOR
-        encodedMorphology[encodedMorphology.Count - 1] = "FireNose";
+        encodedMorphology[encodedMorphology.Count - 1] = "Claw";
 #endif
         CheckIfAtLeastOneDamageDealerArm(encodedMorphology);
         creatureData.BodyShapes = BodyMorphologyDecoding(encodedMorphology, encodedShapes);

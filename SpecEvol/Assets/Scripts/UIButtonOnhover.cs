@@ -6,6 +6,7 @@ public class UIButtonOnhover : MonoBehaviour
 {
     [SerializeField]
     private GameObject infoPanelPrefab;
+    public Transform garbage;
 
     private GameObject uiInfoPanel;
 
@@ -27,7 +28,7 @@ public class UIButtonOnhover : MonoBehaviour
     {
         Debug.Log("ENTER");
         BodyPart bodyPart = bodyPartData.BodyPart;
-        uiInfoPanel = Instantiate(infoPanelPrefab, new Vector3(0, 0, 0), Quaternion.identity, null);
+        uiInfoPanel = Instantiate(infoPanelPrefab, new Vector3(0, 0, 0), Quaternion.identity, garbage);
         uiInfoPanel.GetComponent<InfoPanel>().SetInfo(bodyPart.ActionName, bodyPart.Damage, bodyPart.Accuracy, bodyPart.Description, bodyPart.FlavorText);
         //uiInfoPanel.GetComponent<Renderer>().sortingLayerName = "InfoPanel";
         //for (int i=0; i < uiInfoPanel.transform.childCount; i++)

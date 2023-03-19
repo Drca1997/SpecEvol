@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
@@ -59,6 +60,10 @@ public class BattleUIManager : MonoBehaviour
             newButton.AddComponent<OnHoverTrigger>();
             newButton.AddComponent<BodyPartOnFire>();
         }
+        GameObject doNothingButton = Instantiate(actionButtonPrefab);
+        doNothingButton.transform.parent = scrollViewContent;
+        doNothingButton.GetComponentInChildren<TextMeshProUGUI>().SetText("Do Nothing");
+        doNothingButton.GetComponent<Button>().onClick.AddListener(OnActionChosenClick);
     }
 
     private void OnPlayerTurn(object sender, EventArgs e)

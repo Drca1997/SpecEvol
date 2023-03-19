@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
             yield return null;
 
         }
-        PlayerManager.Instance.PlayerGameObject.GetComponent<CreatureData>().UpdateStatus();
+        PlayerManager.Instance.PlayerGameObject.GetComponent<CreatureData>().UpdateStatus(true);
         NextTurn();
     }
 
@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
         OnEnemyTurn?.Invoke(this, EventArgs.Empty);
         yield return new WaitForSeconds(1);
         battleParticipants[1].GetComponent<DecisionMaking>().GetAction();
-        battleParticipants[1].GetComponent<CreatureData>().UpdateStatus();
+        battleParticipants[1].GetComponent<CreatureData>().UpdateStatus(false);
         NextTurn();
     }
 

@@ -64,9 +64,9 @@ public class CreatureData : MonoBehaviour
         return bodyParts;
     }
 
-    public void UpdateStatus()
+    public void UpdateStatus(bool isPlayer=false)
     {
-        UpdateBodyPartsActiveStatus();
+        UpdateBodyPartsActiveStatus(isPlayer);
         if (slowedDown > 0)
         {
             slowedDown--;
@@ -94,7 +94,7 @@ public class CreatureData : MonoBehaviour
         }
     }
 
-    public void UpdateBodyPartsActiveStatus()
+    public void UpdateBodyPartsActiveStatus(bool isPlayer=false)
     {
         int i = 0;
         foreach (BodyShape shape in bodyShapes)
@@ -104,7 +104,7 @@ public class CreatureData : MonoBehaviour
                 if (part.OnFire > 0)
                 {
                     part.OnFire--;
-                    if (part.OnFire == 0 && gameObject == PlayerManager.Instance.gameObject)
+                    if (part.OnFire <= 0 && isPlayer)
                     {
                         OnFireEnd?.Invoke(this, new OnFireEndArgs { bodyPartIndex = i});
                     }

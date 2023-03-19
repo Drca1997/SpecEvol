@@ -7,7 +7,7 @@ public class BodyPartOnFire : MonoBehaviour
 {
     [SerializeField]
     private float flashTime;
-    private Button button;
+    private Image buttonImage;
     private float currentFlashTime;
     [SerializeField]
     private Color32 normalColor;
@@ -21,7 +21,7 @@ public class BodyPartOnFire : MonoBehaviour
         flashTime = 0.1f;
         normalColor = Color.white;
         onFireColor = Color.red;
-        button = GetComponent<Button>();
+        buttonImage = GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -46,16 +46,16 @@ public class BodyPartOnFire : MonoBehaviour
 
     private void SwapButtonColors()
     {
-        var colors = button.colors;
-        if (button.colors.normalColor == normalColor)
+        
+        if (buttonImage.color == normalColor)
         {
-            colors.normalColor = onFireColor;
+            buttonImage.color= onFireColor;
         }
         else
         {
-            colors.normalColor = normalColor;
+            buttonImage.color = normalColor;
         }
-        button.colors = colors;
+       
     }
 
     public void SetOnFireStatus(bool status)

@@ -45,7 +45,7 @@ public class OpenInfoPanelOnHovering : MonoBehaviour
                     panelOrigin = new Vector3(hit.collider.transform.position.x - windowOriginX, hit.collider.transform.position.y + windowOriginY, hit.collider.transform.position.z);
                 }
                 currentInfoPanel = Instantiate(infoPanelPrefab, panelOrigin, Quaternion.identity, hit.collider.transform);
-                currentInfoPanel.GetComponent<InfoPanel>().SetInfo(bodyPart.Name, bodyPart.Damage, bodyPart.Accuracy, bodyPart.Description, bodyPart.FlavorText);
+                currentInfoPanel.GetComponent<InfoPanel>().SetInfo(bodyPart.ActionName, bodyPart.Damage, bodyPart.Accuracy, bodyPart.Description, bodyPart.FlavorText);
             }
         }
         else

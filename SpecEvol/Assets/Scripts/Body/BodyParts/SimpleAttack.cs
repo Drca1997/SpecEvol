@@ -8,7 +8,7 @@ public class SimpleAttack : BodyPart
     public SimpleAttack()
     {
         name = "SimpleAttack";
-        actionName = "Attack";
+        actionName = "Simple Attack";
         accuracy = GameDesignConstants.SIMPLE_ATTACK_ACCURACY;
         damage = GameDesignConstants.SIMPLE_ATTACK_DAMAGE;
         description = "";

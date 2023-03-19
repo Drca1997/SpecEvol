@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class BattleUIManager : MonoBehaviour
@@ -14,6 +15,8 @@ public class BattleUIManager : MonoBehaviour
     private Transform scrollViewContent;
     [SerializeField]
     private Transform turnOrder;
+    [SerializeField]
+    private GameObject infoPanelPrefab;
 
     public static event EventHandler OnActionChosen;
 
@@ -47,6 +50,11 @@ public class BattleUIManager : MonoBehaviour
             newButton.GetComponentInChildren<TextMeshProUGUI>().SetText(bodyPart.ActionName);
             newButton.GetComponent<Button>().onClick.AddListener(() => bodyPart.Execute(PlayerManager.Instance.PlayerGameObject, GameManager.Instance.BattleParticipants[1]));
             newButton.GetComponent<Button>().onClick.AddListener(OnActionChosenClick);
+            BodyPartData bodyPartData = newButton.AddComponent<BodyPartData>();
+            bodyPartData.BodyPart = bodyPart;
+            UIButtonOnhover script = newButton.AddComponent<UIButtonOnhover>();
+            script.InfoPanelPrefab = infoPanelPrefab;
+            newButton.AddComponent<OnHoverTrigger>();
         }
     }
 
@@ -80,13 +88,20 @@ public class BattleUIManager : MonoBehaviour
 
             for(int i = 0; i < turnOrder.childCount; i++)
             {
-                if (GameManager.Instance.TurnOrder[i] == 0)
+                if (i < GameManager.Instance.TurnOrder.Count)
                 {
-                    turnOrder.GetChild(i).GetComponent<Image>().sprite = GameAssets.Instance.CreaturesIcons[0];
+                    if (GameManager.Instance.TurnOrder[i] == 0)
+                    {
+                        turnOrder.GetChild(i).GetComponent<Image>().sprite = GameAssets.Instance.CreaturesIcons[0];
+                    }
+                    else if (GameManager.Instance.TurnOrder[i] == 1)
+                    {
+                        turnOrder.GetChild(i).GetComponent<Image>().sprite = GameAssets.Instance.CreaturesIcons[1];
+                    }
                 }
-                else if (GameManager.Instance.TurnOrder[i] == 1)
+                else
                 {
-                    turnOrder.GetChild(i).GetComponent<Image>().sprite = GameAssets.Instance.CreaturesIcons[1];
+                    turnOrder.GetChild(i).GetComponent<Image>().sprite = null;
                 }
             }
         }
@@ -94,7 +109,6 @@ public class BattleUIManager : MonoBehaviour
 
     private void OnSwordCut(object sender, Sword.OnCutArgs args)
     {
-        //da bug aqui
         scrollViewContent.transform.GetChild(args.cutBodyPartIndex).GetComponentInChildren<TextMeshProUGUI>().text = "Disabled (Cut By Claw)";
         scrollViewContent.transform.GetChild(args.cutBodyPartIndex).GetComponent<Button>().enabled = false;
     }

@@ -8,7 +8,7 @@ public class TentacleGrab : BodyPart
     public TentacleGrab()
     {
         name = "TentacleGrab";
-        actionName = "Grab";
+        actionName = "Tentacle Grab";
         accuracy = GameDesignConstants.TENTACLE_GRAB_ACCURACY;
         damage = GameDesignConstants.TENTACLE_GRAB_DAMAGE;
         slowDownPower = GameDesignConstants.TENTACLE_GRAB_POWER;

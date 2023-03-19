@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class NewGame : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class NewGame : MonoBehaviour
     [SerializeField]
     private PlayerCreatureSO playerCreatureSO;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,7 @@ public class NewGame : MonoBehaviour
         defeatedArmsSO.option1 = null;
         defeatedArmsSO.option2 = null;
         playerCreatureSO.Reset();
-        
+       
     }
 
     // Update is called once per frame
@@ -29,9 +31,9 @@ public class NewGame : MonoBehaviour
     {
         
     }
-
+   
     public void OnNewGame()
     {
-        SceneManager.LoadSceneAsync("MutationScene");
+        SceneManager.LoadSceneAsync("InitialCutscene");
     }
 }

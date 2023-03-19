@@ -7,7 +7,7 @@ public class FireNose : BodyPart
     public FireNose()
     {
         name = "FireNose";
-        actionName = "Fire";
+        actionName = "Fire Nose";
         accuracy = GameDesignConstants.FIRE_NOSE_ACCURACY;
         damage = GameDesignConstants.FIRE_NOSE_ON_FIRE_DAMAGE;
         description = GameDesignConstants.FIRE_NOSE_DESCRIPTION;

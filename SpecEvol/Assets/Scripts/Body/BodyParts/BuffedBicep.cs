@@ -7,7 +7,7 @@ public class BuffedBicep : BodyPart
     public BuffedBicep()
     {
         name = "BuffedBicep";
-        actionName = "Flex";
+        actionName = "Flex Bicep";
         accuracy = GameDesignConstants.BUFFED_BICEP_ACCURACY;
         damage = 0;
         description = GameDesignConstants.BUFFED_BICEP_DESCRIPTION;

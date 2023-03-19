@@ -8,6 +8,9 @@ public class UIButtonOnhover : MonoBehaviour
     private GameObject infoPanelPrefab;
 
     private GameObject uiInfoPanel;
+
+    public GameObject InfoPanelPrefab { get => infoPanelPrefab; set => infoPanelPrefab = value; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +28,7 @@ public class UIButtonOnhover : MonoBehaviour
         Debug.Log("ENTER");
         BodyPart bodyPart = bodyPartData.BodyPart;
         uiInfoPanel = Instantiate(infoPanelPrefab, new Vector3(0, 0, 0), Quaternion.identity, null);
-        uiInfoPanel.GetComponent<InfoPanel>().SetInfo(bodyPart.Name, bodyPart.Damage, bodyPart.Accuracy, bodyPart.Description, bodyPart.FlavorText);
+        uiInfoPanel.GetComponent<InfoPanel>().SetInfo(bodyPart.ActionName, bodyPart.Damage, bodyPart.Accuracy, bodyPart.Description, bodyPart.FlavorText);
         //uiInfoPanel.GetComponent<Renderer>().sortingLayerName = "InfoPanel";
         //for (int i=0; i < uiInfoPanel.transform.childCount; i++)
         //{

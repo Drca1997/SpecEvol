@@ -7,7 +7,7 @@ public class LuckyDice : BodyPart
     public LuckyDice()
     {
         name = "LuckyDice";
-        actionName = "Get Lucky";
+        actionName = "Lucky Dice";
         accuracy = GameDesignConstants.LUCKY_DICE_ACCURACY;
         damage = GameDesignConstants.LUCKY_DICE_POWER;
         description = GameDesignConstants.LUCKY_DICE_DESCRIPTION;

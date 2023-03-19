@@ -7,7 +7,7 @@ public class MonkeyPaw : BodyPart
     public MonkeyPaw()
     {
         name = "MonkeyPaw";
-        actionName = "Jynx";
+        actionName = "Monkey Paw";
         accuracy = GameDesignConstants.MONKEY_PAW_ACCURACY;
         damage = GameDesignConstants.MONKEY_PAW_POWER;
         description = GameDesignConstants.MONKEY_PAW_DESCRIPTION;

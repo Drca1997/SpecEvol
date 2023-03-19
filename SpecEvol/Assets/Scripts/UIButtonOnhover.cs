@@ -26,11 +26,19 @@ public class UIButtonOnhover : MonoBehaviour
         BodyPart bodyPart = bodyPartData.BodyPart;
         uiInfoPanel = Instantiate(infoPanelPrefab, new Vector3(0, 0, 0), Quaternion.identity, null);
         uiInfoPanel.GetComponent<InfoPanel>().SetInfo(bodyPart.Name, bodyPart.Damage, bodyPart.Accuracy, bodyPart.Description, bodyPart.FlavorText);
+        //uiInfoPanel.GetComponent<Renderer>().sortingLayerName = "InfoPanel";
+        //for (int i=0; i < uiInfoPanel.transform.childCount; i++)
+        //{
+         //   uiInfoPanel.transform.GetChild(i).GetComponent<Renderer>().sortingLayerName = "InfoPanel";
+        //}
     }
 
     public void MouseExit()
     {
         Debug.Log("Exit");
-        Destroy(uiInfoPanel);
+        if (uiInfoPanel != null)
+        {
+            Destroy(uiInfoPanel);
+        }
     }
 }

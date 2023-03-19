@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912aeb0ea13bbe14ba2cb6f4ced254c6, type: 3}
   m_Name: New Player Creature SO
   m_EditorClassIdentifier: 
-  maximumHealth: 33
+  maximumHealth: 25
   maximumSpeed: 25
   maximumLuck: 0
   bodyMorphology:
   - SimpleAttack
+  - TentacleGrab
   encodedBodyShapes:
-  - CircleBodyShape
+  - SquareBodyShape

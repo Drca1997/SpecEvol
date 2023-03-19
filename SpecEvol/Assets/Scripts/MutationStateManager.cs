@@ -35,6 +35,10 @@ public class MutationStateManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI replaceLabel;
     [SerializeField]
+    private Button option1Button;
+    [SerializeField]
+    private Button option2Button;
+    [SerializeField]
     private GameObject battleButton;
     [SerializeField]
     private GameObject statsMenu;
@@ -171,6 +175,8 @@ public class MutationStateManager : MonoBehaviour
         battleButton.SetActive(true);
         mutationMenu.SetActive(false);
         PlayerManager.Instance.UpdatePlayerMorphology(mutationMenu.transform.GetChild(0).GetComponent<Image>().sprite.name);
+        option1Button.GetComponent<UIButtonOnhover>().MouseExit();
+        option2Button.GetComponent<UIButtonOnhover>().MouseExit();
     }
 
     public void OnBodyPart2()
@@ -179,6 +185,8 @@ public class MutationStateManager : MonoBehaviour
         battleButton.SetActive(true);
         mutationMenu.SetActive(false);
         PlayerManager.Instance.UpdatePlayerMorphology(mutationMenu.transform.GetChild(1).GetComponent<Image>().sprite.name);
+        option1Button.GetComponent<UIButtonOnhover>().MouseExit();
+        option2Button.GetComponent<UIButtonOnhover>().MouseExit();
     }
 
     public void OnKeepCurrent()

@@ -94,7 +94,7 @@ public class CreatureGenerator : MonoBehaviour
         bool val = false;
         foreach (string part in encodedMorphology)
         {
-            if (!(part.Equals("BuffedBicep") || part.Equals("LuckyDice") || part.Equals("MonkeyPaw") || part.Equals("Sword")))
+            if (!(part.Equals("BuffedBicep") || part.Equals("LuckyDice") || part.Equals("MonkeyPaw") || part.Equals("Claw")))
             {
                 val = true;
                 break;
@@ -363,7 +363,7 @@ public class CreatureGenerator : MonoBehaviour
                 case "SimpleAttack":
                     allBodyParts.Add(new SimpleAttack());
                     break;
-                case "Sword":
+                case "Claw":
                     allBodyParts.Add(new Sword());
                     break;
                 case "TentacleGrab":
@@ -452,4 +452,32 @@ public class CreatureGenerator : MonoBehaviour
         return new Vector3(0f, -totalHeight, 0f);
     }
 
+    public BodyPart GetNewBodyPartFromName(string name)
+    {
+        switch (name)
+        {
+            case "BigBonker":
+                return new BigBonker();
+            case "BuffedBicep":
+                return new BuffedBicep();
+            case "FireNose":
+                return new FireNose();
+            case "LuckyDice":
+                return new LuckyDice();
+            case "MonkeyPaw":
+                return new MonkeyPaw();
+            case "PoisonousSpike":
+                return new PoisonousSpike();
+            case "SimpleAttack":
+                return new SimpleAttack();
+            case "Claw":
+                return new Sword();
+            case "TentacleGrab":
+                return new TentacleGrab();
+            case "Zap":
+                return new Zap();
+            default:
+                return null;
+        }
+    }
 }

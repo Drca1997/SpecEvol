@@ -95,7 +95,7 @@ public class BattleUIManager : MonoBehaviour
     private void OnSwordCut(object sender, Sword.OnCutArgs args)
     {
         //da bug aqui
-        scrollViewContent.transform.GetChild(args.cutBodyPartIndex).GetComponentInChildren<TextMeshProUGUI>().text = "Disabled (Cut By Sword)";
+        scrollViewContent.transform.GetChild(args.cutBodyPartIndex).GetComponentInChildren<TextMeshProUGUI>().text = "Disabled (Cut By Claw)";
         scrollViewContent.transform.GetChild(args.cutBodyPartIndex).GetComponent<Button>().enabled = false;
     }
 }

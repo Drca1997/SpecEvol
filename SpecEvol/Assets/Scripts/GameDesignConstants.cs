@@ -50,7 +50,7 @@ public static class GameDesignConstants
 
 
     public static string [] ALL_SHAPES_LIST = new string[] {"SquareBodyShape", "CircleBodyShape", "TriangleBodyShape"};
-    public static string [] ALL_BODY_PARTS_LIST = new string[] {"BigBonker", "BuffedBicep", "FireNose", "LuckyDice", "MonkeyPaw", "PoisonousSpike", "SimpleAttack", "Sword", "TentacleGrab", "Zap"};
+    public static string [] ALL_BODY_PARTS_LIST = new string[] {"BigBonker", "BuffedBicep", "FireNose", "LuckyDice", "MonkeyPaw", "PoisonousSpike", "SimpleAttack", "Claw", "TentacleGrab", "Zap"};
     
 
 }

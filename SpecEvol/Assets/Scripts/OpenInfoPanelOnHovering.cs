@@ -11,6 +11,7 @@ public class OpenInfoPanelOnHovering : MonoBehaviour
     private GameObject infoPanelPrefab;
 
     private GameObject currentInfoPanel;
+    private GameObject uiInfoPanel;
     private float windowOriginX;
     private float windowOriginY;
 

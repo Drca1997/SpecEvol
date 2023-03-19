@@ -201,7 +201,9 @@ public class MutationStateManager : MonoBehaviour
         Assert.IsTrue(defeatedArms.option1 != null);
         Assert.IsTrue(defeatedArms.option2 != null);
         mutationMenu.transform.GetChild(0).GetComponent<Image>().sprite = GameAssets.Instance.GetBodyPartByName(defeatedArms.option1);
+        mutationMenu.transform.GetChild(0).GetComponentInChildren<BodyPartData>().BodyPart = CreatureGenerator.Instance.GetNewBodyPartFromName(defeatedArms.option1);
         mutationMenu.transform.GetChild(1).GetComponent<Image>().sprite = GameAssets.Instance.GetBodyPartByName(defeatedArms.option2);
+        mutationMenu.transform.GetChild(1).GetComponentInChildren<BodyPartData>().BodyPart = CreatureGenerator.Instance.GetNewBodyPartFromName(defeatedArms.option2);
     }
 
     private void SetStatsMenuActive()

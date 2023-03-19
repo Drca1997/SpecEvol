@@ -10,6 +10,8 @@ public class BuffedBicep : BodyPart
         actionName = "Flex";
         accuracy = GameDesignConstants.BUFFED_BICEP_ACCURACY;
         damage = 0;
+        description = GameDesignConstants.BUFFED_BICEP_DESCRIPTION;
+        flavorText = GameDesignConstants.BUFFED_BICEP_FLAVOR_TEXT;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)

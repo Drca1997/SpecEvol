@@ -12,6 +12,8 @@ public abstract class BodyPart
     protected string actionName;
     protected float accuracy;
     protected int damage;
+    protected string description;
+    protected string flavorText;
 
     protected bool cutOff = false;
     protected int onFire = 0;
@@ -25,6 +27,10 @@ public abstract class BodyPart
     public string ActionName { get => actionName; }
     public bool CutOff { get => cutOff; set => cutOff = value; }
     public int OnFire { get => onFire; set => onFire = value; }
+    public int Damage { get => damage; }
+    public float Accuracy { get => accuracy;}
+    public string Description { get => description; }
+    public string FlavorText { get => flavorText; set => flavorText = value; }
 
     public abstract void Execute(GameObject owner, GameObject enemy);
 

@@ -12,6 +12,8 @@ public class TentacleGrab : BodyPart
         accuracy = GameDesignConstants.TENTACLE_GRAB_ACCURACY;
         damage = GameDesignConstants.TENTACLE_GRAB_DAMAGE;
         slowDownPower = GameDesignConstants.TENTACLE_GRAB_POWER;
+        description = GameDesignConstants.TENTACLE_GRAB_DESCRIPTION;
+        flavorText = GameDesignConstants.TENTACLE_GRAB_FLAVOR_TEXT;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)

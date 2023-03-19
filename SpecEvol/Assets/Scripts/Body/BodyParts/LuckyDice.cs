@@ -10,6 +10,8 @@ public class LuckyDice : BodyPart
         actionName = "Get Lucky";
         accuracy = GameDesignConstants.LUCKY_DICE_ACCURACY;
         damage = GameDesignConstants.LUCKY_DICE_POWER;
+        description = GameDesignConstants.LUCKY_DICE_DESCRIPTION;
+        flavorText = GameDesignConstants.LUCKY_DICE_FLAVOR_TEXT;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)

@@ -13,6 +13,8 @@ public class BigBonker : BodyPart
         accuracy = GameDesignConstants.BIG_BONKER_ACCURACY;
         damage = GameDesignConstants.BIG_BONKER_BASE_DAMAGE;
         damageStack = 0;
+        description = GameDesignConstants.BIG_BONKER_DESCRIPTION;
+        flavorText = GameDesignConstants.BIG_BONKER_FLAVOR_TEXT;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)

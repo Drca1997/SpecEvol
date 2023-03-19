@@ -10,6 +10,8 @@ public class PoisonousSpike : BodyPart
         actionName = "Poison";
         accuracy = GameDesignConstants.POISONOUS_SPIKE_ACCURACY;
         damage = GameDesignConstants.POISONOUS_SPIKE_DAMAGE;
+        description = GameDesignConstants.POISONOUS_SPIKE_DESCRIPTION;
+        flavorText = GameDesignConstants.POISONOUS_SPIKE_FLAVOR_TEXT;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)

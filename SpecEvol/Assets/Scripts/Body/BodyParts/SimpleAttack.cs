@@ -11,6 +11,8 @@ public class SimpleAttack : BodyPart
         actionName = "Attack";
         accuracy = GameDesignConstants.SIMPLE_ATTACK_ACCURACY;
         damage = GameDesignConstants.SIMPLE_ATTACK_DAMAGE;
+        description = "";
+        flavorText = GameDesignConstants.SIMPLE_ATTACK_FLAVOR_TEXT;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)

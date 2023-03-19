@@ -15,11 +15,13 @@ public class Sword : BodyPart
 
     public Sword()
     {
-        name = "Sword";
-        actionName = "Sword";
+        name = "Claw";
+        actionName = "Claw";
         accuracy = GameDesignConstants.SWORD_ACCURACY;
         damage = 0;
         used = false;
+        description = GameDesignConstants.SWORD_DESCRIPTION;
+        flavorText = GameDesignConstants.SWORD_FLAVOR_TEXT;
     }
 
     public bool Used { get => used; set => used = value; }

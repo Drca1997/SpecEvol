@@ -10,6 +10,8 @@ public class Zap : BodyPart
         actionName = "Zap";
         accuracy = GameDesignConstants.ZAP_ACCURACY;
         damage = GameDesignConstants.ZAP_DAMAGE;
+        description = GameDesignConstants.ZAP_DESCRIPTION;
+        flavorText = GameDesignConstants.ZAP_FLAVOR_TEXT;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)

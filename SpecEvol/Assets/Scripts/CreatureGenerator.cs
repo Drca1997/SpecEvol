@@ -201,6 +201,7 @@ public class CreatureGenerator : MonoBehaviour
                 GameObject bodyPartObj = new GameObject(bodyPart.ToString());
                 bodyPartObj.transform.parent = GetNextFreeBodyPartHolder(shapeobj.transform, out bool isLeft);
                 bodyPartObj.transform.localPosition = Vector3.zero;
+                bodyPartObj.AddComponent<BoxCollider2D>();
                 SpriteRenderer bodyPartSpriteRenderer = bodyPartObj.AddComponent<SpriteRenderer>();
                 bodyPartSpriteRenderer.sprite = GameAssets.Instance.GetBodyPartByName(bodyPart.Name);
                 bodyPartSpriteRenderer.sortingOrder = 3;

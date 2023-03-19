@@ -10,6 +10,8 @@ public class FireNose : BodyPart
         actionName = "Fire";
         accuracy = GameDesignConstants.FIRE_NOSE_ACCURACY;
         damage = GameDesignConstants.FIRE_NOSE_ON_FIRE_DAMAGE;
+        description = GameDesignConstants.FIRE_NOSE_DESCRIPTION;
+        flavorText = GameDesignConstants.FIRE_NOSE_FLAVOR_TEXT;
     }
 
     public override void Execute(GameObject owner, GameObject enemy)

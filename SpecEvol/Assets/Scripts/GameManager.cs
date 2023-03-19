@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        #if DEBUG
+        #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.V))
         {
             BattleVictory();
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
     {
         int loseSound = Random.Range(1, 4);
         AudioManager.instance.Play("Lose" + loseSound.ToString());
-        Debug.Log("GAME OVER");
+        SceneManager.LoadScene("GameOverScene");
     }
 
     public void BattleVictory()

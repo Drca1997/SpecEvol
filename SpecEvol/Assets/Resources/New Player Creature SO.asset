@@ -14,9 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumHealth: 25
   maximumSpeed: 25
-  maximumLuck: 0
-  bodyMorphology:
-  - SimpleAttack
-  - TentacleGrab
-  encodedBodyShapes:
-  - SquareBodyShape
+  bodyMorphology: []
+  encodedBodyShapes: []
